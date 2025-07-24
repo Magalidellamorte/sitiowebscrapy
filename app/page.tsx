@@ -7,6 +7,7 @@ export default function ScrapyWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
 
   // Datos temporales para las tarjetas del carousel (se actualizarán con las imágenes reales)
   const problemCards = [
@@ -42,8 +43,20 @@ export default function ScrapyWebsite() {
       setScrolled(window.scrollY > 50)
     }
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    // Set initial mobile state
+    handleResize()
+
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener("resize", handleResize)
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleResize)
+    }
   }, [])
 
   const toggleMenu = () => {
@@ -51,11 +64,13 @@ export default function ScrapyWebsite() {
   }
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % (problemCards.length - 2))
+    const maxSlides = isMobile ? problemCards.length : problemCards.length - 2
+    setCurrentSlide((prev) => (prev + 1) % maxSlides)
   }
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + (problemCards.length - 2)) % (problemCards.length - 2))
+    const maxSlides = isMobile ? problemCards.length : problemCards.length - 2
+    setCurrentSlide((prev) => (prev - 1 + maxSlides) % maxSlides)
   }
 
   return (
@@ -428,10 +443,15 @@ export default function ScrapyWebsite() {
                 <div className="overflow-hidden rounded-2xl">
                   <div
                     className="flex transition-transform duration-300 ease-in-out"
-                    style={{ transform: `translateX(-${currentSlide * 33.333}%)` }}
+                    style={{ 
+                      transform: `translateX(-${currentSlide * (100 / (isMobile ? 1 : 3))}%)` 
+                    }}
                   >
                     {problemCards.map((card, index) => (
-                      <div key={card.id} className="w-1/3 flex-shrink-0 px-3">
+                      <div 
+                        key={card.id} 
+                        className="w-full md:w-1/3 flex-shrink-0 px-3"
+                      >
                         <div className="bg-gray-50 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-80">
                           <div className="rounded-2xl overflow-hidden mb-4">
                             <Image
@@ -472,7 +492,7 @@ export default function ScrapyWebsite() {
 
             {/* Indicators */}
             <div className="flex justify-center mt-12 space-x-2">
-              {Array.from({ length: problemCards.length - 2 }).map((_, index) => (
+              {Array.from({ length: isMobile ? problemCards.length : problemCards.length - 2 }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
