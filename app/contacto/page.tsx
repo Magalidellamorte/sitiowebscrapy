@@ -518,7 +518,7 @@ export default function Contacto() {
             <div className="border-t border-gray-500 mt-12 pt-8">
               <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-300">
                 <div className="flex flex-col md:flex-row gap-6 text-sm">
-                  <a href="#" className="hover:text-white transition-colors duration-300">
+                  <a href="/terminos-y-condiciones" className="hover:text-white transition-colors duration-300">
                     TÉRMINOS Y CONDICIONES
                   </a>
                   <a href="#" className="hover:text-white transition-colors duration-300">
