@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   description: 'Transformamos materiales reciclables en oportunidades. Soluciones tecnológicas innovadoras para el reciclaje urbano e industrial.',
   generator: 'Scrapy',
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: '/images/favicon.ico',
+    apple: '/images/favicon.ico',
   },
 }
 
@@ -19,8 +19,8 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="apple-touch-icon" href="/images/favicon.ico" />
       </head>
       <body suppressHydrationWarning={true}>{children}</body>
     </html>
