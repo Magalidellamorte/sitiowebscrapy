@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       
       await transporter.sendMail({
         from: process.env.EMAIL_FROM || 'Scrapy Website <noreply@scrapyapp.com>',
-        to: 'nachochevallier@gmail.com', // Updated email
+        to: 'info@scrapyapp.com', // Updated email
         subject: `Nueva consulta de ${formattedServiceType} - Scrapy`,
         html: `
           <!DOCTYPE html>
