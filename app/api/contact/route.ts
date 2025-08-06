@@ -14,14 +14,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // You would need to install nodemailer: npm install nodemailer
     try {
       const transporter = nodemailer.createTransport({
-        // For production, use your preferred email service
-        // This example uses a simple SMTP setup
         host: process.env.EMAIL_HOST || 'smtp.gmail.com',
         port: 587,
-        secure: false, // true for 465, false for other ports
+        secure: false,
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS,
@@ -45,7 +42,7 @@ export async function POST(req: NextRequest) {
       
       await transporter.sendMail({
         from: process.env.EMAIL_FROM || 'Scrapy Website <noreply@scrapyapp.com>',
-        to: 'info@scrapyapp.com', // Updated email
+        to: 'info@scrapyapp.com',
         subject: `Nueva consulta de ${formattedServiceType} - Scrapy`,
         html: `
           <!DOCTYPE html>
@@ -178,7 +175,6 @@ export async function POST(req: NextRequest) {
         `,
       });
       
-      console.log('Email sent successfully');
     } catch (emailError) {
       // Log but continue - don't fail the request if email fails
       console.error('Error sending email:', emailError);
@@ -189,8 +185,6 @@ export async function POST(req: NextRequest) {
       const sheetResult = await addContactToGoogleSheet({ email, serviceType });
       if (!sheetResult.success) {
         console.error('Error with Google Sheets:', sheetResult.error);
-      } else {
-        console.log('Added to Google Sheets successfully');
       }
     } catch (sheetsError) {
       // Log but continue - don't fail the request if sheets fails
