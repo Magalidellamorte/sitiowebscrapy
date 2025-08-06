@@ -186,9 +186,14 @@ export default function ReciclajeIndustrial() {
                 Visitar marketplace
               </a>
 
-              <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg min-w-[200px]">
+              <a 
+                href="https://api.whatsapp.com/send?phone=5491133019016&text=%C2%A1Hola!%20Quiero%20recibir%20informaci%C3%B3n%20para%20industrias%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg min-w-[200px] text-center inline-block"
+              >
                 Contactar
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -485,9 +490,14 @@ export default function ReciclajeIndustrial() {
                 material rápidamente, ¡luego te facilitaremos todo el proceso!
               </p>
 
-              <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg">
+              <a 
+                href="https://api.whatsapp.com/send?phone=5491133019016&text=%C2%A1Hola!%20Quiero%20recibir%20informaci%C3%B3n%20para%20vender%20materiales%20reciclables%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg text-center inline-block"
+              >
                 Contactate con nosotros
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -511,9 +521,14 @@ export default function ReciclajeIndustrial() {
                 conseguir el material de manera segura y eficiente.
               </p>
 
-              <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg">
+              <a 
+                href="https://api.whatsapp.com/send?phone=5491133019016&text=%C2%A1Hola!%20Quiero%20recibir%20informaci%C3%B3n%20para%20compras%20materiales%20reciclables%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg text-center inline-block"
+              >
                 Contactate con nosotros
-              </button>
+              </a>
             </div>
 
             {/* Right - Phone Mockup */}
@@ -652,9 +667,14 @@ export default function ReciclajeIndustrial() {
               enseñaremos la plataforma, sus ventajas y aclararemos todas las dudas sin compromiso.
             </p>
 
-            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg">
+            <a 
+              href="https://api.whatsapp.com/send?phone=5491133019016&text=%C2%A1Hola!%20Quiero%20recibir%20informaci%C3%B3n%20para%20industrias%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg text-center inline-block"
+            >
               Quiero que me contacten
-            </button>
+            </a>
           </div>
         </div>
       </section>
