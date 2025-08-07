@@ -2,17 +2,10 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import Navbar from "@/components/navbar"
 
 export default function ReciclajeIndustrial() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const [currentUserSlide, setCurrentUserSlide] = useState(0)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener("scroll", onScroll)
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
 
   const userTypes = [
     {
@@ -59,109 +52,22 @@ export default function ReciclajeIndustrial() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation - Transparent */}
-      <nav
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          scrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
-          <a href="/" className="flex-shrink-0">
-            <Image
-              src="/images/logo scrapy color.png"
-              alt="Scrapy logo"
-              width={160}
-              height={50}
-              className="h-12 w-auto"
-            />
-          </a>
+      {/* Navigation */}
+      <Navbar currentPage="/reciclaje-industrial" variant="reciclaje" />
 
-          <div className="hidden md:flex items-center space-x-8 font-medium">
-            <a
-              href="/"
-              className={`hover:text-gray-600 transition-colors ${scrolled ? "text-gray-400" : "text-gray-600"}`}
-            >
-              inicio
-            </a>
-            <a
-              href="https://beneficios.scrapyapp.com/user/coupons"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`hover:text-gray-600 transition-colors ${scrolled ? "text-gray-400" : "text-gray-600"}`}
-            >
-              beneficios
-            </a>
-            <a
-              href="/reciclaje-urbano"
-              className={`hover:text-gray-600 transition-colors ${scrolled ? "text-gray-400" : "text-gray-600"}`}
-            >
-              reciclaje urbano
-            </a>
-            <a
-              href="/reciclaje-industrial"
-              className={`border-b-2 border-gray-400 pb-0.5 transition-colors ${
-                scrolled ? "text-gray-600" : "text-gray-700"
-              }`}
-            >
-              reciclaje industrial
-            </a>
-            <a
-              href="/barrios-cerrados"
-              className={`hover:text-gray-600 transition-colors ${scrolled ? "text-gray-400" : "text-gray-600"}`}
-            >
-              barrios cerrados
-            </a>
-            <a href="/contacto" className="text-green-500 hover:text-green-600 transition-colors">
-              contacto
-            </a>
-          </div>
-
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden focus:outline-none transition-colors ${scrolled ? "text-gray-600" : "text-gray-700"}`}
-          >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white/95 backdrop-blur-sm">
-            {[
-              { label: "inicio", href: "/" },
-              { label: "beneficios", href: "https://beneficios.scrapyapp.com/user/coupons", external: true },
-              { label: "reciclaje urbano", href: "/reciclaje-urbano" },
-              { label: "reciclaje industrial", href: "/reciclaje-industrial" },
-              { label: "barrios cerrados", href: "/barrios-cerrados" },
-              { label: "contacto", href: "/contacto", green: true },
-            ].map(({ label, href, green, external }) => (
-              <a
-                key={href}
-                href={href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
-                className={`block px-4 py-3 ${green ? "text-green-500" : "text-gray-600"}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section - Added more top padding */}
+      {/* Hero Section - Full height with hero image starting from the top */}
       <section
-        className="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat pt-32"
+        className="min-h-screen flex items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('/images/portada1.png')`,
+          paddingTop: '0px', // Remove default padding
+          marginTop: '0px'   // Remove default margin
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="max-w-4xl mx-auto">
-            {/* Main Title - Added more top margin */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500 mb-8 leading-tight mt-16">
+            {/* Main Title - Adjusted for navbar */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500 mb-8 leading-tight mt-28 md:mt-32">
               Marketplace para el
               <br />
               Reciclaje Industrial
