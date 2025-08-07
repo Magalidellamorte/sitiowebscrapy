@@ -2,24 +2,119 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
+import { toast } from "@/hooks/use-toast"
+
+// Service options mapping
+const serviceOptions = [
+  { value: "municipios", label: "Municipios" },
+  { value: "municipio", label: "Municipio" },
+  { value: "cooperativas", label: "Cooperativas" },
+  { value: "industrial", label: "Industrial" },
+  { value: "barrios cerrados", label: "Barrios Cerrados" },
+  { value: "beneficios", label: "Beneficios" },
+  { value: "otros", label: "Otros" }
+]
+
+// Function to get label for a service value
+const getServiceLabel = (value: string) => {
+  const option = serviceOptions.find(opt => opt.value === value)
+  return option ? option.label : value
+}
 
 export default function Contacto() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [email, setEmail] = useState("")
+  const [serviceType, setServiceType] = useState("")
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const submitButtonRef = useRef<HTMLButtonElement>(null)
 
+  // Handle scroll
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener("scroll", onScroll)
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const dropdown = document.getElementById("serviceDropdown");
+      const dropdownButton = document.getElementById("dropdownButton");
+      
+      if (
+        dropdown && 
+        dropdownButton &&
+        !dropdown.contains(event.target as Node) && 
+        !dropdownButton.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Email submitted:", email)
+    
+    if (isSubmitting) return;
+    
+    // Data to send
+    const formData = {
+      email,
+      serviceType,
+    }
+    
+    try {
+      setIsSubmitting(true);
+      
+      // Send to our API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        // Success notification with toast
+        toast({
+          title: "Formulario enviado con éxito",
+          description: `Un representante de scrapy se pondrá en contacto contigo pronto.`,
+          variant: "success",
+        });
+        
+        // Reset form
+        setEmail("");
+        setServiceType("");
+      } else {
+        // Error notification with toast
+        toast({
+          title: "Error",
+          description: data.message || 'Hubo un problema al enviar el formulario',
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      
+      // Error notification with toast
+      toast({
+        title: "Error",
+        description: "Hubo un error al enviar el formulario. Por favor intenta nuevamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -321,30 +416,108 @@ export default function Contacto() {
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Ingresa tu dirección"
-                    className="w-full px-6 py-4 rounded-full border border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-                    required
-                  />
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex-1">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Ingresa tu dirección de email"
+                      className="w-full px-6 py-4 rounded-full border border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
+                      required
+                    />
+                  </div>
+                  
+                  <div className="w-full sm:w-auto">
+                    {/* Custom dropdown implementation */}
+                    <div className="relative">
+                      {serviceType ? (
+                        <div 
+                          id="dropdownButton"
+                          onClick={() => setDropdownOpen(!dropdownOpen)}
+                          className="w-full sm:w-48 bg-white px-6 py-4 rounded-full border border-gray-200 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none cursor-pointer pr-10 flex items-center"
+                        >
+                          <div className="truncate mr-2">
+                            {getServiceLabel(serviceType)}
+                          </div>
+                          <svg 
+                            className={`w-4 h-4 flex-shrink-0 fill-current text-gray-500 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`} 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                          </svg>
+                        </div>
+                      ) : (
+                        <div 
+                          id="dropdownButton"
+                          onClick={() => setDropdownOpen(!dropdownOpen)}
+                          className="w-full sm:w-48 bg-white px-6 py-4 rounded-full border border-gray-200 text-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none cursor-pointer pr-10 flex items-center justify-between"
+                        >
+                          Servicio
+                          <svg 
+                            className={`w-4 h-4 ml-2 fill-current text-gray-500 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`}
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                          </svg>
+                        </div>
+                      )}
+                      
+                      {/* Styled dropdown */}
+                      <div 
+                        id="serviceDropdown" 
+                        className={`absolute left-0 right-0 sm:right-auto sm:w-48 mt-2 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden z-10 transition-opacity duration-200 ${dropdownOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                      >
+                        {serviceOptions.filter(option => option.value !== "municipio").map((option) => (
+                          <div 
+                            key={option.value}
+                            onClick={() => {
+                              setServiceType(option.value);
+                              setDropdownOpen(false);
+                            }}
+                            className="px-6 py-3 cursor-pointer hover:bg-green-50 hover:text-green-600 transition-colors duration-150"
+                          >
+                            {option.label}
+                          </div>
+                        ))}
+                      </div>
+                      
+                      {/* Hidden actual select for form validation */}
+                      <select
+                        value={serviceType}
+                        onChange={(e) => setServiceType(e.target.value)}
+                        className="sr-only"
+                        required
+                      >
+                        <option value="" disabled hidden>Servicio</option>
+                        {serviceOptions.map(option => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
                 <button
+                  ref={submitButtonRef}
                   type="submit"
-                  className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg"
+                  disabled={!email || !serviceType || isSubmitting}
+                  className="w-full bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg relative"
                 >
-                  Enviar →
+                  <span className={isSubmitting ? "opacity-0" : "opacity-100"}>
+                    Enviar →
+                  </span>
+                  {isSubmitting && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                  )}
                 </button>
               </form>
-
-              <p className="text-sm text-gray-400">
-                *Al suscribirte, aceptas recibir correos electrónicos de nuestra parte.
-                <br />
-                Puedes darte de baja en cualquier momento.
-              </p>
             </div>
 
             {/* Right Side - Contact Reasons */}
