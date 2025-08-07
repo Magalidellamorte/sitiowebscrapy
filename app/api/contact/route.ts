@@ -39,10 +39,11 @@ export async function POST(req: NextRequest) {
       
       // Get the website URL from environment or use default
       const websiteUrl = process.env.WEBSITE_URL || 'https://scrapyapp.com';
+      const email_to = process.env.EMAIL_TO || 'info@scrapyapp.com';
       
       await transporter.sendMail({
         from: process.env.EMAIL_FROM || 'Scrapy Website <noreply@scrapyapp.com>',
-        to: 'info@scrapyapp.com',
+        to: email_to,
         subject: `Nueva consulta de ${formattedServiceType} - Scrapy`,
         html: `
           <!DOCTYPE html>

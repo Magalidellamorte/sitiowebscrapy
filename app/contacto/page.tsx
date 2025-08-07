@@ -14,6 +14,23 @@ export default function Contacto() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const submitButtonRef = useRef<HTMLButtonElement>(null)
+  
+  // Service options mapping
+  const serviceOptions = [
+    { value: "municipios", label: "Municipios" },
+    { value: "municipio", label: "Municipio" },
+    { value: "cooperativas", label: "Cooperativas" },
+    { value: "industrial", label: "Industrial" },
+    { value: "barrios cerrados", label: "Barrios Cerrados" },
+    { value: "beneficios", label: "Beneficios" },
+    { value: "otros", label: "Otros" }
+  ]
+  
+  // Function to get label for a service value
+  const getServiceLabel = (value: string) => {
+    const option = serviceOptions.find(opt => opt.value === value)
+    return option ? option.label : value
+  }
 
   // Handle scroll
   useEffect(() => {
@@ -421,13 +438,7 @@ export default function Contacto() {
                           className="w-full sm:w-48 bg-white px-6 py-4 rounded-full border border-gray-200 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none cursor-pointer pr-10 flex items-center"
                         >
                           <div className="truncate mr-2">
-                            {serviceType === "municipio" && "Municipio"}
-                            {serviceType === "municipios" && "Municipios"}
-                            {serviceType === "cooperativas" && "Cooperativas"}
-                            {serviceType === "industrial" && "Industrial"}
-                            {serviceType === "barrios cerrados" && "Barrios Cerrados"}
-                            {serviceType === "beneficios" && "Beneficios"}
-                            {serviceType === "otros" && "Otros"}
+                            {getServiceLabel(serviceType)}
                           </div>
                           <svg 
                             className={`w-4 h-4 flex-shrink-0 fill-current text-gray-500 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`} 
@@ -459,14 +470,7 @@ export default function Contacto() {
                         id="serviceDropdown" 
                         className={`absolute left-0 right-0 sm:right-auto sm:w-48 mt-2 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden z-10 transition-opacity duration-200 ${dropdownOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                       >
-                        {[
-                          { value: "municipios", label: "Municipios" },
-                          { value: "cooperativas", label: "Cooperativas" },
-                          { value: "industrial", label: "Industrial" },
-                          { value: "barrios cerrados", label: "Barrios Cerrados" },
-                          { value: "beneficios", label: "Beneficios" },
-                          { value: "otros", label: "Otros" },
-                        ].map((option) => (
+                        {serviceOptions.filter(option => option.value !== "municipio").map((option) => (
                           <div 
                             key={option.value}
                             onClick={() => {
@@ -488,12 +492,11 @@ export default function Contacto() {
                         required
                       >
                         <option value="" disabled hidden>Servicio</option>
-                        <option value="municipios">Municipios</option>
-                        <option value="cooperativas">Cooperativas</option>
-                        <option value="industrial">Industrial</option>
-                        <option value="barrios cerrados">Barrios Cerrados</option>
-                        <option value="beneficios">Beneficios</option>
-                        <option value="otros">Otros</option>
+                        {serviceOptions.map(option => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
