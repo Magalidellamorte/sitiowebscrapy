@@ -212,8 +212,8 @@ export default function ReciclajeIndustrial() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {/* Centralización de Oportunidades */}
             <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                <Image src="/icons/centralized.svg" alt="Centralización de Oportunidades" width={48} height={48} />
+              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-gray-500">
+                <Image src="/icons/warehouse.svg" alt="Centralización de Oportunidades" width={48} height={48} />
               </div>
               <h3 className="text-xl font-bold text-green-500 mb-4">
                 Centralización de
@@ -228,7 +228,7 @@ export default function ReciclajeIndustrial() {
 
             {/* Verificación de usuarios */}
             <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-gray-500">
                 <Image src="/icons/verified-user.svg" alt="Verificación de usuarios" width={48} height={48} />
               </div>
               <h3 className="text-xl font-bold text-green-500 mb-4">
@@ -244,8 +244,8 @@ export default function ReciclajeIndustrial() {
 
             {/* Mediación en las ofertas */}
             <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                <Image src="/icons/shaking-hands.svg" alt="Mediación en las ofertas" width={48} height={48} />
+              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-gray-500">
+                <Image src="/icons/mediating.svg" alt="Mediación en las ofertas" width={48} height={48} />
               </div>
               <h3 className="text-xl font-bold text-green-500 mb-4">
                 Mediación en las
@@ -260,7 +260,7 @@ export default function ReciclajeIndustrial() {
 
             {/* Facilidades Logísticas */}
             <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-gray-500">
                 <Image src="/icons/truck.svg" alt="Facilidades Logísticas" width={48} height={48} />
               </div>
               <h3 className="text-xl font-bold text-green-500 mb-4">
