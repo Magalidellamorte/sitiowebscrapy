@@ -321,9 +321,14 @@ export default function ReciclajeUrbano() {
             >
               Quiero sumar mi municipio / Cooperativa
             </a>
-            <button className="min-w-[220px] bg-green-500 hover:bg-green-600 text-white rounded-full py-4 px-8 font-semibold transition hover:-translate-y-1 shadow">
+            <a
+              href="https://beneficios.scrapyapp.com/user/coupons#offer-benefits"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="min-w-[220px] bg-green-500 hover:bg-green-600 text-white rounded-full py-4 px-8 font-semibold transition hover:-translate-y-1 shadow text-center inline-block scroll-mt-10"
+            >
               Quiero ofrecer beneficios
-            </button>
+            </a>
           </div>
         </div>
       </section>
