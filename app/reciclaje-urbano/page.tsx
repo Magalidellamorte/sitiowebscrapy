@@ -303,12 +303,14 @@ export default function ReciclajeUrbano() {
       {/* Beneficios para cada sector */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500 leading-tight">
+              Beneficios para cada sector
+            </h2>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700 leading-tight text-center">
-                Beneficios para cada sector
-              </h2>
-
               <div className="flex items-center gap-4">
                 <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
                   GENERADORES
@@ -381,7 +383,14 @@ export default function ReciclajeUrbano() {
       <section className="py-20 bg-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700">Generadores</h2>
+              <div className="relative mb-8 text-center">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700 leading-tight">
+                  Generadores
+                </h2>
+                <span className="absolute top-0 right-0 -mt-4 -mr-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  Principales beneficios
+                </span>
+              </div>
             <p className="text-lg md:text-xl text-gray-500 mt-4 max-w-3xl mx-auto">
               Descubre cómo Scrapy App Urbano facilita el reciclaje para hogares, comercios e instituciones.
             </p>
@@ -546,7 +555,12 @@ export default function ReciclajeUrbano() {
       <section className="py-20" style={{ backgroundColor: "#e8f5e8" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700">Cooperativas y Municipios</h2>
+            <div className="relative mb-8 text-center">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700">Cooperativas y Municipios</h2>
+              <span className="absolute top-0 right-0 -mt-4 -mr-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                Principales beneficios
+              </span>
+            </div>
             <p className="text-lg md:text-xl text-gray-500 mt-4 max-w-3xl mx-auto">
               Optimiza la gestión de reciclaje en tu comunidad con nuestra solución tecnológica.
             </p>
@@ -769,7 +783,12 @@ export default function ReciclajeUrbano() {
       <section className="py-20" style={{ backgroundColor: "#e8f5e8" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700">Recolectores</h2>
+            <div className="relative mb-8 text-center">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700">Recolectores</h2>
+              <span className="absolute top-0 right-0 -mt-4 -mr-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                Principales beneficios
+              </span>
+            </div>
             <p className="text-lg md:text-xl text-gray-500 mt-4 max-w-3xl mx-auto">
               Simplifica tu trabajo diario y maximiza tu eficiencia con nuestra aplicación.
             </p>
