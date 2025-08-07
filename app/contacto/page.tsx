@@ -2,101 +2,129 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
+import { toast } from "@/hooks/use-toast"
+import Navbar from "@/components/navbar"
+
+// Service options mapping
+const serviceOptions = [
+  { value: "municipios", label: "Municipios" },
+  { value: "municipio", label: "Municipio" },
+  { value: "cooperativas", label: "Cooperativas" },
+  { value: "industrial", label: "Industrial" },
+  { value: "barrios cerrados", label: "Barrios Cerrados" },
+  { value: "beneficios", label: "Beneficios" },
+  { value: "otros", label: "Otros" }
+]
+
+// Function to get label for a service value
+const getServiceLabel = (value: string) => {
+  const option = serviceOptions.find(opt => opt.value === value)
+  return option ? option.label : value
+}
 
 export default function Contacto() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [email, setEmail] = useState("")
+  const [serviceType, setServiceType] = useState("")
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const submitButtonRef = useRef<HTMLButtonElement>(null)
 
+  // Handle scroll
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener("scroll", onScroll)
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const dropdown = document.getElementById("serviceDropdown");
+      const dropdownButton = document.getElementById("dropdownButton");
+      
+      if (
+        dropdown && 
+        dropdownButton &&
+        !dropdown.contains(event.target as Node) && 
+        !dropdownButton.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Email submitted:", email)
+    
+    if (isSubmitting) return;
+    
+    // Data to send
+    const formData = {
+      email,
+      serviceType,
+    }
+    
+    try {
+      setIsSubmitting(true);
+      
+      // Send to our API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        // Success notification with toast
+        toast({
+          title: "Formulario enviado con éxito",
+          description: `Un representante de scrapy se pondrá en contacto contigo pronto.`,
+          variant: "success",
+        });
+        
+        // Reset form
+        setEmail("");
+        setServiceType("");
+      } else {
+        // Error notification with toast
+        toast({
+          title: "Error",
+          description: data.message || 'Hubo un problema al enviar el formulario',
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      
+      // Error notification with toast
+      toast({
+        title: "Error",
+        description: "Hubo un error al enviar el formulario. Por favor intenta nuevamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? "shadow-sm" : "shadow-none"}`}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
-          <a href="/" className="flex-shrink-0">
-            <Image
-              src="/images/logo scrapy color.png"
-              alt="Scrapy logo"
-              width={160}
-              height={50}
-              className="h-12 w-auto"
-            />
-          </a>
-
-          <div className="hidden md:flex items-center space-x-8 font-medium">
-            <a href="/" className="text-gray-400 hover:text-gray-600">
-              inicio
-            </a>
-            <a href="/reciclaje-urbano" className="text-gray-400 hover:text-gray-600">
-              reciclaje urbano
-            </a>
-            <a href="/reciclaje-industrial" className="text-gray-400 hover:text-gray-600">
-              reciclaje industrial
-            </a>
-            <a href="/barrios-cerrados" className="text-gray-400 hover:text-gray-600">
-              barrios cerrados
-            </a>
-            <a
-              href="https://beneficios.scrapyapp.com/user/coupons"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-600"
-            >
-              beneficios
-            </a>
-            <a href="/contacto" className="text-green-500 border-b-2 border-green-500 pb-0.5">
-              contacto
-            </a>
-          </div>
-
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-gray-600 focus:outline-none">
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white">
-            {[
-              { label: "inicio", href: "/" },
-              { label: "reciclaje urbano", href: "/reciclaje-urbano" },
-              { label: "reciclaje industrial", href: "/reciclaje-industrial" },
-              { label: "barrios cerrados", href: "/barrios-cerrados" },
-              { label: "beneficios", href: "https://beneficios.scrapyapp.com/user/coupons", external: true },
-              { label: "contacto", href: "/contacto", green: true },
-            ].map(({ label, href, green, external }) => (
-              <a
-                key={href}
-                href={href}
-                className={`block px-4 py-3 ${green ? "text-green-500" : "text-gray-600"}`}
-                onClick={() => setIsMenuOpen(false)}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-        )}
-      </nav>
+      <Navbar currentPage="/contacto" variant="reciclaje" />
 
       {/* Hero Section */}
-      <section className="bg-green-50 py-20">
+      <section className="bg-green-50 py-20 pt-28 md:pt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500 mb-8 leading-tight">
             ¿Como puedo formar parte?
@@ -304,7 +332,7 @@ export default function Contacto() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20 bg-white">
+      <section id="contact-form" className="py-20 bg-white scroll-mt-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Left Side - Contact Form */}
@@ -321,30 +349,108 @@ export default function Contacto() {
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Ingresa tu dirección"
-                    className="w-full px-6 py-4 rounded-full border border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-                    required
-                  />
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex-1">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Ingresa tu dirección de email"
+                      className="w-full px-6 py-4 rounded-full border border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
+                      required
+                    />
+                  </div>
+                  
+                  <div className="w-full sm:w-auto">
+                    {/* Custom dropdown implementation */}
+                    <div className="relative">
+                      {serviceType ? (
+                        <div 
+                          id="dropdownButton"
+                          onClick={() => setDropdownOpen(!dropdownOpen)}
+                          className="w-full sm:w-48 bg-white px-6 py-4 rounded-full border border-gray-200 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none cursor-pointer pr-10 flex items-center"
+                        >
+                          <div className="truncate mr-2">
+                            {getServiceLabel(serviceType)}
+                          </div>
+                          <svg 
+                            className={`w-4 h-4 flex-shrink-0 fill-current text-gray-500 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`} 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                          </svg>
+                        </div>
+                      ) : (
+                        <div 
+                          id="dropdownButton"
+                          onClick={() => setDropdownOpen(!dropdownOpen)}
+                          className="w-full sm:w-48 bg-white px-6 py-4 rounded-full border border-gray-200 text-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none cursor-pointer pr-10 flex items-center justify-between"
+                        >
+                          Servicio
+                          <svg 
+                            className={`w-4 h-4 ml-2 fill-current text-gray-500 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`}
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                          </svg>
+                        </div>
+                      )}
+                      
+                      {/* Styled dropdown */}
+                      <div 
+                        id="serviceDropdown" 
+                        className={`absolute left-0 right-0 sm:right-auto sm:w-48 mt-2 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden z-10 transition-opacity duration-200 ${dropdownOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                      >
+                        {serviceOptions.filter(option => option.value !== "municipio").map((option) => (
+                          <div 
+                            key={option.value}
+                            onClick={() => {
+                              setServiceType(option.value);
+                              setDropdownOpen(false);
+                            }}
+                            className="px-6 py-3 cursor-pointer hover:bg-green-50 hover:text-green-600 transition-colors duration-150"
+                          >
+                            {option.label}
+                          </div>
+                        ))}
+                      </div>
+                      
+                      {/* Hidden actual select for form validation */}
+                      <select
+                        value={serviceType}
+                        onChange={(e) => setServiceType(e.target.value)}
+                        className="sr-only"
+                        required
+                      >
+                        <option value="" disabled hidden>Servicio</option>
+                        {serviceOptions.map(option => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
                 <button
+                  ref={submitButtonRef}
                   type="submit"
-                  className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg"
+                  disabled={!email || !serviceType || isSubmitting}
+                  className="w-full bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg relative"
                 >
-                  Enviar →
+                  <span className={isSubmitting ? "opacity-0" : "opacity-100"}>
+                    Enviar →
+                  </span>
+                  {isSubmitting && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                  )}
                 </button>
               </form>
-
-              <p className="text-sm text-gray-400">
-                *Al suscribirte, aceptas recibir correos electrónicos de nuestra parte.
-                <br />
-                Puedes darte de baja en cualquier momento.
-              </p>
             </div>
 
             {/* Right Side - Contact Reasons */}

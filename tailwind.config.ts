@@ -86,11 +86,24 @@ const config: Config = {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+            'underline-expand': {
+                '0%': {
+                    width: '0%',
+                    left: '50%',
+                    transform: 'translateX(-50%)'
+                },
+                '100%': {
+                    width: '100%',
+                    left: '0%',
+                    transform: 'translateX(0%)'
+                }
+            }
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+            'underline': 'underline-expand 0.4s ease forwards'
   		}
   	}
   },
