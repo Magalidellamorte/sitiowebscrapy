@@ -19,7 +19,7 @@ export default function InfoCard({
 }: InfoCardProps) {
   return (
     <div
-      className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center transform hover:scale-105 h-full"
+      className="bg-white rounded-3xl p-[15px] pt-7 pb-7 shadow-lg hover:shadow-xl transition-all duration-300 text-center transform hover:scale-105 h-full"
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
     >

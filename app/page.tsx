@@ -190,7 +190,7 @@ export default function ScrapyWebsite() {
               <InfoCard 
                 icon={<CircleDollarSignIcon ref={dollarIconRef} />}
                 title="Económico"
-                description="Reducimos costos operativos, aumentamos la eficiencia, y generamos nuevas oportunidades de negocio."
+                description="Reducimos los costos operativos y generamos nuevas oportunidades de negocio"
                 onHoverStart={() => dollarIconRef.current?.startAnimation()}
                 onHoverEnd={() => dollarIconRef.current?.stopAnimation()}
              />
@@ -199,7 +199,7 @@ export default function ScrapyWebsite() {
               <InfoCard 
                 icon={<UsersIcon ref={usersIconRef} />}
                 title="Social"
-                description="Fortalecemos a cooperativas, mejoramos las condiciones laborales de los recolectores, y fomentamos el empleo verde."
+                description="Fortalecemos a las cooperativas al fomentar el empleo verde"
                 onHoverStart={() => usersIconRef.current?.startAnimation()}
                 onHoverEnd={() => usersIconRef.current?.stopAnimation()}
               />
@@ -208,7 +208,7 @@ export default function ScrapyWebsite() {
               <InfoCard 
                 icon={<EarthIcon ref={earthIconRef} />}
                 title="Ambiental"
-                description="Aumentamos los volúmenes de reciclaje, reducimos residuos enviados a rellenos sanitarios y promovemos la economía circular."
+                description="Aumentamos el reciclaje, reducimos los residuos y fomentamos la economía circular"
                 onHoverStart={() => earthIconRef.current?.startAnimation()}
                 onHoverEnd={() => earthIconRef.current?.stopAnimation()}
               />
