@@ -35,9 +35,10 @@ export default function Navbar({ currentPage = "", variant = "default" }: Navbar
 
   // Determine el color y estilo adecuado para la navegación
   const getNavBgClass = () => {
-    if (variant === 'home' || variant === 'reciclaje') {
-      // Para home y reciclaje, fondo transparente o semitransparente
-      return scrolled ? "bg-black/20 backdrop-blur-sm" : "bg-transparent";
+    if (variant === 'home') {
+      return scrolled ? "bg-black/40 backdrop-blur-sm" : "bg-transparent";
+    } else if (variant === 'reciclaje') {
+      return scrolled ? "bg-black/5 backdrop-blur-sm" : "bg-transparent";
     } else {
       // Para otras páginas, fondo blanco con sombra al hacer scroll
       return `bg-white ${scrolled ? "shadow-sm" : "shadow-none"}`;
