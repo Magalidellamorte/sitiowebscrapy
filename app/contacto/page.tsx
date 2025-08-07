@@ -6,6 +6,23 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { toast } from "@/hooks/use-toast"
 
+// Service options mapping
+const serviceOptions = [
+  { value: "municipios", label: "Municipios" },
+  { value: "municipio", label: "Municipio" },
+  { value: "cooperativas", label: "Cooperativas" },
+  { value: "industrial", label: "Industrial" },
+  { value: "barrios cerrados", label: "Barrios Cerrados" },
+  { value: "beneficios", label: "Beneficios" },
+  { value: "otros", label: "Otros" }
+]
+
+// Function to get label for a service value
+const getServiceLabel = (value: string) => {
+  const option = serviceOptions.find(opt => opt.value === value)
+  return option ? option.label : value
+}
+
 export default function Contacto() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -14,23 +31,6 @@ export default function Contacto() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const submitButtonRef = useRef<HTMLButtonElement>(null)
-  
-  // Service options mapping
-  const serviceOptions = [
-    { value: "municipios", label: "Municipios" },
-    { value: "municipio", label: "Municipio" },
-    { value: "cooperativas", label: "Cooperativas" },
-    { value: "industrial", label: "Industrial" },
-    { value: "barrios cerrados", label: "Barrios Cerrados" },
-    { value: "beneficios", label: "Beneficios" },
-    { value: "otros", label: "Otros" }
-  ]
-  
-  // Function to get label for a service value
-  const getServiceLabel = (value: string) => {
-    const option = serviceOptions.find(opt => opt.value === value)
-    return option ? option.label : value
-  }
 
   // Handle scroll
   useEffect(() => {
