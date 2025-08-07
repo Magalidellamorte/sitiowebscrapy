@@ -73,9 +73,14 @@ export default function ReciclajeUrbano() {
                   className="w-20 h-20"
                 />
               </div>
-              <button className="block w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-full mb-4 transition">
+              <a 
+                href="https://beneficios.scrapyapp.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-full mb-4 transition text-center"
+              >
                 Recompensas
-              </button>
+              </a>
               <p className="text-gray-500 text-center text-sm">Scrapy Points canjeables por beneficios y descuentos.</p>
             </div>
           </div>
@@ -239,12 +244,20 @@ export default function ReciclajeUrbano() {
           </div>
 
           <div className="flex flex-col md:flex-row justify-center gap-6">
-            <button className="min-w-[260px] bg-white text-green-500 border-2 border-green-500 rounded-full py-4 px-8 font-semibold hover:bg-gray-50 transition hover:-translate-y-1 shadow">
+            <a 
+              href="/contacto#contact-form" 
+              className="min-w-[260px] bg-white text-green-500 border-2 border-green-500 rounded-full py-4 px-8 font-semibold hover:bg-gray-50 transition hover:-translate-y-1 shadow text-center inline-block"
+            >
               Quiero sumar mi municipio / Cooperativa
-            </button>
-            <button className="min-w-[220px] bg-green-500 hover:bg-green-600 text-white rounded-full py-4 px-8 font-semibold transition hover:-translate-y-1 shadow">
+            </a>
+            <a
+              href="https://beneficios.scrapyapp.com/user/coupons#offer-benefits"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="min-w-[220px] bg-green-500 hover:bg-green-600 text-white rounded-full py-4 px-8 font-semibold transition hover:-translate-y-1 shadow text-center inline-block scroll-mt-10"
+            >
               Quiero ofrecer beneficios
-            </button>
+            </a>
           </div>
         </div>
       </section>

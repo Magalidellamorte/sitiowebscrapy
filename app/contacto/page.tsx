@@ -332,7 +332,7 @@ export default function Contacto() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20 bg-white">
+      <section id="contact-form" className="py-20 bg-white scroll-mt-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Left Side - Contact Form */}
