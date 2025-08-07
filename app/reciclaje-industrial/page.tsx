@@ -306,14 +306,14 @@ export default function ReciclajeIndustrial() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left - Phone Mockup */}
-            <div className="flex justify-center lg:justify-start">
+            <div className="flex lg:justify-start">
               <div className="relative">
                 <Image
                   src="/images/reciclaje-industrial.webp"
                   alt="App Scrapy - Sección Vender"
-                  width={400}
-                  height={600}
-                  className="w-80 h-auto object-contain"
+                  width={600}
+                  height={400}
+                  className="w-full h-80 lg:h-96 object-cover rounded-3xl shadow-lg"
                 />
               </div>
             </div>
@@ -349,8 +349,21 @@ export default function ReciclajeIndustrial() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Right - Phone Mockup */}
+            <div className="flex lg:justify-end row-start-1 lg:col-start-2">
+              <div className="relative">
+                <Image
+                  src="/images/bici.png"
+                  alt="App Scrapy - Sección Comprar"
+                  width={600}
+                  height={400}
+                  className="w-full h-80 lg:h-96 object-cover rounded-3xl shadow-lg"
+                />
+              </div>
+            </div>
+
             {/* Left - Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 row-start-2 lg:col-start-1 lg:row-start-1">
               <h2 className="text-4xl md:text-5xl font-bold text-green-500 leading-tight">
                 Te interesa <span className="text-green-500">COMPRAR</span>
               </h2>
@@ -371,19 +384,6 @@ export default function ReciclajeIndustrial() {
               >
                 Contactate con nosotros
               </a>
-            </div>
-
-            {/* Right - Phone Mockup */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative">
-                <Image
-                  src="/images/bici.png"
-                  alt="App Scrapy - Sección Comprar"
-                  width={400}
-                  height={600}
-                  className="w-80 h-auto object-contain"
-                />
-              </div>
             </div>
           </div>
         </div>
