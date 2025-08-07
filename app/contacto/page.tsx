@@ -5,6 +5,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { toast } from "@/hooks/use-toast"
+import Navbar from "@/components/navbar"
 
 // Service options mapping
 const serviceOptions = [
@@ -120,78 +121,10 @@ export default function Contacto() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? "shadow-sm" : "shadow-none"}`}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
-          <a href="/" className="flex-shrink-0">
-            <Image
-              src="/images/logo scrapy color.png"
-              alt="Scrapy logo"
-              width={160}
-              height={50}
-              className="h-12 w-auto"
-            />
-          </a>
-
-          <div className="hidden md:flex items-center space-x-8 font-medium">
-            <a href="/" className="text-gray-400 hover:text-gray-600">
-              inicio
-            </a>
-            <a href="/reciclaje-urbano" className="text-gray-400 hover:text-gray-600">
-              reciclaje urbano
-            </a>
-            <a href="/reciclaje-industrial" className="text-gray-400 hover:text-gray-600">
-              reciclaje industrial
-            </a>
-            <a href="/barrios-cerrados" className="text-gray-400 hover:text-gray-600">
-              barrios cerrados
-            </a>
-            <a
-              href="https://beneficios.scrapyapp.com/user/coupons"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-600"
-            >
-              beneficios
-            </a>
-            <a href="/contacto" className="text-green-500 border-b-2 border-green-500 pb-0.5">
-              contacto
-            </a>
-          </div>
-
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-gray-600 focus:outline-none">
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white">
-            {[
-              { label: "inicio", href: "/" },
-              { label: "reciclaje urbano", href: "/reciclaje-urbano" },
-              { label: "reciclaje industrial", href: "/reciclaje-industrial" },
-              { label: "barrios cerrados", href: "/barrios-cerrados" },
-              { label: "beneficios", href: "https://beneficios.scrapyapp.com/user/coupons", external: true },
-              { label: "contacto", href: "/contacto", green: true },
-            ].map(({ label, href, green, external }) => (
-              <a
-                key={href}
-                href={href}
-                className={`block px-4 py-3 ${green ? "text-green-500" : "text-gray-600"}`}
-                onClick={() => setIsMenuOpen(false)}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-        )}
-      </nav>
+      <Navbar currentPage="/contacto" variant="reciclaje" />
 
       {/* Hero Section */}
-      <section className="bg-green-50 py-20">
+      <section className="bg-green-50 py-20 pt-28 md:pt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500 mb-8 leading-tight">
             ¿Como puedo formar parte?

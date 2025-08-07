@@ -2,19 +2,12 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import Navbar from "@/components/navbar"
 
 export default function ReciclajeUrbano() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const [currentBenefitSlide, setCurrentBenefitSlide] = useState(0)
   const [currentCoopSlide, setCurrentCoopSlide] = useState(0)
   const [currentRecolectorSlide, setCurrentRecolectorSlide] = useState(0)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener("scroll", onScroll)
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
 
   const nextBenefitSlide = () => {
     setCurrentBenefitSlide((prev) => (prev + 1) % 2)
@@ -43,78 +36,10 @@ export default function ReciclajeUrbano() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className={`sticky top-0 z-50 bg-white transition-shadow ${scrolled ? "shadow-sm" : "shadow-none"}`}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
-          <a href="/" className="flex-shrink-0">
-            <Image
-              src="/images/logo scrapy color.png"
-              alt="Scrapy logo"
-              width={160}
-              height={50}
-              className="h-12 w-auto"
-            />
-          </a>
-
-          <div className="hidden md:flex items-center space-x-8 font-medium">
-            <a href="/" className="text-gray-400 hover:text-gray-600">
-              inicio
-            </a>
-            <a
-              href="https://beneficios.scrapyapp.com/user/coupons"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-600"
-            >
-              beneficios
-            </a>
-            <a href="/reciclaje-urbano" className="text-gray-600 border-b-2 border-gray-400 pb-0.5">
-              reciclaje urbano
-            </a>
-            <a href="/reciclaje-industrial" className="text-gray-400 hover:text-gray-600">
-              reciclaje industrial
-            </a>
-            <a href="/barrios-cerrados" className="text-gray-400 hover:text-gray-600">
-              barrios cerrados
-            </a>
-            <a href="/contacto" className="text-green-500 hover:text-green-600">
-              contacto
-            </a>
-          </div>
-
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-gray-600 focus:outline-none">
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white">
-            {[
-              { label: "inicio", href: "/" },
-              { label: "beneficios", href: "https://beneficios.scrapyapp.com/user/coupons", external: true },
-              { label: "reciclaje urbano", href: "/reciclaje-urbano" },
-              { label: "reciclaje industrial", href: "/reciclaje-industrial" },
-              { label: "barrios cerrados", href: "/barrios-cerrados" },
-              { label: "contacto", href: "/contacto", green: true },
-            ].map(({ label, href, green, external }) => (
-              <a
-                key={href}
-                href={href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
-                className={`block px-4 py-3 ${green ? "text-green-500" : "text-gray-600"}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-        )}
-      </nav>
+      <Navbar currentPage="/reciclaje-urbano" variant="reciclaje" />
 
       {/* Hero Section */}
-      <section className="bg-green-50 py-20">
+      <section className="bg-green-50 py-20 pt-28 md:pt-32">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 px-4 sm:px-6 lg:px-8 items-center">
           <div className="flex justify-center lg:justify-start">
             <Image
@@ -139,10 +64,14 @@ export default function ReciclajeUrbano() {
             </p>
 
             <div className="bg-white rounded-3xl p-8 shadow-lg max-w-md">
-              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
-                <svg className="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.97 0 1.372 1.24.589 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.839-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.589-1.81h3.46a1 1 0 00.952-.69l1.07-3.292z" />
-                </svg>
+              <div className="mx-auto mb-6 flex items-center justify-center">
+                <Image
+                  src="/images/scrapy-points.svg"
+                  alt="Scrapy Points"
+                  width={32}
+                  height={32}
+                  className="w-20 h-20"
+                />
               </div>
               <button className="block w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-full mb-4 transition">
                 Recompensas
