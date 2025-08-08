@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Toaster } from "@/components/ui/toaster"
+import WhatsappButton from "@/components/WhatsappButton"
 
 export const metadata: Metadata = {
   title: 'Scrapy App',
@@ -19,12 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <head>
-        <link rel="icon" href="/images/favicon.ico" />
-        <link rel="apple-touch-icon" href="/images/favicon.ico" />
-      </head>
       <body suppressHydrationWarning={true}>
         {children}
+        <WhatsappButton />
         <Toaster />
       </body>
     </html>
