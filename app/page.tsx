@@ -1,8 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Navbar from "@/components/navbar"
+import InfoCard from "@/components/InfoCard"
+import { CircleDollarSignIcon, CircleDollarSignIconHandle } from "@/components/ui/circle-dollar-sign"
+import { UsersIcon } from "@/components/ui/users"
+import { EarthIcon } from "@/components/ui/earth"
+
 
 export default function ScrapyWebsite() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -62,6 +67,10 @@ export default function ScrapyWebsite() {
     setCurrentSlide((prev) => (prev - 1 + maxSlides) % maxSlides)
   }
 
+  const dollarIconRef = useRef<CircleDollarSignIconHandle>(null);
+  const usersIconRef = useRef<CircleDollarSignIconHandle>(null);
+  const earthIconRef = useRef<CircleDollarSignIconHandle>(null);
+
   return (
     <div className="min-h-screen">
       {/* Navigation */}
@@ -108,8 +117,8 @@ export default function ScrapyWebsite() {
             </p>
 
             {/* Stats Card */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl max-w-lg backdrop-blur-sm">
-              {/* Stats Row */}
+            <div className="bg-gray-50 rounded-t-3xl rounded-b-none p-6 md:p-8 shadow-2xl max-w-lg backdrop-blur-sm">
+            {/* Stats Row */}
               <div className="flex flex-col md:flex-row gap-6 mb-8">
                 {/* Recycled Stats */}
                 <div className="flex items-center gap-4 flex-1">
@@ -118,7 +127,7 @@ export default function ScrapyWebsite() {
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-gray-800">+150.000 kg</div>
-                    <div className="text-gray-600">reciclados</div>
+                    <div className="text-gray-600">Reciclados</div>
                   </div>
                 </div>
 
@@ -146,7 +155,7 @@ export default function ScrapyWebsite() {
                   });
                 }}
               >
-                ver soluciones por sector
+                Ver Soluciones
               </a>
             </div>
           </div>
@@ -156,9 +165,9 @@ export default function ScrapyWebsite() {
       {/* Triple Impacto Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-4">
               <h2 className="text-5xl md:text-6xl font-bold text-green-500 mb-6">
                 Triple
                 <br />
@@ -176,49 +185,33 @@ export default function ScrapyWebsite() {
             </div>
 
             {/* Right Content - Impact Cards */}
-            <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Economic Impact */}
-              <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">$</span>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">económico</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  Reducimos costos operativos, aumentamos la eficiencia, y generamos nuevas oportunidades de negocio.
-                </p>
-              </div>
+              <InfoCard 
+                icon={<CircleDollarSignIcon ref={dollarIconRef} />}
+                title="Económico"
+                description="Reducimos los costos operativos y generamos nuevas oportunidades de negocio"
+                onHoverStart={() => dollarIconRef.current?.startAnimation()}
+                onHoverEnd={() => dollarIconRef.current?.stopAnimation()}
+             />
 
               {/* Social Impact */}
-              <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">social</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  Fortalecemos a cooperativas, mejoramos las condiciones laborales de los recolectores, y fomentamos el
-                  empleo verde.
-                </p>
-              </div>
+              <InfoCard 
+                icon={<UsersIcon ref={usersIconRef} />}
+                title="Social"
+                description="Fortalecemos a las cooperativas al fomentar el empleo verde"
+                onHoverStart={() => usersIconRef.current?.startAnimation()}
+                onHoverEnd={() => usersIconRef.current?.stopAnimation()}
+              />
 
               {/* Environmental Impact */}
-              <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fillRule="evenodd"
-                      d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">ambiental</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  Aumentamos los volúmenes de reciclaje, reducimos residuos enviados a rellenos sanitarios y promovemos
-                  la economía circular.
-                </p>
-              </div>
+              <InfoCard 
+                icon={<EarthIcon ref={earthIconRef} />}
+                title="Ambiental"
+                description="Aumentamos el reciclaje, reducimos los residuos y fomentamos la economía circular"
+                onHoverStart={() => earthIconRef.current?.startAnimation()}
+                onHoverEnd={() => earthIconRef.current?.stopAnimation()}
+              />
             </div>
           </div>
         </div>
