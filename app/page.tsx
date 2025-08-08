@@ -213,7 +213,7 @@ export default function ScrapyWebsite() {
             {/* Right Content - Impact Cards */}
             <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Economic Impact */}
-              <InfoCard 
+              <InfoCard
                 icon={<CircleDollarSignIcon ref={dollarIconRef} />}
                 title="Económico"
                 description="Reducimos los costos operativos y generamos nuevas oportunidades de negocio"
@@ -222,7 +222,7 @@ export default function ScrapyWebsite() {
              />
 
               {/* Social Impact */}
-              <InfoCard 
+              <InfoCard
                 icon={<UsersIcon ref={usersIconRef} />}
                 title="Social"
                 description="Fortalecemos a las cooperativas al fomentar el empleo verde"
@@ -231,7 +231,7 @@ export default function ScrapyWebsite() {
               />
 
               {/* Environmental Impact */}
-              <InfoCard 
+              <InfoCard
                 icon={<EarthIcon ref={earthIconRef} />}
                 title="Ambiental"
                 description="Aumentamos el reciclaje, reducimos los residuos y fomentamos la economía circular"

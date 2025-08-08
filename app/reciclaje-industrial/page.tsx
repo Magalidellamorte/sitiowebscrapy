@@ -12,32 +12,28 @@ export default function ReciclajeIndustrial() {
     {
       id: "industrias",
       label: "INDUSTRIAS",
-      title: "Empresas que necesitan materias primas",
-      subtitle: "recicladas para sus procesos productivos",
+      description: "Empresas que necesitan materias primas recicladas para sus procesos productivos",
       image: "/images/industria.png",
       alt: "Línea de producción industrial con botellas verdes",
     },
     {
       id: "recicladoras",
       label: "RECICLADORAS",
-      title: "Empresas especializadas en el procesamiento",
-      subtitle: "y clasificación de materiales reciclables",
+      description: "Empresas especializadas en el procesamiento y clasificación de materiales reciclables",
       image: "/images/recicladoras.jpg",
       alt: "Maquinaria industrial procesando materiales reciclables",
     },
     {
       id: "pymes",
       label: "PYMES",
-      title: "Pequeñas y medianas empresas que generan",
-      subtitle: "o necesitan materiales reciclables",
+      description: "Pequeñas y medianas empresas que generan o necesitan materiales reciclables",
       image: "/images/pymes.png",
       alt: "Oficina moderna con equipo de trabajo",
     },
     {
       id: "emprendedores",
       label: "EMPRENDEDORES",
-      title: "Nuevos actores del mercado que buscan",
-      subtitle: "oportunidades en la economía circular",
+      description: "Nuevos actores del mercado que buscan oportunidades en la economía circular",
       image: "/images/emprendedores.png",
       alt: "Materiales reciclables en caja de cartón",
     },
@@ -128,22 +124,8 @@ export default function ReciclajeIndustrial() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {/* Centralización de Oportunidades */}
             <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                <svg className="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                  />
-                  <circle cx="12" cy="12" r="3" />
-                  <path
-                    d="M12 1v6m0 6v6m11-7h-6m-6 0H1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                  />
-                </svg>
+              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-gray-500">
+                <Image src="/icons/warehouse.svg" alt="Centralización de Oportunidades" width={48} height={48} />
               </div>
               <h3 className="text-xl font-bold text-green-500 mb-4">
                 Centralización de
@@ -158,16 +140,8 @@ export default function ReciclajeIndustrial() {
 
             {/* Verificación de usuarios */}
             <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                <svg className="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4" />
-                </svg>
+              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-gray-500">
+                <Image src="/icons/verified-user.svg" alt="Verificación de usuarios" width={48} height={48} />
               </div>
               <h3 className="text-xl font-bold text-green-500 mb-4">
                 Verificación de
@@ -182,21 +156,8 @@ export default function ReciclajeIndustrial() {
 
             {/* Mediación en las ofertas */}
             <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                <svg className="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M11 16l-4-4m0 0l4-4m-4 4h14"
-                  />
-                </svg>
+              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-gray-500">
+                <Image src="/icons/mediating.svg" alt="Mediación en las ofertas" width={48} height={48} />
               </div>
               <h3 className="text-xl font-bold text-green-500 mb-4">
                 Mediación en las
@@ -211,34 +172,8 @@ export default function ReciclajeIndustrial() {
 
             {/* Facilidades Logísticas */}
             <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                <svg className="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                  />
-                  <rect
-                    x="1"
-                    y="3"
-                    width="15"
-                    height="13"
-                    rx="2"
-                    ry="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                  />
-                  <path
-                    d="M16 8h4l2 4v4a2 2 0 01-2 2h-2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                  />
-                  <circle cx="7" cy="17" r="2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} />
-                  <circle cx="17" cy="17" r="2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} />
-                </svg>
+              <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-gray-500">
+                <Image src="/icons/truck.svg" alt="Facilidades Logísticas" width={48} height={48} />
               </div>
               <h3 className="text-xl font-bold text-green-500 mb-4">
                 Facilidades
@@ -297,8 +232,9 @@ export default function ReciclajeIndustrial() {
                         </div>
 
                         <div className="space-y-4">
-                          <p className="text-2xl md:text-3xl text-gray-500 leading-relaxed">{userType.title}</p>
-                          <p className="text-2xl md:text-3xl text-gray-500 leading-relaxed">{userType.subtitle}</p>
+                          <p className="text-xl md:text-2xl text-gray-500 leading-relaxed">
+                            {userType.description}
+                          </p>
                         </div>
 
                         <div className="flex items-center gap-2 text-gray-400">
@@ -371,14 +307,14 @@ export default function ReciclajeIndustrial() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left - Phone Mockup */}
-            <div className="flex justify-center lg:justify-start">
+            <div className="flex lg:justify-start">
               <div className="relative">
                 <Image
-                  src="/images/vender-section.png"
+                  src="/images/reciclaje-industrial.webp"
                   alt="App Scrapy - Sección Vender"
-                  width={400}
-                  height={600}
-                  className="w-80 h-auto object-contain"
+                  width={600}
+                  height={400}
+                  className="w-full h-80 lg:h-96 object-cover rounded-3xl shadow-lg"
                 />
               </div>
             </div>
@@ -414,8 +350,21 @@ export default function ReciclajeIndustrial() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Right - Phone Mockup */}
+            <div className="flex lg:justify-end row-start-1 lg:col-start-2">
+              <div className="relative">
+                <Image
+                  src="/images/bici.png"
+                  alt="App Scrapy - Sección Comprar"
+                  width={600}
+                  height={400}
+                  className="w-full h-80 lg:h-96 object-cover rounded-3xl shadow-lg"
+                />
+              </div>
+            </div>
+
             {/* Left - Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 row-start-2 lg:col-start-1 lg:row-start-1">
               <h2 className="text-4xl md:text-5xl font-bold text-green-500 leading-tight">
                 Te interesa <span className="text-green-500">COMPRAR</span>
               </h2>
@@ -436,19 +385,6 @@ export default function ReciclajeIndustrial() {
               >
                 Contactate con nosotros
               </a>
-            </div>
-
-            {/* Right - Phone Mockup */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative">
-                <Image
-                  src="/images/comprar-section.png"
-                  alt="App Scrapy - Sección Comprar"
-                  width={400}
-                  height={600}
-                  className="w-80 h-auto object-contain"
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -514,12 +450,12 @@ export default function ReciclajeIndustrial() {
 
             {/* Para vendedores */}
             <div className="bg-white rounded-3xl p-8 shadow-lg">
-              <h3 className="text-3xl font-bold text-gray-400 mb-8">Para vendedores</h3>
+              <h3 className="text-3xl font-bold text-green-500 mb-8">Para vendedores</h3>
 
               <div className="space-y-8">
                 {/* Mayor alcance de mercado */}
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
+                  <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
@@ -532,7 +468,7 @@ export default function ReciclajeIndustrial() {
 
                 {/* Transacciones seguras */}
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
+                  <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
@@ -545,7 +481,7 @@ export default function ReciclajeIndustrial() {
 
                 {/* Gestión simplificada */}
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
+                  <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
