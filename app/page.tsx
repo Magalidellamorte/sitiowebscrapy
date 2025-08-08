@@ -346,7 +346,7 @@ export default function ScrapyWebsite() {
               {/* Right Column - Carousel */}
               <div className="lg:col-span-3 relative">
                 {/* Cards Container */}
-                <div className="overflow-hidden rounded-2xl">
+                <div className="overflow-x-hidden rounded-2xl pb-6">
                   <div
                     className="flex transition-transform duration-300 ease-in-out"
                     style={{ 
