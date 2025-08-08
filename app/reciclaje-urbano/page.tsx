@@ -1,14 +1,14 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/Footer"
+import BenefitsCarousel from "@/components/BenefitsCarousel"
 
 export default function ReciclajeUrbano() {
   const [isMobile, setIsMobile] = useState(false)
 
-  // Carrusel de beneficios para generadores (circular infinito)
   const benefitCards = [
     {
       id: 1,
@@ -61,7 +61,6 @@ export default function ReciclajeUrbano() {
     }
   ]
 
-  // Carrusel cooperativas (circular infinito)
   const coopCards = [
     {
       id: 1,
@@ -153,7 +152,6 @@ export default function ReciclajeUrbano() {
     }
   ]
 
-  // Carrusel recolectores (circular infinito)
   const recolectorCards = [
     {
       id: 1,
@@ -232,112 +230,6 @@ export default function ReciclajeUrbano() {
     }
   ]
 
-  // Carrusel circular infinito para beneficios generadores
-  const N_BENEFIT = benefitCards.length
-  const extendedBenefitCards = useMemo(() => [...benefitCards, ...benefitCards, ...benefitCards], [benefitCards])
-  const [benefitIndex, setBenefitIndex] = useState(N_BENEFIT)
-  const [benefitImmediate, setBenefitImmediate] = useState(false)
-  const BENEFIT_VISIBLE = isMobile ? 1 : 2
-  const benefitSlideWidthPct = 100 / BENEFIT_VISIBLE
-
-  // Carrusel circular infinito para cooperativas
-  const N_COOP = coopCards.length
-  const extendedCoopCards = useMemo(() => [...coopCards, ...coopCards, ...coopCards], [coopCards])
-  const [coopIndex, setCoopIndex] = useState(N_COOP)
-  const [coopImmediate, setCoopImmediate] = useState(false)
-  const COOP_VISIBLE = isMobile ? 1 : 2
-  const coopSlideWidthPct = 100 / COOP_VISIBLE
-
-  // Carrusel circular infinito para recolectores
-  const N_RECOLECTOR = recolectorCards.length
-  const extendedRecolectorCards = useMemo(() => [...recolectorCards, ...recolectorCards, ...recolectorCards], [recolectorCards])
-  const [recolectorIndex, setRecolectorIndex] = useState(N_RECOLECTOR)
-  const [recolectorImmediate, setRecolectorImmediate] = useState(false)
-  const RECOLECTOR_VISIBLE = isMobile ? 1 : 2
-  const recolectorSlideWidthPct = 100 / RECOLECTOR_VISIBLE
-
-  // Funciones para beneficios
-  const nextBenefitSlide = () => {
-    setBenefitImmediate(false)
-    setBenefitIndex((i) => i + 1)
-  }
-
-  const prevBenefitSlide = () => {
-    setBenefitImmediate(false)
-    setBenefitIndex((i) => i - 1)
-  }
-
-  const handleBenefitTransitionEnd = () => {
-    if (benefitIndex >= 2 * N_BENEFIT) {
-      setBenefitImmediate(true)
-      setBenefitIndex((i) => i - N_BENEFIT)
-    } else if (benefitIndex < N_BENEFIT) {
-      setBenefitImmediate(true)
-      setBenefitIndex((i) => i + N_BENEFIT)
-    }
-  }
-
-  // Funciones para cooperativas
-  const nextCoopSlide = () => {
-    setCoopImmediate(false)
-    setCoopIndex((i) => i + 1)
-  }
-
-  const prevCoopSlide = () => {
-    setCoopImmediate(false)
-    setCoopIndex((i) => i - 1)
-  }
-
-  const handleCoopTransitionEnd = () => {
-    if (coopIndex >= 2 * N_COOP) {
-      setCoopImmediate(true)
-      setCoopIndex((i) => i - N_COOP)
-    } else if (coopIndex < N_COOP) {
-      setCoopImmediate(true)
-      setCoopIndex((i) => i + N_COOP)
-    }
-  }
-
-  // Funciones para recolectores
-  const nextRecolectorSlide = () => {
-    setRecolectorImmediate(false)
-    setRecolectorIndex((i) => i + 1)
-  }
-
-  const prevRecolectorSlide = () => {
-    setRecolectorImmediate(false)
-    setRecolectorIndex((i) => i - 1)
-  }
-
-  const handleRecolectorTransitionEnd = () => {
-    if (recolectorIndex >= 2 * N_RECOLECTOR) {
-      setRecolectorImmediate(true)
-      setRecolectorIndex((i) => i - N_RECOLECTOR)
-    } else if (recolectorIndex < N_RECOLECTOR) {
-      setRecolectorImmediate(true)
-      setRecolectorIndex((i) => i + N_RECOLECTOR)
-    }
-  }
-
-  // Volver a habilitar transición luego de un salto inmediato
-  useEffect(() => {
-    if (!benefitImmediate) return
-    const id = requestAnimationFrame(() => setBenefitImmediate(false))
-    return () => cancelAnimationFrame(id)
-  }, [benefitImmediate])
-
-  useEffect(() => {
-    if (!coopImmediate) return
-    const id = requestAnimationFrame(() => setCoopImmediate(false))
-    return () => cancelAnimationFrame(id)
-  }, [coopImmediate])
-
-  useEffect(() => {
-    if (!recolectorImmediate) return
-    const id = requestAnimationFrame(() => setRecolectorImmediate(false))
-    return () => cancelAnimationFrame(id)
-  }, [recolectorImmediate])
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768)
@@ -353,10 +245,8 @@ export default function ReciclajeUrbano() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Navigation */}
       <Navbar currentPage="/reciclaje-urbano" variant="reciclaje" />
 
-      {/* Hero Section */}
       <section className="bg-green-50 py-20 pt-28 md:pt-32">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 px-4 sm:px-6 lg:px-8 items-center">
           <div className="flex justify-center lg:justify-start">
@@ -405,7 +295,6 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      {/* Localidad Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 px-4 sm:px-6 lg:px-8 items-center">
           <div className="space-y-8">
@@ -447,7 +336,6 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      {/* Cómo Funciona Section */}
       <section className="py-20 bg-green-50 relative overflow-hidden">
         <Image
           src="/images/ICONOS1.png"
@@ -580,7 +468,6 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      {/* Banner Guía de Reciclaje */}
       <section className="py-20 relative bg-cover bg-center bg-black-alpha-50" style={{ backgroundImage: "url('/images/banner reciclaje urbano.jpeg')" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
@@ -607,7 +494,6 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      {/* Beneficios para cada sector */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -686,90 +572,13 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      {/* Principales Beneficios para Generadores */}
-      <section className="py-20 bg-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700">Principales beneficios</h2>
-              <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
-                GENERADORES
-              </span>
-            </div>
-          </div>
-
-          <div className="relative max-w-6xl mx-auto">
-            <div className="overflow-hidden rounded-2xl py-4 px-3">
-              <div
-                className="flex will-change-transform"
-                style={{
-                  transform: `translateX(-${benefitIndex * benefitSlideWidthPct}%)`,
-                  transition: benefitImmediate ? "none" : "transform 300ms ease-in-out",
-                }}
-                onTransitionEnd={handleBenefitTransitionEnd}
-              >
-                {extendedBenefitCards.map((card, i) => (
-                  <div key={`${card.id}-${i}`} className="w-full md:w-1/2 flex-shrink-0 px-3">
-                    <div className="bg-white rounded-3xl p-8 carousel-card relative mx-2">
-                      <div className="absolute top-6 right-6">
-                        <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                          {card.icon}
-                        </div>
-                      </div>
-                      <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">{card.title}</h3>
-                      <p className="text-gray-500 leading-relaxed">{card.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <button
-              onClick={prevBenefitSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
-              aria-label="Anterior"
-            >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-
-            <button
-              onClick={nextBenefitSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
-              aria-label="Siguiente"
-            >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Indicators */}
-          {(() => {
-            const maxStart = N_BENEFIT - BENEFIT_VISIBLE
-            const normalizedStart = ((benefitIndex - N_BENEFIT) % N_BENEFIT + N_BENEFIT) % N_BENEFIT
-            const activeDot = Math.min(normalizedStart, maxStart)
-            const dotsCount = N_BENEFIT // Siempre mostrar 4 puntos para los 4 beneficios
-            return (
-              <div className="flex justify-center mt-12 space-x-2">
-                {Array.from({ length: dotsCount }).map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setBenefitIndex(N_BENEFIT + i)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      activeDot === i ? "bg-green-400 scale-110" : "bg-gray-300"
-                    }`}
-                    aria-label={`Ir al slide ${i + 1}`}
-                  />
-                ))}
-              </div>
-            )
-          })()}
-        </div>
-      </section>
-
-      {/* Cooperativas y Municipios */}
+      <BenefitsCarousel
+        cards={benefitCards}
+        title="Generadores"
+        subtitle="Descubre cómo Scrapy App Urbano facilita el reciclaje para hogares, comercios e instituciones."
+        isMobile={isMobile}
+      />
+      
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -809,90 +618,13 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      {/* Principales Beneficios para Cooperativas y Municipios */}
-      <section className="py-20 bg-green-alpha-05">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700">Principales beneficios</h2>
-              <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
-                COOPERATIVAS Y MUNICIPIOS
-              </span>
-            </div>
-          </div>
+      <BenefitsCarousel
+        cards={coopCards}
+        title="Cooperativas y Municipios"
+        subtitle="Optimiza la gestión de reciclaje en tu comunidad con nuestra solución tecnológica."
+        isMobile={isMobile}
+      />
 
-          <div className="relative max-w-6xl mx-auto">
-            <div className="overflow-hidden rounded-2xl py-4 px-3">
-              <div
-                className="flex will-change-transform"
-                style={{
-                  transform: `translateX(-${coopIndex * coopSlideWidthPct}%)`,
-                  transition: coopImmediate ? "none" : "transform 300ms ease-in-out",
-                }}
-                onTransitionEnd={handleCoopTransitionEnd}
-              >
-                {extendedCoopCards.map((card, i) => (
-                  <div key={`${card.id}-${i}`} className="w-full md:w-1/2 flex-shrink-0 px-3">
-                    <div className="bg-white rounded-3xl p-8 carousel-card relative mx-2">
-                      <div className="absolute top-6 right-6">
-                        <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                          {card.icon}
-                        </div>
-                      </div>
-                      <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">{card.title}</h3>
-                      <p className="text-gray-500 leading-relaxed">{card.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <button
-              onClick={prevCoopSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
-              aria-label="Anterior"
-            >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-
-            <button
-              onClick={nextCoopSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
-              aria-label="Siguiente"
-            >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Indicators */}
-          {(() => {
-            const maxStart = N_COOP - COOP_VISIBLE
-            const normalizedStart = ((coopIndex - N_COOP) % N_COOP + N_COOP) % N_COOP
-            const activeDot = Math.min(normalizedStart, maxStart)
-            const dotsCount = isMobile ? N_COOP : Math.max(1, N_COOP - 1)
-            return (
-              <div className="flex justify-center mt-12 space-x-2">
-                {Array.from({ length: dotsCount }).map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCoopIndex(N_COOP + i)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      activeDot === i ? "bg-green-400 scale-110" : "bg-gray-300"
-                    }`}
-                    aria-label={`Ir al slide ${i + 1}`}
-                  />
-                ))}
-              </div>
-            )
-          })()}
-        </div>
-      </section>
-
-      {/* Recolectores Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -932,90 +664,13 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      {/* Principales Beneficios para Recolectores */}
-      <section className="py-20 bg-green-alpha-05">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700">Principales beneficios</h2>
-              <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
-                RECOLECTORES
-              </span>
-            </div>
-          </div>
+      <BenefitsCarousel
+        cards={recolectorCards}
+        title="Recolectores"
+        subtitle="Simplifica tu trabajo diario y maximiza tu eficiencia con nuestra aplicación."
+        isMobile={isMobile}
+      />
 
-          <div className="relative max-w-6xl mx-auto">
-            <div className="overflow-hidden rounded-2xl py-4 px-3">
-              <div
-                className="flex will-change-transform"
-                style={{
-                  transform: `translateX(-${recolectorIndex * recolectorSlideWidthPct}%)`,
-                  transition: recolectorImmediate ? "none" : "transform 300ms ease-in-out",
-                }}
-                onTransitionEnd={handleRecolectorTransitionEnd}
-              >
-                {extendedRecolectorCards.map((card, i) => (
-                  <div key={`${card.id}-${i}`} className="w-full md:w-1/2 flex-shrink-0 px-3">
-                    <div className="bg-white rounded-3xl p-8 carousel-card relative mx-2">
-                      <div className="absolute top-6 right-6">
-                        <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                          {card.icon}
-                        </div>
-                      </div>
-                      <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">{card.title}</h3>
-                      <p className="text-gray-500 leading-relaxed">{card.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <button
-              onClick={prevRecolectorSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
-              aria-label="Anterior"
-            >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-
-            <button
-              onClick={nextRecolectorSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
-              aria-label="Siguiente"
-            >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Indicators */}
-          {(() => {
-            const maxStart = N_RECOLECTOR - RECOLECTOR_VISIBLE
-            const normalizedStart = ((recolectorIndex - N_RECOLECTOR) % N_RECOLECTOR + N_RECOLECTOR) % N_RECOLECTOR
-            const activeDot = Math.min(normalizedStart, maxStart)
-            const dotsCount = isMobile ? N_RECOLECTOR : Math.max(1, N_RECOLECTOR - 1)
-            return (
-              <div className="flex justify-center mt-12 space-x-2">
-                {Array.from({ length: dotsCount }).map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setRecolectorIndex(N_RECOLECTOR + i)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      activeDot === i ? "bg-green-400 scale-110" : "bg-gray-300"
-                    }`}
-                    aria-label={`Ir al slide ${i + 1}`}
-                  />
-                ))}
-              </div>
-            )
-          })()}
-        </div>
-      </section>
-
-      {/* Footer */}
       <Footer />
     </div>
   )
