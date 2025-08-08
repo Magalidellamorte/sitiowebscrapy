@@ -1,40 +1,358 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Navbar from "@/components/navbar"
+import Footer from "@/components/Footer"
 
 export default function ReciclajeUrbano() {
-  const [currentBenefitSlide, setCurrentBenefitSlide] = useState(0)
-  const [currentCoopSlide, setCurrentCoopSlide] = useState(0)
-  const [currentRecolectorSlide, setCurrentRecolectorSlide] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  
+  // Carrusel de beneficios para generadores (circular infinito)
+  const benefitCards = [
+    {
+      id: 1,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </svg>
+      ),
+      title: "Entrega simple y segura",
+      description: "A través de la app, los generadores pueden solicitar el retiro de sus reciclables en un solo clic, confiando en agentes responsables que garantizan su correcta trazabilidad y reciclado."
+    },
+    {
+      id: 2,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+            clipRule="evenodd"
+          />
+        </svg>
+      ),
+      title: "Retiros automáticos programados",
+      description: "Para generadores frecuentes (edificios, comercios o instituciones), la app permite programar retiros semanales fijos. Así, cuando el contenedor se llena, no hace falta cargarlo manualmente: la recolección ya está agendada."
+    },
+    {
+      id: 3,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.97 0 1.372 1.24.589 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.839-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.589-1.81h3.46a1 1 0 00.952-.69l1.07-3.292z" />
+        </svg>
+      ),
+      title: "Recompensas por reciclar",
+      description: "Cada entrega de reciclables suma Scrapy Points que se pueden canjear por descuentos en comercios locales, productos sustentables o beneficios exclusivos dentro de la plataforma."
+    },
+    {
+      id: 4,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+          />
+        </svg>
+      ),
+      title: "Trazabilidad completa",
+      description: "Los generadores pueden seguir el recorrido de sus reciclables desde la recolección hasta su procesamiento final, conociendo el impacto real de su contribución al medio ambiente."
+    }
+  ]
 
+  // Carrusel cooperativas (circular infinito)
+  const coopCards = [
+    {
+      id: 1,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+        </svg>
+      ),
+      title: "Nuevos generadores",
+      description: "Los generadores —comercios, hogares, instituciones— pueden publicar sus materiales reciclables directamente en la app para que sean retirados por la cooperativa o el municipio."
+    },
+    {
+      id: 2,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.97 0 1.372 1.24.589 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.839-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.589-1.81h3.46a1 1 0 00.952-.69l1.07-3.292z" />
+        </svg>
+      ),
+      title: "Sistema de recompensas",
+      description: "Los generadores son premiados por entregar reciclables, lo que estimula la participación y fortalece la red de recolección."
+    },
+    {
+      id: 3,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10.325 4.317c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07"
+          />
+        </svg>
+      ),
+      title: "Panel administrativo",
+      description: "La cooperativa o municipio puede aceptar/rechazar viajes, asignar recolectores, configurar horarios y ver métricas del servicio desde un solo lugar."
+    },
+    {
+      id: 4,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+          />
+        </svg>
+      ),
+      title: "Datos",
+      description: "Gracias al acceso a estadísticas y reportes en tiempo real, se pueden tomar decisiones estratégicas para mejorar la eficiencia operativa y el impacto ambiental."
+    },
+    {
+      id: 5,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+          />
+        </svg>
+      ),
+      title: "Rutas optimizadas",
+      description: "La app genera rutas inteligentes y eficientes para los recolectores, reduciendo tiempos, costos logísticos y aumentando la productividad."
+    },
+    {
+      id: 6,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+          />
+        </svg>
+      ),
+      title: "Ley de basura cero",
+      description: "Scrapy brinda herramientas para monitorear y reportar los avances en reciclaje, facilitando la rendición de cuentas ante organismos provinciales y nacionales."
+    },
+    {
+      id: 7,
+      icon: (
+        <span className="text-white text-lg">😊</span>
+      ),
+      title: "Imagen institucional",
+      description: "Acompañamos a los municipios a demostrar su compromiso con el reciclaje, fortaleciendo su posicionamiento en sustentabilidad y generando mayor adhesión ciudadana."
+    }
+  ]
+
+  // Carrusel recolectores (circular infinito)
+  const recolectorCards = [
+    {
+      id: 1,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+      title: "Viajes organizados",
+      description: "Cada recolector recibe sus recorridos directamente desde la app, sin necesidad de coordinación manual."
+    },
+    {
+      id: 2,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+          />
+        </svg>
+      ),
+      title: "Rutas óptimas",
+      description: "La app genera recorridos eficientes para reducir tiempos de traslado y aumentar la productividad diaria."
+    },
+    {
+      id: 3,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+          />
+        </svg>
+      ),
+      title: "Navegación integrada",
+      description: "Con un solo clic, el recolector puede iniciar la navegación hacia cada punto de retiro, accediendo a la mejor ruta disponible en tiempo real."
+    },
+    {
+      id: 4,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 6.042v2.652m-3.176-.97a1.121 1.121 0 000 2.384c.372 1.113 1.651 2.111 3.176 2.111s2.804-.998 3.176-2.111a1.121 1.121 0 000-2.384c-.372-1.113-1.651-2.111-3.176-2.111s-2.804.998-3.176 2.111z"
+          />
+        </svg>
+      ),
+      title: "Seguimiento de rendimiento",
+      description: "Los recolectores pueden visualizar la cantidad de kilos recolectados en cada jornada, accediendo a métricas claras que reflejan su trabajo."
+    },
+    {
+      id: 5,
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+          />
+        </svg>
+      ),
+      title: "Rol del recolector",
+      description: "Al profesionalizar su tarea con herramientas digitales, buscamos dar mayor visibilidad, reconocimiento y orden a un trabajo esencial para la economía circular."
+    }
+  ]
+
+  // Carrusel circular infinito para beneficios generadores
+  const N_BENEFIT = benefitCards.length
+  const extendedBenefitCards = useMemo(() => [...benefitCards, ...benefitCards, ...benefitCards], [benefitCards])
+  const [benefitIndex, setBenefitIndex] = useState(N_BENEFIT)
+  const [benefitImmediate, setBenefitImmediate] = useState(false)
+  const BENEFIT_VISIBLE = isMobile ? 1 : 2
+  const benefitSlideWidthPct = 100 / BENEFIT_VISIBLE
+
+  // Carrusel circular infinito para cooperativas
+  const N_COOP = coopCards.length
+  const extendedCoopCards = useMemo(() => [...coopCards, ...coopCards, ...coopCards], [coopCards])
+  const [coopIndex, setCoopIndex] = useState(N_COOP)
+  const [coopImmediate, setCoopImmediate] = useState(false)
+  const COOP_VISIBLE = isMobile ? 1 : 2
+  const coopSlideWidthPct = 100 / COOP_VISIBLE
+
+  // Carrusel circular infinito para recolectores
+  const N_RECOLECTOR = recolectorCards.length
+  const extendedRecolectorCards = useMemo(() => [...recolectorCards, ...recolectorCards, ...recolectorCards], [recolectorCards])
+  const [recolectorIndex, setRecolectorIndex] = useState(N_RECOLECTOR)
+  const [recolectorImmediate, setRecolectorImmediate] = useState(false)
+  const RECOLECTOR_VISIBLE = isMobile ? 1 : 2
+  const recolectorSlideWidthPct = 100 / RECOLECTOR_VISIBLE
+
+  // Funciones para beneficios
   const nextBenefitSlide = () => {
-    setCurrentBenefitSlide((prev) => (prev + 1) % 2)
+    setBenefitImmediate(false)
+    setBenefitIndex((i) => i + 1)
   }
 
   const prevBenefitSlide = () => {
-    setCurrentBenefitSlide((prev) => (prev - 1 + 2) % 2)
+    setBenefitImmediate(false)
+    setBenefitIndex((i) => i - 1)
   }
 
+  const handleBenefitTransitionEnd = () => {
+    if (benefitIndex >= 2 * N_BENEFIT) {
+      setBenefitImmediate(true)
+      setBenefitIndex((i) => i - N_BENEFIT)
+    } else if (benefitIndex < N_BENEFIT) {
+      setBenefitImmediate(true)
+      setBenefitIndex((i) => i + N_BENEFIT)
+    }
+  }
+
+  // Funciones para cooperativas
   const nextCoopSlide = () => {
-    setCurrentCoopSlide((prev) => (prev + 1) % 4)
+    setCoopImmediate(false)
+    setCoopIndex((i) => i + 1)
   }
 
   const prevCoopSlide = () => {
-    setCurrentCoopSlide((prev) => (prev - 1 + 4) % 4)
+    setCoopImmediate(false)
+    setCoopIndex((i) => i - 1)
   }
 
+  const handleCoopTransitionEnd = () => {
+    if (coopIndex >= 2 * N_COOP) {
+      setCoopImmediate(true)
+      setCoopIndex((i) => i - N_COOP)
+    } else if (coopIndex < N_COOP) {
+      setCoopImmediate(true)
+      setCoopIndex((i) => i + N_COOP)
+    }
+  }
+
+  // Funciones para recolectores
   const nextRecolectorSlide = () => {
-    setCurrentRecolectorSlide((prev) => (prev + 1) % 3)
+    setRecolectorImmediate(false)
+    setRecolectorIndex((i) => i + 1)
   }
 
   const prevRecolectorSlide = () => {
-    setCurrentRecolectorSlide((prev) => (prev - 1 + 3) % 3)
+    setRecolectorImmediate(false)
+    setRecolectorIndex((i) => i - 1)
   }
 
+  const handleRecolectorTransitionEnd = () => {
+    if (recolectorIndex >= 2 * N_RECOLECTOR) {
+      setRecolectorImmediate(true)
+      setRecolectorIndex((i) => i - N_RECOLECTOR)
+    } else if (recolectorIndex < N_RECOLECTOR) {
+      setRecolectorImmediate(true)
+      setRecolectorIndex((i) => i + N_RECOLECTOR)
+    }
+  }
+
+  // Volver a habilitar transición luego de un salto inmediato
+  useEffect(() => {
+    if (!benefitImmediate) return
+    const id = requestAnimationFrame(() => setBenefitImmediate(false))
+    return () => cancelAnimationFrame(id)
+  }, [benefitImmediate])
+
+  useEffect(() => {
+    if (!coopImmediate) return
+    const id = requestAnimationFrame(() => setCoopImmediate(false))
+    return () => cancelAnimationFrame(id)
+  }, [coopImmediate])
+
+  useEffect(() => {
+    if (!recolectorImmediate) return
+    const id = requestAnimationFrame(() => setRecolectorImmediate(false))
+    return () => cancelAnimationFrame(id)
+  }, [recolectorImmediate])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-100">
       {/* Navigation */}
       <Navbar currentPage="/reciclaje-urbano" variant="reciclaje" />
 
@@ -263,25 +581,14 @@ export default function ReciclajeUrbano() {
       </section>
 
       {/* Banner Guía de Reciclaje */}
-      <section
-        className="py-20 relative bg-cover bg-center"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/banner reciclaje urbano.jpeg')`,
-        }}
-      >
+      <section className="py-20 relative bg-cover bg-center bg-black-alpha-50" style={{ backgroundImage: "url('/images/banner reciclaje urbano.jpeg')" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h2
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight"
-              style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)" }}
-            >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight text-shadow-dark">
               ¿Tienes duda de cómo entregar tus materiales?
             </h2>
 
-            <p
-              className="text-lg md:text-xl text-white mb-12 leading-relaxed max-w-2xl"
-              style={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.8)" }}
-            >
+            <p className="text-lg md:text-xl text-white mb-12 leading-relaxed max-w-2xl text-shadow-light">
               Descarga nuestra guía de reciclaje que te muestre cómo preparar el material.
             </p>
 
@@ -390,90 +697,35 @@ export default function ReciclajeUrbano() {
           </div>
 
           <div className="relative max-w-6xl mx-auto">
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-2xl py-4 px-3">
               <div
-                className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentBenefitSlide * 100}%)` }}
+                className="flex will-change-transform"
+                style={{
+                  transform: `translateX(-${benefitIndex * benefitSlideWidthPct}%)`,
+                  transition: benefitImmediate ? "none" : "transform 300ms ease-in-out",
+                }}
+                onTransitionEnd={handleBenefitTransitionEnd}
               >
-                <div className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                {extendedBenefitCards.map((card, i) => (
+                  <div key={`${card.id}-${i}`} className="w-full md:w-1/2 flex-shrink-0 px-3">
+                    <div className="bg-white rounded-3xl p-8 carousel-card relative mx-2">
+                      <div className="absolute top-6 right-6">
+                        <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                          {card.icon}
+                        </div>
                       </div>
+                      <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">{card.title}</h3>
+                      <p className="text-gray-500 leading-relaxed">{card.description}</p>
                     </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Entrega simple y segura</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      A través de la app, los generadores pueden solicitar el retiro de sus reciclables en un solo clic,
-                      confiando en agentes responsables que garantizan su correcta trazabilidad y reciclado.
-                    </p>
                   </div>
-
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 20 20">
-                          <path
-                            fillRule="evenodd"
-                            d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Retiros automáticos programados</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Para generadores frecuentes (edificios, comercios o instituciones), la app permite programar
-                      retiros semanales fijos. Así, cuando el contenedor se llena, no hace falta cargarlo manualmente:
-                      la recolección ya está agendada.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.97 0 1.372 1.24.589 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.839-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.589-1.81h3.46a1 1 0 00.952-.69l1.07-3.292z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Recompensas por reciclar</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Cada entrega de reciclables suma Scrapy Points que se pueden canjear por descuentos en comercios
-                      locales, productos sustentables o beneficios exclusivos dentro de la plataforma.
-                    </p>
-                  </div>
-
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Trazabilidad completa</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Los generadores pueden seguir el recorrido de sus reciclables desde la recolección hasta su
-                      procesamiento final, conociendo el impacto real de su contribución al medio ambiente.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
             <button
               onClick={prevBenefitSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
+              aria-label="Anterior"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -482,7 +734,8 @@ export default function ReciclajeUrbano() {
 
             <button
               onClick={nextBenefitSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
+              aria-label="Siguiente"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -490,17 +743,27 @@ export default function ReciclajeUrbano() {
             </button>
           </div>
 
-          <div className="flex justify-center mt-12 space-x-2">
-            {Array.from({ length: 2 }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentBenefitSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentBenefitSlide === index ? "bg-green-400" : "bg-gray-300"
-                }`}
-              />
-            ))}
-          </div>
+          {/* Indicators */}
+          {(() => {
+            const maxStart = N_BENEFIT - BENEFIT_VISIBLE
+            const normalizedStart = ((benefitIndex - N_BENEFIT) % N_BENEFIT + N_BENEFIT) % N_BENEFIT
+            const activeDot = Math.min(normalizedStart, maxStart)
+            const dotsCount = N_BENEFIT // Siempre mostrar 4 puntos para los 4 beneficios
+            return (
+              <div className="flex justify-center mt-12 space-x-2">
+                {Array.from({ length: dotsCount }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setBenefitIndex(N_BENEFIT + i)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      activeDot === i ? "bg-green-400 scale-110" : "bg-gray-300"
+                    }`}
+                    aria-label={`Ir al slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )
+          })()}
         </div>
       </section>
 
@@ -545,7 +808,7 @@ export default function ReciclajeUrbano() {
       </section>
 
       {/* Principales Beneficios para Cooperativas y Municipios */}
-      <section className="py-20" style={{ backgroundColor: "#e8f5e8" }}>
+      <section className="py-20 bg-green-alpha-05">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-4 mb-8">
@@ -557,148 +820,35 @@ export default function ReciclajeUrbano() {
           </div>
 
           <div className="relative max-w-6xl mx-auto">
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-2xl py-4 px-3">
               <div
-                className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentCoopSlide * 100}%)` }}
+                className="flex will-change-transform"
+                style={{
+                  transform: `translateX(-${coopIndex * coopSlideWidthPct}%)`,
+                  transition: coopImmediate ? "none" : "transform 300ms ease-in-out",
+                }}
+                onTransitionEnd={handleCoopTransitionEnd}
               >
-                <div className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-                        </svg>
+                {extendedCoopCards.map((card, i) => (
+                  <div key={`${card.id}-${i}`} className="w-full md:w-1/2 flex-shrink-0 px-3">
+                    <div className="bg-white rounded-3xl p-8 carousel-card relative mx-2">
+                      <div className="absolute top-6 right-6">
+                        <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                          {card.icon}
+                        </div>
                       </div>
+                      <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">{card.title}</h3>
+                      <p className="text-gray-500 leading-relaxed">{card.description}</p>
                     </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Nuevos generadores</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Los generadores —comercios, hogares, instituciones— pueden publicar sus materiales reciclables
-                      directamente en la app para que sean retirados por la cooperativa o el municipio.
-                    </p>
                   </div>
-
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.97 0 1.372 1.24.589 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.839-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.589-1.81h3.46a1 1 0 00.952-.69l1.07-3.292z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Sistema de recompensas</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Los generadores son premiados por entregar reciclables, lo que estimula la participación y
-                      fortalece la red de recolección.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M10.325 4.317c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-4.358-.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.205.013 3.663.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28-.073-1.689-.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28-.073-1.689-.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Panel administrativo</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      La cooperativa o municipio puede aceptar/rechazar viajes, asignar recolectores, configurar
-                      horarios y ver métricas del servicio desde un solo lugar.
-                    </p>
-                  </div>
-
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Datos</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Gracias al acceso a estadísticas y reportes en tiempo real, se pueden tomar decisiones
-                      estratégicas para mejorar la eficiencia operativa y el impacto ambiental.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Rutas optimizadas</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      La app genera rutas inteligentes y eficientes para los recolectores, reduciendo tiempos, costos
-                      logísticos y aumentando la productividad.
-                    </p>
-                  </div>
-
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Ley de basura cero</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Scrapy brinda herramientas para monitorear y reportar los avances en reciclaje, facilitando la
-                      rendición de cuentas ante organismos provinciales y nacionales.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <span className="text-white text-lg">😊</span>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Imagen institucional</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Acompañamos a los municipios a demostrar su compromiso con el reciclaje, fortaleciendo su
-                      posicionamiento en sustentabilidad y generando mayor adhesión ciudadana.
-                    </p>
-                  </div>
-                  <div></div>
-                </div>
+                ))}
               </div>
             </div>
 
             <button
               onClick={prevCoopSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
+              aria-label="Anterior"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -707,7 +857,8 @@ export default function ReciclajeUrbano() {
 
             <button
               onClick={nextCoopSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
+              aria-label="Siguiente"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -715,17 +866,27 @@ export default function ReciclajeUrbano() {
             </button>
           </div>
 
-          <div className="flex justify-center mt-12 space-x-2">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentCoopSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentCoopSlide === index ? "bg-green-400" : "bg-gray-300"
-                }`}
-              />
-            ))}
-          </div>
+          {/* Indicators */}
+          {(() => {
+            const maxStart = N_COOP - COOP_VISIBLE
+            const normalizedStart = ((coopIndex - N_COOP) % N_COOP + N_COOP) % N_COOP
+            const activeDot = Math.min(normalizedStart, maxStart)
+            const dotsCount = isMobile ? N_COOP : Math.max(1, N_COOP - 1)
+            return (
+              <div className="flex justify-center mt-12 space-x-2">
+                {Array.from({ length: dotsCount }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCoopIndex(N_COOP + i)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      activeDot === i ? "bg-green-400 scale-110" : "bg-gray-300"
+                    }`}
+                    aria-label={`Ir al slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )
+          })()}
         </div>
       </section>
 
@@ -770,7 +931,7 @@ export default function ReciclajeUrbano() {
       </section>
 
       {/* Principales Beneficios para Recolectores */}
-      <section className="py-20" style={{ backgroundColor: "#e8f5e8" }}>
+      <section className="py-20 bg-green-alpha-05">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-4 mb-8">
@@ -782,123 +943,35 @@ export default function ReciclajeUrbano() {
           </div>
 
           <div className="relative max-w-6xl mx-auto">
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-2xl py-4 px-3">
               <div
-                className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentRecolectorSlide * 100}%)` }}
+                className="flex will-change-transform"
+                style={{
+                  transform: `translateX(-${recolectorIndex * recolectorSlideWidthPct}%)`,
+                  transition: recolectorImmediate ? "none" : "transform 300ms ease-in-out",
+                }}
+                onTransitionEnd={handleRecolectorTransitionEnd}
               >
-                <div className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-                          />
-                        </svg>
+                {extendedRecolectorCards.map((card, i) => (
+                  <div key={`${card.id}-${i}`} className="w-full md:w-1/2 flex-shrink-0 px-3">
+                    <div className="bg-white rounded-3xl p-8 carousel-card relative mx-2">
+                      <div className="absolute top-6 right-6">
+                        <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                          {card.icon}
+                        </div>
                       </div>
+                      <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">{card.title}</h3>
+                      <p className="text-gray-500 leading-relaxed">{card.description}</p>
                     </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Viajes organizados</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Cada recolector recibe sus recorridos directamente desde la app, sin necesidad de coordinación
-                      manual.
-                    </p>
                   </div>
-
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Rutas óptimas</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      La app genera recorridos eficientes para reducir tiempos de traslado y aumentar la productividad
-                      diaria.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Navegación integrada</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Con un solo clic, el recolector puede iniciar la navegación hacia cada punto de retiro, accediendo
-                      a la mejor ruta disponible en tiempo real.
-                    </p>
-                  </div>
-
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 6.042v2.652m-3.176-.97a1.121 1.121 0 000 2.384c.372 1.113 1.651 2.111 3.176 2.111s2.804-.998 3.176-2.111a1.121 1.121 0 000-2.384c-.372-1.113-1.651-2.111-3.176-2.111s-2.804.998-3.176 2.111z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Seguimiento de rendimiento</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Los recolectores pueden visualizar la cantidad de kilos recolectados en cada jornada, accediendo a
-                      métricas claras que reflejan su trabajo.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
-                    <div className="absolute top-6 right-6">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-green-500 mb-4 pr-16">Rol del recolector</h3>
-                    <p className="text-gray-500 leading-relaxed">
-                      Al profesionalizar su tarea con herramientas digitales, buscamos dar mayor visibilidad,
-                      reconocimiento y orden a un trabajo esencial para la economía circular.
-                    </p>
-                  </div>
-                  <div></div>
-                </div>
+                ))}
               </div>
             </div>
 
             <button
               onClick={prevRecolectorSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
+              aria-label="Anterior"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -907,7 +980,8 @@ export default function ReciclajeUrbano() {
 
             <button
               onClick={nextRecolectorSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
+              aria-label="Siguiente"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -915,143 +989,32 @@ export default function ReciclajeUrbano() {
             </button>
           </div>
 
-          <div className="flex justify-center mt-12 space-x-2">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentRecolectorSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentRecolectorSlide === index ? "bg-green-400" : "bg-gray-300"
-                }`}
-              />
-            ))}
-          </div>
+          {/* Indicators */}
+          {(() => {
+            const maxStart = N_RECOLECTOR - RECOLECTOR_VISIBLE
+            const normalizedStart = ((recolectorIndex - N_RECOLECTOR) % N_RECOLECTOR + N_RECOLECTOR) % N_RECOLECTOR
+            const activeDot = Math.min(normalizedStart, maxStart)
+            const dotsCount = isMobile ? N_RECOLECTOR : Math.max(1, N_RECOLECTOR - 1)
+            return (
+              <div className="flex justify-center mt-12 space-x-2">
+                {Array.from({ length: dotsCount }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setRecolectorIndex(N_RECOLECTOR + i)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      activeDot === i ? "bg-green-400 scale-110" : "bg-gray-300"
+                    }`}
+                    aria-label={`Ir al slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )
+          })()}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative mt-20">
-        {/* Floating Green Bar */}
-        <div className="relative z-10 -mb-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-green-400 rounded-3xl p-6 lg:p-8 shadow-xl">
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-                {/* Logo */}
-                <div className="flex-shrink-0">
-                  <Image
-                    src="/images/logo blanco scrapy.png"
-                    alt="Scrapy Logo"
-                    width={200}
-                    height={60}
-                    className="h-12 w-auto"
-                  />
-                </div>
-
-                {/* App Store Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a href="https://apps.apple.com/ar/app/scrapy-reciclaje-de-materiales/id6467031017" target="_blank" rel="noopener noreferrer" className="transition-transform duration-300 hover:-translate-y-1">
-                    <Image
-                      src="/images/appstore.svg"
-                      alt="Descargar en App Store"
-                      width={160}
-                      height={48}
-                      className="h-12 w-auto"
-                    />
-                  </a>
-                  <a href="https://play.google.com/store/apps/details?id=scrapy.app" target="_blank" rel="noopener noreferrer" className="transition-transform duration-300 hover:-translate-y-1">
-                    <Image
-                      src="/images/google-play.svg"
-                      alt="Disponible en Google Play"
-                      width={160}
-                      height={48}
-                      className="h-12 w-auto"
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Footer Content */}
-        <div className="bg-[#b4b4b4] pt-16 pb-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Left - Mascot */}
-              <div className="flex justify-center lg:justify-start">
-                <div className="w-64 h-64">
-                  <Image
-                    src="/images/scrapy footer.png"
-                    alt="Scrapy Mascota"
-                    width={256}
-                    height={256}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Right - Contact Info */}
-              <div className="text-left lg:text-left space-y-6">
-                <h3 className="text-3xl md:text-4xl font-bold text-white">Contactanos</h3>
-                <p className="text-lg text-gray-200 leading-relaxed">
-                  Ser parte del reciclado moderno ahora está a un click de distancia ¡Únite a Scrapy!
-                </p>
-
-                {/* Social Media Icons */}
-                <div className="flex gap-6 mt-8">
-                  {/* Instagram */}
-                  <a href="https://www.instagram.com/scrapy.app/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28-.073-1.689-.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                    </svg>
-                  </a>
-
-                  {/* Facebook */}
-                  <a href="https://www.linkedin.com/company/scrapy-app/?viewAsMember=true" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                    </svg>
-                  </a>
-
-                  {/* WhatsApp */}
-                  <a href="https://api.whatsapp.com/send?phone=5491133019016&text=Hola!%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
-                    </svg>
-                  </a>
-
-                  {/* Email */}
-                  <a href="mailto:info@scrapyapp.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Footer Links */}
-            <div className="border-t border-gray-500 mt-12 pt-8">
-              <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-300">
-                <div className="flex flex-col md:flex-row gap-6 text-sm">
-                  <a href="/terminos-y-condiciones" className="hover:text-white transition-colors duration-300">
-                    TÉRMINOS Y CONDICIONES
-                  </a>
-                  <a href="#" className="hover:text-white transition-colors duration-300">
-                    PRIVACIDAD
-                  </a>
-                </div>
-                <div className="text-sm">COPYRIGHT SCRAPY 2022</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
