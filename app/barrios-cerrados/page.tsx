@@ -180,7 +180,7 @@ export default function BarriosCerrados() {
                   1
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-700 mb-2">Descarga Scrappy App</h3>
+                  <h3 className="text-xl font-bold text-gray-700 mb-2">Descargá Scrapy App</h3>
                   <p className="text-gray-500">Registro simple y rápido para tu hogar</p>
                 </div>
               </div>
@@ -191,8 +191,8 @@ export default function BarriosCerrados() {
                   2
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-700 mb-2">Solicita retiro</h3>
-                  <p className="text-gray-500">Indica material y horario desde la app</p>
+                  <h3 className="text-xl font-bold text-gray-700 mb-2">Solicitá retiro</h3>
+                  <p className="text-gray-500">Indicá material y horario desde la app</p>
                 </div>
               </div>
 
@@ -213,8 +213,8 @@ export default function BarriosCerrados() {
                   4
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-700 mb-2">Gana puntos</h3>
-                  <p className="text-gray-500">Acumula por cada kg reciclado</p>
+                  <h3 className="text-xl font-bold text-gray-700 mb-2">Ganá puntos</h3>
+                  <p className="text-gray-500">Acumulá por cada kg reciclado</p>
                 </div>
               </div>
             </div>
@@ -353,7 +353,7 @@ export default function BarriosCerrados() {
               </div>
               <h3 className="text-xl font-bold text-gray-700 mb-4">Sistema de Puntos</h3>
               <p className="text-gray-500">
-                Suma puntos por cada kg reciclado y canjéalos por beneficios exclusivos en nuestra red.
+                Sumá puntos por cada kg reciclado y canjealos por beneficios exclusivos en nuestra red.
               </p>
             </div>
 
@@ -478,7 +478,7 @@ export default function BarriosCerrados() {
           </h2>
 
           <p className="text-lg md:text-xl text-gray-500 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Únete a la revolución del reciclaje domiciliario y haz la diferencia desde tu hogar con Scrapy App.
+            Unite a la revolución del reciclaje domiciliario y hacé la diferencia desde tu hogar con Scrapy App.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

@@ -115,7 +115,7 @@ export default function ReciclajeIndustrial() {
               Te facilitamos la compra y venta de metales y plásticos reciclables a precios competitivos, maximizando
               beneficios en un entorno seguro, con el respaldo de nuestro equipo experto en la industria y el reciclaje.
               <br />
-              Solo dinos qué necesitas comprar o vender, nosotros nos encargamos de todo: desde encontrar las mejores
+              Solo decinos qué necesitás comprar o vender, nosotros nos encargamos de todo: desde encontrar las mejores
               ofertas hasta gestionar la logística puerta a puerta.
             </p>
           </div>
@@ -181,7 +181,7 @@ export default function ReciclajeIndustrial() {
                 Logísticas
               </h3>
               <p className="text-gray-500 leading-relaxed text-sm">
-                Ofrecemos un servicio logístico con trazabilidad puerta a puerta, para que no debas preocuparte por el
+                Ofrecemos un servicio logístico con trazabilidad puerta a puerta, para que no tengas que preocuparte por el
                 transporte y la entrega de los materiales.
               </p>
             </div>
@@ -328,9 +328,9 @@ export default function ReciclajeIndustrial() {
               <h3 className="text-2xl md:text-3xl text-gray-400 font-medium">Publicá tus materiales para reciclar</h3>
 
               <p className="text-lg text-gray-500 leading-relaxed">
-                Si eres una empresa industrial o recicladora con reciclables de metal o plástico para vender, publícalos
-                en nuestra app o contáctanos directamente. Nuestros asesores te enviarán ofertas disponibles para tu
-                material rápidamente, ¡luego te facilitaremos todo el proceso!
+                Si sos una empresa industrial o recicladora con reciclables de metal o plástico para vender, publicalos
+                en nuestra app o contactate con nosotros directamente. Nuestros asesores te enviarán ofertas disponibles para
+                tu material rápidamente, ¡luego te facilitaremos todo el proceso!
               </p>
 
               <a 
@@ -372,9 +372,8 @@ export default function ReciclajeIndustrial() {
               <h3 className="text-2xl md:text-3xl text-gray-400 font-medium">Ofertá por materiales reciclables</h3>
 
               <p className="text-lg text-gray-500 leading-relaxed">
-                Si te interesa comprar reciclables de metal o plástico, accede a la sección de comprar dentro de la app,
-                encontrarás materiales disponibles para negociar, o bien contáctanos de manera directa. Te ayudaremos a
-                conseguir el material de manera segura y eficiente.
+                Si te interesa comprar reciclables de metal o plástico, accedé a la sección de comprar dentro de la app. Vas a encontrar materiales disponibles para negociar, o bien contactate con nosotros de manera directa. Te
+                vamos a ayudar a conseguir el material de manera segura y eficiente.
               </p>
 
               <a 
@@ -416,7 +415,7 @@ export default function ReciclajeIndustrial() {
                   </div>
                   <div>
                     <h4 className="text-xl font-semibold text-gray-600 mb-2">Acceso a materiales verificados</h4>
-                    <p className="text-gray-500">Encuentra materiales reciclables de calidad garantizada</p>
+                    <p className="text-gray-500">Encontrá materiales reciclables de calidad garantizada</p>
                   </div>
                 </div>
 
@@ -429,7 +428,7 @@ export default function ReciclajeIndustrial() {
                   </div>
                   <div>
                     <h4 className="text-xl font-semibold text-gray-600 mb-2">Precios competitivos</h4>
-                    <p className="text-gray-500">Compara precios y encuentra las mejores ofertas del mercado</p>
+                    <p className="text-gray-500">Compará precios y encontrá las mejores ofertas del mercado</p>
                   </div>
                 </div>
 
@@ -462,7 +461,7 @@ export default function ReciclajeIndustrial() {
                   </div>
                   <div>
                     <h4 className="text-xl font-semibold text-gray-600 mb-2">Mayor alcance de mercado</h4>
-                    <p className="text-gray-500">Conecta con compradores de todo el país</p>
+                    <p className="text-gray-500">Conectá con compradores de todo el país</p>
                   </div>
                 </div>
 
@@ -502,12 +501,12 @@ export default function ReciclajeIndustrial() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-green-50 rounded-3xl p-12 lg:p-16 text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-green-500 mb-8 leading-tight">
-              ¿Quieres conocer mejor Scrapy?
+              ¿Querés conocer mejor Scrapy?
             </h2>
 
             <p className="text-lg text-gray-500 mb-12 leading-relaxed max-w-4xl mx-auto">
-              Si tienes dudas de cómo funciona Scrapy nuestro equipo puede guiarte. Contacta con nosotros y te
-              enseñaremos la plataforma, sus ventajas y aclararemos todas las dudas sin compromiso.
+              Si tenés dudas de cómo funciona Scrapy nuestro equipo puede guiarte. Contactate con nosotros y te vamos a
+              enseñar la plataforma y sus ventajas, aclarando todas las dudas sin compromiso.
             </p>
 
             <a 

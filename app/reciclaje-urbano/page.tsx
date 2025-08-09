@@ -319,7 +319,7 @@ export default function ReciclajeUrbano() {
             </div>
 
             <p className="text-lg md:text-xl text-gray-400 max-w-xl">
-              Verifica si tu ciudad ya cuenta con nuestro servicio y comienza a reciclar en tu comercio, hogar o
+              Verificá si tu ciudad ya cuenta con nuestro servicio y empezá a reciclar en tu comercio, hogar o
               institución.
             </p>
           </div>
@@ -433,7 +433,7 @@ export default function ReciclajeUrbano() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
                 ),
-                desc: "Ganá Scrapy Points para canjear por beneficios.",
+                desc: "Ganá Scrapy Points para canjearlos por beneficios.",
               },
             ].map(({ title, icon, desc }) => (
               <div
@@ -472,11 +472,11 @@ export default function ReciclajeUrbano() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight text-shadow-dark">
-              ¿Tienes duda de cómo entregar tus materiales?
+              ¿Tenés dudas sobre cómo entregar tus materiales?
             </h2>
 
             <p className="text-lg md:text-xl text-white mb-12 leading-relaxed max-w-2xl text-shadow-light">
-              Descarga nuestra guía de reciclaje que te muestre cómo preparar el material.
+              Descargá nuestra guía de reciclaje. Te mostramos cómo preparar el material.
             </p>
 
             <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl text-lg flex items-center gap-3">
@@ -575,7 +575,7 @@ export default function ReciclajeUrbano() {
       <BenefitsCarousel
         cards={benefitCards}
         title="Generadores"
-        subtitle="Descubre cómo Scrapy App Urbano facilita el reciclaje para hogares, comercios e instituciones."
+        subtitle="Descubrí cómo Scrapy App Urbano facilita el reciclaje para hogares, comercios e instituciones."
         isMobile={isMobile}
       />
       
@@ -621,7 +621,7 @@ export default function ReciclajeUrbano() {
       <BenefitsCarousel
         cards={coopCards}
         title="Cooperativas y Municipios"
-        subtitle="Optimiza la gestión de reciclaje en tu comunidad con nuestra solución tecnológica."
+        subtitle="Optimizá la gestión de reciclaje en tu comunidad con nuestra solución tecnológica."
         isMobile={isMobile}
       />
 
@@ -667,7 +667,7 @@ export default function ReciclajeUrbano() {
       <BenefitsCarousel
         cards={recolectorCards}
         title="Recolectores"
-        subtitle="Simplifica tu trabajo diario y maximiza tu eficiencia con nuestra aplicación."
+        subtitle="Simplificá tu trabajo diario y maximizá tu eficiencia con nuestra aplicación."
         isMobile={isMobile}
       />
 

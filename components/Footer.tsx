@@ -59,7 +59,7 @@ export default function Footer() {
             <div className="text-left space-y-4 order-2 lg:order-1">
               <h3 className="text-3xl md:text-4xl font-bold text-gray-800">Contactanos</h3>
               <p className="text-lg text-gray-600">
-                Ser parte del reciclado moderno ahora está a un click de distancia ¡Únite a Scrapy!
+                Ser parte del reciclado moderno ahora está a un click de distancia ¡Unite a Scrapy!
               </p>
 
               {/* Social Media Icons */}
