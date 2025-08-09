@@ -134,12 +134,12 @@ export function LocationChecker() {
                             role="combobox"
                             size="xl"
                             className={cn(
-                              "w-full border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none justify-between h-full text-left font-normal",
-                              !field.value && "text-muted-foreground"
+                              "w-full px-6 py-4 rounded-full border border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none justify-between h-full text-left font-normal bg-white",
+                              !field.value && "text-gray-400"
                             )}
                           >
                             {field.value
-                              ? field.value.toUpperCase()
+                              ? capitalize(field.value)
                               : "Seleccioná una localidad"}
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
@@ -177,7 +177,7 @@ export function LocationChecker() {
                                         : "opacity-0"
                                     )}
                                   />
-                                  {locality.toUpperCase()}
+                                  {capitalize(locality)}
                                 </CommandItem>
                               ))}
                             </CommandGroup>
@@ -242,3 +242,27 @@ export function LocationChecker() {
   );
 }
 
+function capitalize(sentence: string) {
+  return sentence
+    .split(" ")
+    .map((word) => {
+      // Handle words with punctuation or special characters
+      if (word.length === 0) return word;
+      
+      // Find the first letter (skip leading punctuation)
+      let firstLetterIndex = 0;
+      while (firstLetterIndex < word.length && !/[a-zA-Z]/.test(word[firstLetterIndex])) {
+        firstLetterIndex++;
+      }
+      
+      if (firstLetterIndex >= word.length) return word; // No letters found
+      
+      // Capitalize the first letter and lowercase the rest
+      return (
+        word.slice(0, firstLetterIndex) + 
+        word[firstLetterIndex].toUpperCase() + 
+        word.slice(firstLetterIndex + 1).toLowerCase()
+      );
+    })
+    .join(" ");
+}
