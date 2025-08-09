@@ -128,12 +128,12 @@ export default function Contacto() {
       <section className="bg-green-50 py-20 pt-28 md:pt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500 mb-8 leading-tight">
-            ¿Como puedo formar parte?
+            ¿Cómo puedo formar parte?
           </h1>
 
           <p className="text-lg md:text-xl text-gray-500 mb-4">¿Listo para transformar el reciclaje?</p>
           <p className="text-lg md:text-xl text-gray-500 max-w-3xl mx-auto">
-            Estamos aquí para ayudarte a dar el siguiente paso hacia la sostenibilidad.
+            Estamos acá para ayudarte a dar el siguiente paso hacia la sostenibilidad.
           </p>
         </div>
       </section>
@@ -167,7 +167,7 @@ export default function Contacto() {
                 >
                   Contactar para municipios
                 </a>
-                <p className="text-gray-500 text-sm text-center">Mejora la gestión de residuos de tu municipio</p>
+                <p className="text-gray-500 text-sm text-center">Mejorá la gestión de residuos de tu municipio</p>
               </div>
             </div>
 
@@ -196,7 +196,7 @@ export default function Contacto() {
                 >
                   Contactar para cooperativas
                 </a>
-                <p className="text-gray-500 text-sm text-center">Potencia tu cooperativa con tecnología</p>
+                <p className="text-gray-500 text-sm text-center">Potenciá tu cooperativa con tecnología</p>
               </div>
             </div>
 
@@ -225,7 +225,7 @@ export default function Contacto() {
                 >
                   Contactar para industrias
                 </a>
-                <p className="text-gray-500 text-sm text-center">Optimiza tus procesos industriales</p>
+                <p className="text-gray-500 text-sm text-center">Optimizá tus procesos industriales</p>
               </div>
             </div>
           </div>
@@ -289,7 +289,7 @@ export default function Contacto() {
                   Contactar para beneficios
                 </a>
                 <p className="text-gray-500 text-sm text-center">
-                  Suma puntos por cada kg reciclado, canjeables por tu red
+                  Sumá puntos por cada kg reciclado, canjeables por tu red
                 </p>
               </div>
             </div>
@@ -327,7 +327,7 @@ export default function Contacto() {
           </div>
 
           <p className="text-gray-500 text-lg">
-            Verifica si tu ciudad ya cuenta con nuestro servicio de reciclaje urbano
+            Verificá si tu ciudad ya cuenta con nuestro servicio de reciclaje urbano
           </p>
         </div>
       </section>
@@ -339,10 +339,10 @@ export default function Contacto() {
             {/* Left Side - Contact Form */}
             <div className="space-y-8">
               <div className="inline-block bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                MANTENTE INFORMADO
+                MANTENETE INFORMADO
               </div>
 
-              <h2 className="text-4xl md:text-5xl font-bold text-green-500">Contacta con Scrapy</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-green-500">Contactate con Scrapy</h2>
 
               <p className="text-lg text-gray-500 leading-relaxed">
                 Dejanos tus datos para que podamos ayudarte con la mejor solución para tu organización. Estamos
@@ -356,7 +356,7 @@ export default function Contacto() {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Ingresa tu dirección de email"
+                      placeholder="Ingresá tu dirección de email"
                       className="w-full px-6 py-4 rounded-full border border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
                       required
                     />
