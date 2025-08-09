@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Toaster } from "@/components/ui/toaster"
 import WhatsappButton from "@/components/WhatsappButton"
+import { Providers } from '@/components/query-provider'
 
 export const metadata: Metadata = {
   title: 'Scrapy App',
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body suppressHydrationWarning={true}>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
         <WhatsappButton />
         <Toaster />
       </body>
