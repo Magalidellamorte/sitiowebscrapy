@@ -134,7 +134,7 @@ export function LocationChecker() {
                             role="combobox"
                             size="xl"
                             className={cn(
-                              "w-full px-6 py-4 rounded-full border border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none justify-between h-full text-left font-normal bg-white",
+                              "w-full px-6 py-4 rounded-full border border-gray-200 placeholder-gray-400 text-gray-600 text-base focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none justify-between h-full text-left font-normal bg-white",
                               !field.value && "text-gray-400"
                             )}
                           >
@@ -195,9 +195,10 @@ export function LocationChecker() {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem className="h-full">
+                  <FormItem>
                     <FormControl>
                       <FormInput
+                        className="w-full h-14 px-6 py-4 rounded-full border border-gray-200 bg-white placeholder-gray-400 text-gray-600 text-base md:text-base font-normal outline-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-0 ring-offset-0"
                         placeholder="tuemail@ejemplo.com"
                         {...field}
                       />
