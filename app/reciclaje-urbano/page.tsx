@@ -298,7 +298,7 @@ export default function ReciclajeUrbano() {
 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 px-4 sm:px-6 lg:px-8 items-center">
-          <div className="space-y-8">
+          <div className="space-y-8 order-2 sm:order-1">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500">¿Tu Localidad ya forma parte?</h2>
 
             <div className="max-w-2xl">
@@ -311,7 +311,7 @@ export default function ReciclajeUrbano() {
             </p>
           </div>
 
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex justify-center lg:justify-end order-1 sm:order-2">
             <Image
               src="/images/hero-image-2.png"
               alt="Persona usando el móvil"
