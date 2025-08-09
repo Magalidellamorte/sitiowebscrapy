@@ -2,6 +2,7 @@
 
 import type React from "react"
 
+import { LocationChecker } from "@/components/LocationChecker";
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { toast } from "@/hooks/use-toast"
@@ -307,23 +308,7 @@ export default function Contacto() {
           <h3 className="text-2xl md:text-3xl font-bold text-green-500 mb-12">Fijate si tu localidad ya forma parte</h3>
 
           <div className="max-w-2xl mx-auto mb-8">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Ingresa tu código postal o ciudad"
-                className="w-full px-6 py-4 rounded-full bg-white border border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none text-lg"
-              />
-              <button className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-500">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </div>
+            <LocationChecker />
           </div>
 
           <p className="text-gray-500 text-lg">
