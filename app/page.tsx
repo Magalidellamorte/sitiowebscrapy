@@ -28,7 +28,7 @@ export default function ScrapyWebsite() {
     {
       id: 3,
       image: "/images/problematica4.png",
-      title: "Falta de traza y datos para decisiones",
+      title: "Falta de trazabilidad y datos para decisiones",
     },
     {
       id: 4,
@@ -234,7 +234,7 @@ export default function ScrapyWebsite() {
               <InfoCard
                 icon={<EarthIcon ref={earthIconRef} />}
                 title="Ambiental"
-                description="Aumentamos el reciclaje, reducimos los residuos y fomentamos la economía circular"
+                description="Aumentamos el reciclaje, reducimos los residuos y promovemos la economía circular"
                 onHoverStart={() => earthIconRef.current?.startAnimation()}
                 onHoverEnd={() => earthIconRef.current?.stopAnimation()}
               />
@@ -562,7 +562,7 @@ export default function ScrapyWebsite() {
             className="text-xl md:text-2xl text-white mb-12 leading-relaxed max-w-4xl mx-auto"
             style={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.8)" }}
           >
-            Únete a la revolución tecnológica del reciclaje y genera un impacto positivo real
+            Unite a la revolución tecnológica del reciclaje y generá un impacto positivo real
           </p>
 
           {/* CTA Buttons */}
