@@ -1,14 +1,12 @@
 import type { Config } from "tailwindcss";
 
-// all in fixtures is set to tailwind v3 as interims solutions
-
 const config: Config = {
-    darkMode: ["class"],
-    content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "*.{js,ts,jsx,tsx,mdx}"
+  darkMode: ['class'],
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    '*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
   	extend: {
@@ -69,6 +67,9 @@ const config: Config = {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+		fontFamily: {
+			sans: ['Poppins', 'sans-serif'],
+		},
   		keyframes: {
   			'accordion-down': {
   				from: {
@@ -85,11 +86,24 @@ const config: Config = {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+            'underline-expand': {
+                '0%': {
+                    width: '0%',
+                    left: '50%',
+                    transform: 'translateX(-50%)'
+                },
+                '100%': {
+                    width: '100%',
+                    left: '0%',
+                    transform: 'translateX(0%)'
+                }
+            }
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+            'underline': 'underline-expand 0.4s ease forwards'
   		}
   	}
   },
