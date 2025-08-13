@@ -5,6 +5,7 @@ import Image from "next/image"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/Footer"
 import BenefitsCarousel from "@/components/BenefitsCarousel"
+import { LocationChecker } from "@/components/LocationChecker"
 
 export default function ReciclajeUrbano() {
   const [isMobile, setIsMobile] = useState(false)
@@ -297,25 +298,11 @@ export default function ReciclajeUrbano() {
 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 px-4 sm:px-6 lg:px-8 items-center">
-          <div className="space-y-8">
+          <div className="space-y-8 order-2 sm:order-1">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500">¿Tu Localidad ya forma parte?</h2>
 
-            <div className="relative max-w-lg">
-              <input
-                type="text"
-                placeholder="Ingresa tu código postal o ciudad"
-                className="w-full px-6 py-4 rounded-full bg-gray-100 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:bg-white outline-none"
-              />
-              <button className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-500">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
+            <div className="max-w-2xl">
+              <LocationChecker />
             </div>
 
             <p className="text-lg md:text-xl text-gray-400 max-w-xl">
@@ -324,7 +311,7 @@ export default function ReciclajeUrbano() {
             </p>
           </div>
 
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex justify-center lg:justify-end order-1 sm:order-2">
             <Image
               src="/images/hero-image-2.png"
               alt="Persona usando el móvil"
