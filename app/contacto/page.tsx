@@ -215,7 +215,7 @@ export default function Contacto() {
 
             <ServiceCard
               imageSrc="/images/beneficios.png"
-              imageAlt="Beneficios industriales"
+              imageAlt="Persona poniendo una moneda en una alcancía"
               category="Obtené beneficios"
               title="Contactar para beneficios"
               description="Sumá puntos por cada kg reciclado, canjeables por tu red"
