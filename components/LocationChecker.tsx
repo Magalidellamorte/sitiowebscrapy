@@ -237,7 +237,7 @@ function AvailabilityDialog({ open, onOpenChange, content }: AvailabilityDialogP
       <DialogContent className="sm:max-w-md w-[calc(100%-2rem)] rounded-lg overflow-hidden border-0 shadow-xl mx-auto">
         <div className="p-4 sm:p-6">
           <DialogHeader className="space-y-3">
-            <DialogTitle className="text-xl sm:text-2xl font-bold tracking-tight text-gray-800">
+            <DialogTitle className="text-xl sm:text-2xl font-bold tracking-tight text-center text-gray-800">
               {content?.title}
             </DialogTitle>
             <DialogDescription className="text-sm sm:text-base text-gray-500">
