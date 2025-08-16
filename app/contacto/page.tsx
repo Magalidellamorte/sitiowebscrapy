@@ -4,10 +4,11 @@ import type React from "react"
 
 import { LocationChecker } from "@/components/LocationChecker";
 import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
 import { toast } from "@/hooks/use-toast"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/Footer"
+import { ServiceCard } from "@/components/ServiceCard"
+import { ContactInput } from "@/components/ContactInput"
 
 // Service options mapping
 const serviceOptions = [
@@ -27,9 +28,11 @@ const getServiceLabel = (value: string) => {
 }
 
 export default function Contacto() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [email, setEmail] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [phone, setPhone] = useState("")
   const [serviceType, setServiceType] = useState("")
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -62,6 +65,24 @@ export default function Contacto() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [])
 
+  // Handle service card click - scroll to form and set service type
+  const handleServiceCardClick = (serviceValue: string) => {
+    setServiceType(serviceValue)
+    
+    // Scroll to contact form with 20px offset
+    const contactForm = document.getElementById('contact-form')
+    if (contactForm) {
+      const rect = contactForm.getBoundingClientRect()
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      const targetPosition = rect.top + scrollTop - 20
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -70,6 +91,9 @@ export default function Contacto() {
     // Data to send
     const formData = {
       email,
+      firstName,
+      lastName,
+      phone,
       serviceType,
     }
     
@@ -97,6 +121,9 @@ export default function Contacto() {
         
         // Reset form
         setEmail("");
+        setFirstName("");
+        setLastName("");
+        setPhone("");
         setServiceType("");
       } else {
         // Error notification with toast
@@ -143,157 +170,58 @@ export default function Contacto() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {/* Como Municipio */}
-            <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="relative">
-                <Image
-                  src="/images/municipio.png"
-                  alt="Representante municipal"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Como Municipio
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <a 
-                  href="https://api.whatsapp.com/send?phone=5491133019016&text=¡Hola!%20Quiero%20recibir%20información%20para%20municipios%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-full transition mb-4 block text-center"
-                >
-                  Contactar para municipios
-                </a>
-                <p className="text-gray-500 text-sm text-center">Mejorá la gestión de residuos de tu municipio</p>
-              </div>
-            </div>
+            <ServiceCard
+              imageSrc="/images/municipio.png"
+              imageAlt="Representante municipal"
+              category="Como Municipio"
+              title="Contactar para municipios"
+              description="Mejorá la gestión de residuos de tu municipio"
+              serviceValue="municipios"
+              onContactClick={handleServiceCardClick}
+            />
 
-            {/* Como Cooperativas */}
-            <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="relative">
-                <Image
-                  src="/images/cooperativa.png"
-                  alt="Cooperativa trabajando"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Como Cooperativas
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <a 
-                  href="https://api.whatsapp.com/send?phone=5491133019016&text=¡Hola!%20Quiero%20recibir%20información%20para%20cooperativas%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-full transition mb-4 block text-center"
-                >
-                  Contactar para cooperativas
-                </a>
-                <p className="text-gray-500 text-sm text-center">Potenciá tu cooperativa con tecnología</p>
-              </div>
-            </div>
+            <ServiceCard
+              imageSrc="/images/cooperativa.png"
+              imageAlt="Cooperativa trabajando"
+              category="Como Cooperativa"
+              title="Contactar para cooperativas"
+              description="Potenciá tu cooperativa con tecnología"
+              serviceValue="cooperativas"
+              onContactClick={handleServiceCardClick}
+            />
 
-            {/* Como Industria */}
-            <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="relative">
-                <Image
-                  src="/images/industria.png"
-                  alt="Planta industrial"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Como Industria
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <a 
-                  href="https://api.whatsapp.com/send?phone=5491133019016&text=¡Hola!%20Quiero%20recibir%20información%20para%20industrias%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-full transition mb-4 block text-center"
-                >
-                  Contactar para industrias
-                </a>
-                <p className="text-gray-500 text-sm text-center">Optimizá tus procesos industriales</p>
-              </div>
-            </div>
+            <ServiceCard
+              imageSrc="/images/industria.png"
+              imageAlt="Planta industrial"
+              category="Como Industria"
+              title="Contactar para industrias"
+              description="Optimizá tus procesos industriales"
+              serviceValue="industrial"
+              onContactClick={handleServiceCardClick}
+            />
           </div>
 
           {/* Second Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Como barrio cerrado */}
-            <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="relative">
-                <Image
-                  src="/images/barriocerrado.png"
-                  alt="Vista aérea de barrio cerrado"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Como barrio cerrado
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <a 
-                  href="https://api.whatsapp.com/send?phone=5491133019016&text=¡Hola!%20Quiero%20recibir%20información%20para%20barrios%20cerrados%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-full transition mb-4 block text-center"
-                >
-                  Contactar para barrios cerrados
-                </a>
-                <p className="text-gray-500 text-sm text-center">
-                  Servicio para tu red de residencias exclusivas de tu barrio
-                </p>
-              </div>
-            </div>
+            <ServiceCard
+              imageSrc="/images/barriocerrado.png"
+              imageAlt="Vista aérea de barrio cerrado"
+              category="Como Barrio Cerrado"
+              title="Contactar para barrios cerrados"
+              description="Servicio para tu red de residencias exclusivas de tu barrio"
+              serviceValue="barrios cerrados"
+              onContactClick={handleServiceCardClick}
+            />
 
-            {/* Descargas Beneficios */}
-            <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="relative">
-                <Image
-                  src="/images/beneficios.png"
-                  alt="Beneficios industriales"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Descargas Beneficios
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <a 
-                  href="https://api.whatsapp.com/send?phone=5491133019016&text=¡Hola!%20Quiero%20recibir%20información%20sobre%20beneficios%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-full transition mb-4 block text-center"
-                >
-                  Contactar para beneficios
-                </a>
-                <p className="text-gray-500 text-sm text-center">
-                  Sumá puntos por cada kg reciclado, canjeables por tu red
-                </p>
-              </div>
-            </div>
+            <ServiceCard
+              imageSrc="/images/beneficios.png"
+              imageAlt="Beneficios industriales"
+              category="Obtené beneficios"
+              title="Contactar para beneficios"
+              description="Sumá puntos por cada kg reciclado, canjeables por tu red"
+              serviceValue="beneficios"
+              onContactClick={handleServiceCardClick}
+            />
           </div>
         </div>
       </section>
@@ -335,32 +263,64 @@ export default function Contacto() {
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name fields */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <div className="flex-1">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Ingresá tu dirección de email"
-                      className="w-full px-6 py-4 rounded-full border border-gray-200 placeholder-gray-400 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
+                    <ContactInput
+                      type="text"
+                      label="Nombre"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                       required
                     />
                   </div>
+                  <div className="flex-1">
+                    <ContactInput
+                      type="text"
+                      label="Apellido"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Email and Phone */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex-1">
+                    <ContactInput
+                      type="email"
+                      label="Correo electrónico"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <ContactInput
+                      type="tel"
+                      label="Teléfono"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </div>
+                  </div>
                   
-                  <div className="w-full sm:w-auto">
-                    {/* Custom dropdown implementation */}
+                                {/* Service type dropdown and Submit button */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex-1">
                     <div className="relative">
                       {serviceType ? (
                         <div 
                           id="dropdownButton"
                           onClick={() => setDropdownOpen(!dropdownOpen)}
-                          className="w-full sm:w-48 bg-white px-6 py-4 rounded-full border border-gray-200 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none cursor-pointer pr-10 flex items-center"
+                          className="w-full bg-white px-6 py-4 rounded-full border border-gray-200 text-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none cursor-pointer pr-10 flex items-center"
                         >
                           <div className="truncate mr-2">
                             {getServiceLabel(serviceType)}
                           </div>
                           <svg 
-                            className={`w-4 h-4 flex-shrink-0 fill-current text-gray-500 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`} 
+                            className={`w-4 h-4 flex-shrink-0 fill-current text-gray-500 transition-transform duration-200 ml-auto ${dropdownOpen ? "transform rotate-180" : ""}`} 
                             xmlns="http://www.w3.org/2000/svg" 
                             viewBox="0 0 20 20"
                           >
@@ -371,9 +331,9 @@ export default function Contacto() {
                         <div 
                           id="dropdownButton"
                           onClick={() => setDropdownOpen(!dropdownOpen)}
-                          className="w-full sm:w-48 bg-white px-6 py-4 rounded-full border border-gray-200 text-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none cursor-pointer pr-10 flex items-center justify-between"
+                          className="w-full bg-white px-6 py-4 rounded-full border border-gray-200 text-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none cursor-pointer pr-10 flex items-center justify-between"
                         >
-                          Servicio
+                          Servicio *
                           <svg 
                             className={`w-4 h-4 ml-2 fill-current text-gray-500 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`}
                             xmlns="http://www.w3.org/2000/svg" 
@@ -384,10 +344,10 @@ export default function Contacto() {
                         </div>
                       )}
                       
-                      {/* Styled dropdown */}
+                      {/* Styled dropdown with higher z-index */}
                       <div 
                         id="serviceDropdown" 
-                        className={`absolute left-0 right-0 sm:right-auto sm:w-48 mt-2 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden z-10 transition-opacity duration-200 ${dropdownOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                        className={`absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden z-[9999] transition-opacity duration-200 ${dropdownOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                       >
                         {serviceOptions.filter(option => option.value !== "municipio").map((option) => (
                           <div 
@@ -417,15 +377,16 @@ export default function Contacto() {
                           </option>
                         ))}
                       </select>
-                    </div>
                   </div>
                 </div>
 
+                  {/* Submit button */}
+                  <div className="w-full sm:w-auto">
                 <button
                   ref={submitButtonRef}
                   type="submit"
-                  disabled={!email || !serviceType || isSubmitting}
-                  className="w-full bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg relative"
+                      disabled={!firstName || !lastName || !email || !serviceType || isSubmitting}
+                      className="w-full sm:w-40 bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg relative"
                 >
                   <span className={isSubmitting ? "opacity-0" : "opacity-100"}>
                     Enviar →
@@ -436,6 +397,8 @@ export default function Contacto() {
                     </div>
                   )}
                 </button>
+                  </div>
+                </div>
               </form>
             </div>
 
