@@ -54,10 +54,10 @@ export async function addContactToGoogleSheet(data: ContactFormData) {
     
     // Add a row to the sheet
     await sheet.addRow({
-      Nombre: data.firstName,
-      Apellido: data.lastName,
+      Name: data.firstName,
+      LastName: data.lastName,
       Email: data.email,
-      Telefono: data.phone || '',
+      Phone: data.phone || '',
       Service: formattedServiceType,
       Timestamp: timestamp,
       Status: "Pendiente",
