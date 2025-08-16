@@ -36,7 +36,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { FormInput } from "@/components/ui/form-input";
+import { ContactInput } from "@/components/ContactInput";
 import { zonesService, CreateInterestResponse } from "@/services/zones";
 import localities from "@/data/localities.json";
 
@@ -174,10 +174,12 @@ function LocalityItem({ locality, field, setIsOpen }: LocalityItemProps) {
 function EmailInput({ field }: { field: any }) {
   return (
     <FormControl>
-      <FormInput
-        className="w-full h-14 px-6 py-4 rounded-full border border-gray-200 bg-white placeholder:text-gray-400 text-gray-600 text-base md:text-base font-normal outline-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-0 ring-offset-0"
-        placeholder="tuemail@ejemplo.com"
-        {...field}
+      <ContactInput
+        type="email"
+        label="Email"
+        value={field.value}
+        onChange={field.onChange}
+        required
       />
     </FormControl>
   );
