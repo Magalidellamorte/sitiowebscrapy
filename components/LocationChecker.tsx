@@ -37,7 +37,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ContactInput } from "@/components/ContactInput";
-import { zonesService, CreateInterestResponse } from "@/services/zones";
+import { createLocalityInterest, LocalityInterestResponse } from "@/services/locality";
 import localities from "@/data/localities.json";
 
 const FormSchema = z.object({
@@ -281,11 +281,11 @@ export function LocationChecker() {
     undefined;
 
   const createInterestMutation = useMutation<
-    CreateInterestResponse,
+    LocalityInterestResponse,
     Error,
-    { zoneName: string; email: string }
+    { locality: string; email: string }
   >({
-    mutationFn: (data) => zonesService.createInterest(data),
+    mutationFn: (data) => createLocalityInterest(data),
     onSuccess: (response) => {
       const { available, zoneName } = response;
       setModalContent({
@@ -311,7 +311,7 @@ export function LocationChecker() {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     createInterestMutation.mutate({
       email: data.email,
-      zoneName: data.locality,
+      locality: data.locality,
     });
   }
 
