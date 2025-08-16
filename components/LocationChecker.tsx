@@ -187,10 +187,13 @@ function EmailInput({ field }: { field: any }) {
 
 function SubmitButton({ isPending }: { isPending: boolean }) {
   const form = useFormContext();
-  const isValid = form.formState.isValid;
+  const { email, locality } = form.watch();
+  
+  // Button is enabled when both fields have some content (not necessarily valid)
+  const hasContent = email.trim().length > 0 && locality.trim().length > 0;
   
   return (
-    <Button type="submit" variant="primary" size="xl" className="w-full" disabled={!isValid || isPending}>
+    <Button type="submit" variant="primary" size="xl" className="w-full" disabled={!hasContent || isPending}>
       <span className={isPending ? "opacity-0" : "opacity-100"}>Verificar →</span>
       {isPending && (
         <div className="absolute inset-0 flex items-center justify-center">
@@ -261,6 +264,7 @@ export function LocationChecker() {
   } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLocalityOpen, setIsLocalityOpen] = useState(false);
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -275,10 +279,14 @@ export function LocationChecker() {
     formState: { isValid, errors },
   } = form;
 
-  const groupErrorMessage =
-    (errors.locality?.message as string | undefined) ||
-    (errors.email?.message as string | undefined) ||
-    undefined;
+  // Only show errors after the user has attempted to submit at least once
+  const shouldShowErrors = hasAttemptedSubmit;
+  
+  const groupErrorMessage = shouldShowErrors
+    ? (errors.locality?.message as string | undefined) ||
+      (errors.email?.message as string | undefined) ||
+      undefined
+    : undefined;
 
   const createInterestMutation = useMutation<
     LocalityInterestResponse,
@@ -309,16 +317,26 @@ export function LocationChecker() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    // Mark that the user has attempted to submit
+    setHasAttemptedSubmit(true);
+    
+    // Only proceed with the mutation if form is valid
+    // If invalid, react-hook-form will prevent submission and show errors
     createInterestMutation.mutate({
       email: data.email,
       locality: data.locality,
     });
   }
 
+  function onInvalidSubmit() {
+    // This will be called when form validation fails
+    setHasAttemptedSubmit(true);
+  }
+
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit, onInvalidSubmit)} className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1">
               <FormField
