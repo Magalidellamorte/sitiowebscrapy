@@ -1,15 +1,23 @@
 "use client"
 
 import React from "react"
+import { useWhatsAppRedirect } from "@/lib/whatsapp-redirect"
 
 export default function WhatsappButton() {
-  const href = "https://api.whatsapp.com/send?phone=5491133019016&text=Hola!%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F"
+  const { redirect } = useWhatsAppRedirect({
+    phone: "5491133019016",
+    text: "Hola! ♻️ ☺️"
+  })
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    redirect()
+  }
 
   return (
     <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      href="https://api.whatsapp.com/send?phone=5491133019016&text=Hola!%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F"
+      onClick={handleClick}
       aria-label="Contactar por WhatsApp"
       className="group fixed bottom-6 right-6 z-50 inline-flex items-center h-14 rounded-full bg-green-400 text-white shadow-lg hover:bg-green-500 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white/60 px-0 gap-0 md:group-hover:pr-6 md:group-hover:pl-3 md:group-hover:gap-2"
     >
