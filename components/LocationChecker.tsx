@@ -37,7 +37,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ContactInput } from "@/components/ContactInput";
-import { zonesService, CreateInterestResponse } from "@/services/zones";
+import { createLocalityInterest, LocalityInterestResponse } from "@/services/locality";
 import localities from "@/data/localities.json";
 
 const FormSchema = z.object({
@@ -187,10 +187,13 @@ function EmailInput({ field }: { field: any }) {
 
 function SubmitButton({ isPending }: { isPending: boolean }) {
   const form = useFormContext();
-  const isValid = form.formState.isValid;
+  const { email, locality } = form.watch();
+  
+  // Button is enabled when both fields have some content (not necessarily valid)
+  const hasContent = email.trim().length > 0 && locality.trim().length > 0;
   
   return (
-    <Button type="submit" variant="primary" size="xl" className="w-full" disabled={!isValid || isPending}>
+    <Button type="submit" variant="primary" size="xl" className="w-full" disabled={!hasContent || isPending}>
       <span className={isPending ? "opacity-0" : "opacity-100"}>Verificar →</span>
       {isPending && (
         <div className="absolute inset-0 flex items-center justify-center">
@@ -237,7 +240,7 @@ function AvailabilityDialog({ open, onOpenChange, content }: AvailabilityDialogP
       <DialogContent className="sm:max-w-md w-[calc(100%-2rem)] rounded-lg overflow-hidden border-0 shadow-xl mx-auto">
         <div className="p-4 sm:p-6">
           <DialogHeader className="space-y-3">
-            <DialogTitle className="text-xl sm:text-2xl font-bold tracking-tight text-gray-800">
+            <DialogTitle className="text-xl sm:text-2xl font-bold tracking-tight text-center text-gray-800">
               {content?.title}
             </DialogTitle>
             <DialogDescription className="text-sm sm:text-base text-gray-500">
@@ -261,6 +264,7 @@ export function LocationChecker() {
   } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLocalityOpen, setIsLocalityOpen] = useState(false);
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -275,17 +279,21 @@ export function LocationChecker() {
     formState: { isValid, errors },
   } = form;
 
-  const groupErrorMessage =
-    (errors.locality?.message as string | undefined) ||
-    (errors.email?.message as string | undefined) ||
-    undefined;
+  // Only show errors after the user has attempted to submit at least once
+  const shouldShowErrors = hasAttemptedSubmit;
+  
+  const groupErrorMessage = shouldShowErrors
+    ? (errors.locality?.message as string | undefined) ||
+      (errors.email?.message as string | undefined) ||
+      undefined
+    : undefined;
 
   const createInterestMutation = useMutation<
-    CreateInterestResponse,
+    LocalityInterestResponse,
     Error,
-    { zoneName: string; email: string }
+    { locality: string; email: string }
   >({
-    mutationFn: (data) => zonesService.createInterest(data),
+    mutationFn: (data) => createLocalityInterest(data),
     onSuccess: (response) => {
       const { available, zoneName } = response;
       setModalContent({
@@ -309,16 +317,26 @@ export function LocationChecker() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    // Mark that the user has attempted to submit
+    setHasAttemptedSubmit(true);
+    
+    // Only proceed with the mutation if form is valid
+    // If invalid, react-hook-form will prevent submission and show errors
     createInterestMutation.mutate({
       email: data.email,
-      zoneName: data.locality,
+      locality: data.locality,
     });
+  }
+
+  function onInvalidSubmit() {
+    // This will be called when form validation fails
+    setHasAttemptedSubmit(true);
   }
 
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit, onInvalidSubmit)} className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1">
               <FormField
