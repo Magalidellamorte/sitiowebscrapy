@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/Footer"
 
 export default function ReciclajeIndustrial() {
-  const [currentUserSlide, setCurrentUserSlide] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
 
   const userTypes = [
     {
@@ -39,13 +39,53 @@ export default function ReciclajeIndustrial() {
     },
   ]
 
+  // Carrusel circular infinito
+  const N_USER = userTypes.length
+  const extendedUserTypes = useMemo(() => [...userTypes, ...userTypes, ...userTypes], [userTypes])
+  const [userIndex, setUserIndex] = useState(N_USER)
+  const [userImmediate, setUserImmediate] = useState(false)
+  const VISIBLE_CARDS = 1 // Siempre mostrar 1 tarjeta completa
+  const slideWidthPct = 100 / VISIBLE_CARDS
+
   const nextUserSlide = () => {
-    setCurrentUserSlide((prev) => (prev + 1) % userTypes.length)
+    setUserImmediate(false)
+    setUserIndex((i) => i + 1)
   }
 
   const prevUserSlide = () => {
-    setCurrentUserSlide((prev) => (prev - 1 + userTypes.length) % userTypes.length)
+    setUserImmediate(false)
+    setUserIndex((i) => i - 1)
   }
+
+  const handleUserTransitionEnd = () => {
+    if (userIndex >= 2 * N_USER) {
+      setUserImmediate(true)
+      setUserIndex((i) => i - N_USER)
+    } else if (userIndex < N_USER) {
+      setUserImmediate(true)
+      setUserIndex((i) => i + N_USER)
+    }
+  }
+
+  // Volver a habilitar transición luego de un salto inmediato
+  useEffect(() => {
+    if (!userImmediate) return
+    const id = requestAnimationFrame(() => setUserImmediate(false))
+    return () => cancelAnimationFrame(id)
+  }, [userImmediate])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-white">
@@ -214,51 +254,57 @@ export default function ReciclajeIndustrial() {
 
           {/* Carousel Container */}
           <div className="relative max-w-6xl mx-auto">
-            <div className="overflow-hidden rounded-3xl">
+            <div className="carousel-container">
               <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentUserSlide * 100}%)` }}
+                className="flex will-change-transform"
+                style={{
+                  transform: `translateX(-${userIndex * slideWidthPct}%)`,
+                  transition: userImmediate ? "none" : "transform 300ms ease-in-out",
+                }}
+                onTransitionEnd={handleUserTransitionEnd}
               >
-                {userTypes.map((userType, index) => (
-                  <div key={userType.id} className="w-full flex-shrink-0">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-gray-50 rounded-3xl p-8 lg:p-12">
-                      {/* Left Content */}
-                      <div className="space-y-8">
-                        <div className="flex items-center gap-4">
-                          <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
-                            {userType.label}
-                          </span>
-                          <div className="flex-1 h-0.5 bg-green-500"></div>
+                {extendedUserTypes.map((userType, i) => (
+                  <div key={`${userType.id}-${i}`} className="w-full flex-shrink-0 px-3">
+                    <div className="bg-gray-50 rounded-3xl p-8 lg:p-12 mx-2">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        {/* Left Content */}
+                        <div className="space-y-8">
+                          <div className="flex items-center gap-4">
+                            <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
+                              {userType.label}
+                            </span>
+                            <div className="flex-1 h-0.5 bg-green-500"></div>
+                          </div>
+
+                          <div className="space-y-4">
+                            <p className="text-xl md:text-2xl text-gray-500 leading-relaxed">
+                              {userType.description}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-2 text-gray-400">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M17 8l4 4m0 0l-4 4m4-4H3"
+                              />
+                            </svg>
+                          </div>
                         </div>
 
-                        <div className="space-y-4">
-                          <p className="text-xl md:text-2xl text-gray-500 leading-relaxed">
-                            {userType.description}
-                          </p>
-                        </div>
-
-                        <div className="flex items-center gap-2 text-gray-400">
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        {/* Right Content - Image */}
+                        <div className="flex justify-center lg:justify-end">
+                          <div className="relative">
+                            <Image
+                              src={userType.image || "/placeholder.svg"}
+                              alt={userType.alt}
+                              width={600}
+                              height={400}
+                              className="w-full h-80 lg:h-96 object-cover rounded-3xl shadow-lg"
                             />
-                          </svg>
-                        </div>
-                      </div>
-
-                      {/* Right Content - Image */}
-                      <div className="flex justify-center lg:justify-end">
-                        <div className="relative">
-                          <Image
-                            src={userType.image || "/placeholder.svg"}
-                            alt={userType.alt}
-                            width={600}
-                            height={400}
-                            className="w-full h-80 lg:h-96 object-cover rounded-3xl shadow-lg"
-                          />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -270,7 +316,8 @@ export default function ReciclajeIndustrial() {
             {/* Navigation Arrows */}
             <button
               onClick={prevUserSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
+              aria-label="Anterior"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -279,7 +326,8 @@ export default function ReciclajeIndustrial() {
 
             <button
               onClick={nextUserSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-50 rounded-full p-3 nav-button z-10"
+              aria-label="Siguiente"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -288,17 +336,24 @@ export default function ReciclajeIndustrial() {
           </div>
 
           {/* Indicators */}
-          <div className="flex justify-center mt-12 space-x-2">
-            {userTypes.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentUserSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentUserSlide === index ? "bg-green-500" : "bg-gray-300"
-                }`}
-              />
-            ))}
-          </div>
+          {(() => {
+            const normalizedStart = ((userIndex - N_USER) % N_USER + N_USER) % N_USER
+            const activeDot = normalizedStart
+            return (
+              <div className="flex justify-center mt-12 space-x-2">
+                {Array.from({ length: N_USER }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setUserIndex(N_USER + i)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      activeDot === i ? "bg-green-400 scale-110" : "bg-gray-300"
+                    }`}
+                    aria-label={`Ir al slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )
+          })()}
         </div>
       </section>
 

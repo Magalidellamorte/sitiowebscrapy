@@ -6,6 +6,12 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/Footer"
 import BenefitsCarousel from "@/components/BenefitsCarousel"
 import { LocationChecker } from "@/components/LocationChecker"
+import InfoCard from "@/components/InfoCard"
+import { SmartphoneIcon } from "@/components/ui/smartphone"
+import { UploadIcon } from "@/components/ui/upload"
+import { CheckCircleIcon } from "@/components/ui/check-circle"
+import { MapPinIcon } from "@/components/ui/map-pin"
+import { CircleDollarSignIcon } from "@/components/ui/circle-dollar-sign"
 
 export default function ReciclajeUrbano() {
   const [isMobile, setIsMobile] = useState(false)
@@ -32,14 +38,14 @@ export default function ReciclajeUrbano() {
           />
         </svg>
       ),
-      title: "Retiros automáticos programados",
+      title: "Retiros programados",
       description: "Para generadores frecuentes (edificios, comercios o instituciones), la app permite programar retiros semanales fijos. Así, cuando el contenedor se llena, no hace falta cargarlo manualmente: la recolección ya está agendada."
     },
     {
       id: 3,
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.97 0 1.372 1.24.589 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.839-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.589-1.81h3.46a1 1 0 00.952-.69l1.07-3.292z" />
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
         </svg>
       ),
       title: "Recompensas por reciclar",
@@ -66,8 +72,8 @@ export default function ReciclajeUrbano() {
     {
       id: 1,
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
         </svg>
       ),
       title: "Nuevos generadores",
@@ -76,8 +82,8 @@ export default function ReciclajeUrbano() {
     {
       id: 2,
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.97 0 1.372 1.24.589 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.839-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.589-1.81h3.46a1 1 0 00.952-.69l1.07-3.292z" />
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
         </svg>
       ),
       title: "Sistema de recompensas",
@@ -86,13 +92,8 @@ export default function ReciclajeUrbano() {
     {
       id: 3,
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M10.325 4.317c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07"
-          />
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 2h2v4h-2V5zm0 6h2v2h-2v-2zm-4-6h2v2H7V5zm0 4h2v2H7V9zm0 4h2v2H7v-2zm8 4h2v2h-2v-2zm0-4h2v2h-2v-2zm0-4h2v2h-2V9z"/>
         </svg>
       ),
       title: "Panel administrativo",
@@ -101,13 +102,8 @@ export default function ReciclajeUrbano() {
     {
       id: 4,
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-          />
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
         </svg>
       ),
       title: "Datos",
@@ -131,13 +127,9 @@ export default function ReciclajeUrbano() {
     {
       id: 6,
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-          />
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
+          <path d="M8 10h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/>
         </svg>
       ),
       title: "Ley de basura cero",
@@ -146,7 +138,9 @@ export default function ReciclajeUrbano() {
     {
       id: 7,
       icon: (
-        <span className="text-white text-lg">😊</span>
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
       ),
       title: "Imagen institucional",
       description: "Acompañamos a los municipios a demostrar su compromiso con el reciclaje, fortaleciendo su posicionamiento en sustentabilidad y generando mayor adhesión ciudadana."
@@ -187,13 +181,8 @@ export default function ReciclajeUrbano() {
     {
       id: 3,
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
-          />
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
         </svg>
       ),
       title: "Navegación integrada",
@@ -202,13 +191,8 @@ export default function ReciclajeUrbano() {
     {
       id: 4,
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 6.042v2.652m-3.176-.97a1.121 1.121 0 000 2.384c.372 1.113 1.651 2.111 3.176 2.111s2.804-.998 3.176-2.111a1.121 1.121 0 000-2.384c-.372-1.113-1.651-2.111-3.176-2.111s-2.804.998-3.176 2.111z"
-          />
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
         </svg>
       ),
       title: "Seguimiento de rendimiento",
@@ -217,17 +201,40 @@ export default function ReciclajeUrbano() {
     {
       id: 5,
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-          />
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
         </svg>
       ),
       title: "Rol del recolector",
       description: "Al profesionalizar su tarea con herramientas digitales, buscamos dar mayor visibilidad, reconocimiento y orden a un trabajo esencial para la economía circular."
+    }
+  ]
+
+  const appSteps = [
+    {
+      title: "Descargá la app",
+      description: "Disponible en Android y iOS. Creá tu cuenta en simples pasos.",
+      icon: <SmartphoneIcon size={24} />
+    },
+    {
+      title: "Subí tus reciclables",
+      description: "Verificá tu dirección, subí foto del material y elegí día y hora.",
+      icon: <UploadIcon size={24} />
+    },
+    {
+      title: "Verificación",
+      description: "El administrador aprueba o rechaza las solicitudes.",
+      icon: <CheckCircleIcon size={24} />
+    },
+    {
+      title: "Ruta inteligente",
+      description: "El recolector recibe una ruta optimizada para reducir emisiones.",
+      icon: <MapPinIcon size={24} />
+    },
+    {
+      title: "Sumá puntos",
+      description: "Ganá Scrapy Points para canjearlos por beneficios.",
+      icon: <CircleDollarSignIcon size={24} />
     }
   ]
 
@@ -350,89 +357,13 @@ export default function ReciclajeUrbano() {
           </header>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5 mb-16">
-            {[
-              {
-                title: "Descargá la app",
-                icon: (
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                ),
-                desc: "Disponible en Android y iOS. Creá tu cuenta en simples pasos.",
-              },
-              {
-                title: "Subí tus reciclables",
-                icon: (
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6m-.9 7l-3-3m0 0l-3 3m3-3v12"
-                    />
-                  </svg>
-                ),
-                desc: "Verificá tu dirección, subí foto del material y elegí día y hora.",
-              },
-              {
-                title: "Verificación",
-                icon: (
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                ),
-                desc: "El administrador aprueba o rechaza las solicitudes.",
-              },
-              {
-                title: "Ruta inteligente",
-                icon: (
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                ),
-                desc: "El recolector recibe una ruta optimizada para reducir emisiones.",
-              },
-              {
-                title: "Sumá puntos",
-                icon: (
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                ),
-                desc: "Ganá Scrapy Points para canjearlos por beneficios.",
-              },
-            ].map(({ title, icon, desc }) => (
-              <div
-                key={title}
-                className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center"
-              >
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500 flex items-center justify-center">
-                  {icon}
-                </div>
-                <h3 className="text-xl font-bold text-green-500 mb-3">{title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
-              </div>
+            {appSteps.map((step) => (
+              <InfoCard
+                key={step.title}
+                icon={step.icon}
+                title={step.title}
+                description={step.description}
+              />
             ))}
           </div>
 
@@ -455,7 +386,7 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      <section className="py-20 relative bg-cover bg-center bg-black-alpha-50" style={{ backgroundImage: "url('/images/banner reciclaje urbano.jpeg')" }}>
+      <section className="py-20 bg-gray-50 relative bg-cover bg-center bg-black-alpha-50" style={{ backgroundImage: "url('/images/banner reciclaje urbano.jpeg')" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight text-shadow-dark">
@@ -481,80 +412,19 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      {/* Principales Beneficios para Generadores */}
+      <section className="py-20 bg-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500 leading-tight">
-              Beneficios para cada sector
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="flex items-center gap-4">
-                <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
-                  GENERADORES
-                </span>
-                <div className="flex-1 h-0.5 bg-green-500"></div>
-              </div>
-
-              <p className="text-lg md:text-xl text-gray-500 leading-relaxed">
-                Scrapy App Urbano permite que cualquier generador de reciclables —ya sea un hogar, comercio o
-                institución— pueda formar parte activa de una comunidad que recicla de forma simple, trazable y con
-                beneficios concretos.
-              </p>
-
-              <h3 className="text-2xl md:text-3xl font-bold text-green-500">¿Quiénes pueden ser generadores?</h3>
-
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                    </svg>
-                  </div>
-                  <span className="text-lg text-gray-600 font-medium">Hogares</span>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fillRule="evenodd"
-                        d="M2 6a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <span className="text-lg text-gray-600 font-medium">Comercios</span>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fillRule="evenodd"
-                        d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <span className="text-lg text-gray-600 font-medium">Instituciones</span>
-                </div>
-              </div>
+            <div className="mb-4">
+              <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
+                GENERADORES
+              </span>
             </div>
-
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative">
-                <Image
-                  src="/images/generador.png"
-                  alt="Personas de diferentes sectores participando en reciclaje urbano"
-                  width={600}
-                  height={400}
-                  className="w-full h-auto object-cover rounded-3xl shadow-lg"
-                />
-              </div>
-            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700 mb-4">Principales beneficios</h2>
+            <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+              Descubrí cómo Scrapy App Urbano facilita el reciclaje para hogares, comercios e instituciones.
+            </p>
           </div>
         </div>
       </section>
@@ -610,6 +480,7 @@ export default function ReciclajeUrbano() {
         title="Cooperativas y Municipios"
         subtitle="Optimizá la gestión de reciclaje en tu comunidad con nuestra solución tecnológica."
         isMobile={isMobile}
+        carouselClassName="carousel-container"
       />
 
       <section className="py-20 bg-white">
@@ -656,6 +527,7 @@ export default function ReciclajeUrbano() {
         title="Recolectores"
         subtitle="Simplificá tu trabajo diario y maximizá tu eficiencia con nuestra aplicación."
         isMobile={isMobile}
+        carouselClassName="carousel-container"
       />
 
       <Footer />
