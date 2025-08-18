@@ -172,9 +172,8 @@ export default function ReciclajeIndustrial() {
                 <br />
                 Oportunidades
               </h3>
-              <p className="text-gray-500 leading-relaxed text-sm">
-                En nuestra plataforma, encontrarás una amplia gama de materiales reciclables de plástico y metales, todo
-                en un solo lugar. Esto facilita la búsqueda y la selección de los materiales que tu empresa necesita.
+              <p className="text-gray-500 leading-relaxed ">
+              Accedé a una amplia variedad de materiales reciclables en un solo lugar, facilitando la búsqueda y selección para tu empresa.
               </p>
             </div>
 
@@ -188,9 +187,8 @@ export default function ReciclajeIndustrial() {
                 <br />
                 usuarios
               </h3>
-              <p className="text-gray-500 leading-relaxed text-sm">
-                Proveemos un entorno seguro y confiable mediante un riguroso proceso de verificación de usuarios,
-                garantizando que todas las transacciones se realicen con empresas legítimas y confiables.
+              <p className="text-gray-500 leading-relaxed ">
+              Garantizamos transacciones seguras con un proceso de verificación que asegura empresas legítimas y confiables.
               </p>
             </div>
 
@@ -204,9 +202,8 @@ export default function ReciclajeIndustrial() {
                 <br />
                 ofertas
               </h3>
-              <p className="text-gray-500 leading-relaxed text-sm">
-                Facilitamos negociaciones ágiles y justas entre compradores y vendedores, asegurando que ambas partes
-                obtengan el mejor trato posible.
+              <p className="text-gray-500 leading-relaxed">
+              Facilitamos negociaciones justas entre compradores y vendedores para lograr el mejor acuerdo.
               </p>
             </div>
 
@@ -220,9 +217,8 @@ export default function ReciclajeIndustrial() {
                 <br />
                 Logísticas
               </h3>
-              <p className="text-gray-500 leading-relaxed text-sm">
-                Ofrecemos un servicio logístico con trazabilidad puerta a puerta, para que no tengas que preocuparte por el
-                transporte y la entrega de los materiales.
+              <p className="text-gray-500 leading-relaxed ">
+              Ofrecemos logística con trazabilidad puerta a puerta para que no te preocupes por el transporte.
               </p>
             </div>
           </div>

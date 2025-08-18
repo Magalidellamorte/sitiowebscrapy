@@ -452,7 +452,7 @@ export default function ReciclajeUrbano() {
                 de generadores y ofrecer un servicio más eficiente, transparente y trazable.
               </p>
 
-              <div className="bg-green-400 rounded-3xl p-8 text-white">
+              <div className="bg-green-500 rounded-3xl p-8 text-white">
                 <p className="text-lg md:text-xl leading-relaxed">
                   Scrapy App Urbano convierte la gestión del reciclaje en un proceso moderno, participativo y
                   sustentable, generando valor para todas las partes involucradas.
@@ -499,7 +499,7 @@ export default function ReciclajeUrbano() {
                 labor diaria, optimizando tiempos y mejorando su experiencia de trabajo.
               </p>
 
-              <div className="bg-green-400 rounded-3xl p-8 text-white">
+              <div className="bg-green-500 rounded-3xl p-8 text-white">
                 <p className="text-lg md:text-xl leading-relaxed">
                   Scrapy App Urbano transforma el día a día del recolector, haciendo su tarea más ágil, segura y
                   valorada.
