@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/Footer"
+import WhatsAppLink from "@/components/WhatsAppLink"
 
 export default function ReciclajeIndustrial() {
   const [isMobile, setIsMobile] = useState(false)
@@ -129,14 +130,13 @@ export default function ReciclajeIndustrial() {
                 Visitar marketplace
               </a>
 
-              <a 
-                href="https://api.whatsapp.com/send?phone=5491133019016&text=%C2%A1Hola!%20Quiero%20recibir%20informaci%C3%B3n%20para%20industrias%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
-                target="_blank" 
-                rel="noopener noreferrer"
+              <WhatsAppLink 
+                phone="5491133019016"
+                text="¡Hola! Quiero recibir información para industrias ♻️ ☺️"
                 className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg min-w-[200px] text-center inline-block"
               >
                 Contactar
-              </a>
+              </WhatsAppLink>
             </div>
           </div>
         </div>

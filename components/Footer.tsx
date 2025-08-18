@@ -1,4 +1,5 @@
 import Image from "next/image"
+import WhatsAppLink from "./WhatsAppLink"
 
 export default function Footer() {
   return (
