@@ -103,7 +103,7 @@ export default function ScrapyWebsite() {
       <Navbar currentPage="/" variant="home" />
 
       {/* Hero Section */}
-      <div className="relative min-h-screen flex items-center pt-32 md:pt-28 overflow-hidden">
+      <div className="relative min-h-screen flex items-start pt-32 md:pt-28">
         <video
           autoPlay
           loop
@@ -113,7 +113,7 @@ export default function ScrapyWebsite() {
           src="/images/header home.mp4"
         />
         <div className="absolute inset-0 bg-black/40 z-10" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 mt-16">
           <div className="max-w-4xl">
             {/* Main Title */}
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
@@ -141,55 +141,66 @@ export default function ScrapyWebsite() {
               <br />
               sociedad.
             </p>
+          </div>
+        </div>
 
-            {/* Stats Card */}
-            <div className="bg-gray-50 rounded-t-3xl rounded-b-none p-6 md:p-8 shadow-2xl max-w-lg backdrop-blur-sm">
-            {/* Stats Row */}
-              <div className="flex flex-col md:flex-row gap-6 mb-8">
-                {/* Recycled Stats */}
-                <div className="flex items-center gap-4 flex-1">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <img src="/images/reciclados.png" alt="Reciclados" className="w-8 h-8 object-contain" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-800">+150.000 kg</div>
-                    <div className="text-gray-600">Reciclados</div>
-                  </div>
-                </div>
-
-                {/* Users Stats */}
-                <div className="flex items-center gap-4 flex-1">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <img src="/images/registrados.png" alt="Usuarios registrados" className="w-8 h-8 object-contain" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-800">+1000</div>
-                    <div className="text-gray-600">Usuarios registrados</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* CTA Button */}
-              <a 
-                href="#soluciones-tecnologicas"
-                className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg block text-center"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('soluciones-tecnologicas')?.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                  });
+        {/* Stats Card - Positioned absolutely at the bottom to overlap with next section */}
+        <div className="absolute bottom-0 left-0 w-full z-30 transform translate-y-1/4" style={{ filter: 'drop-shadow(0 10px 12px rgba(0, 0, 0, 0.12))' }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-start">
+              <div 
+                className="bg-gray-50 rounded-3xl p-6 md:p-8 max-w-lg"
+                style={{
+                  boxShadow: '0 12px 25px -6px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.02)'
                 }}
               >
-                Ver Soluciones
-              </a>
+                {/* Stats Row */}
+                <div className="flex flex-col md:flex-row gap-6 mb-8">
+                  {/* Recycled Stats */}
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <img src="/images/reciclados.png" alt="Reciclados" className="w-8 h-8 object-contain" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-2xl font-bold text-gray-800 leading-tight whitespace-nowrap">+150.000 kg</div>
+                      <div className="text-gray-600 leading-tight">Reciclados</div>
+                    </div>
+                  </div>
+
+                  {/* Users Stats */}
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <img src="/images/registrados.png" alt="Usuarios registrados" className="w-8 h-8 object-contain" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-2xl font-bold text-gray-800 leading-tight">+1000</div>
+                      <div className="text-gray-600 whitespace-nowrap leading-tight">Usuarios registrados</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA Button */}
+                <a 
+                  href="#soluciones-tecnologicas"
+                  className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg block text-center"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('soluciones-tecnologicas')?.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    });
+                  }}
+                >
+                  Ver Soluciones
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Triple Impacto Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Triple Impacto Section - Con padding top ajustado para el overlap */}
+      <section className="pt-32 pb-20 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Content */}
