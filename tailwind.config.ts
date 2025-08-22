@@ -60,6 +60,19 @@ const config: Config = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
+  			},
+  			// Colores del Sistema de Beneficios
+  			green: {
+  				50: '#ECFDF5',  // Color de fondo verde claro del sistema de beneficios
+  				100: '#D1FAE5',
+  				200: '#A7F3D0',
+  				300: '#6EE7B7',
+  				400: '#39b76f',
+  				500: '#39b76f',  // Color principal verde del sistema de beneficios
+  				600: '#059669',
+  				700: '#047857',
+  				800: '#065F46',
+  				900: '#064E3B',
   			}
   		},
   		borderRadius: {
@@ -69,6 +82,22 @@ const config: Config = {
   		},
 		fontFamily: {
 			sans: ['Poppins', 'sans-serif'],
+			},
+		// Tamaños de fuente consistentes del sistema de beneficios
+		fontSize: {
+			xs: ['0.75rem', { lineHeight: '1rem' }],
+			sm: ['0.875rem', { lineHeight: '1.25rem' }],
+			base: ['1rem', { lineHeight: '1.5rem' }],
+			lg: ['1.125rem', { lineHeight: '1.75rem' }],
+			xl: ['1.25rem', { lineHeight: '1.75rem' }],
+			'2xl': ['1.5rem', { lineHeight: '2rem' }],
+			'3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+			'4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+			'5xl': ['3rem', { lineHeight: '1' }],
+			'6xl': ['3.75rem', { lineHeight: '1' }],
+			'7xl': ['4.5rem', { lineHeight: '1' }],
+			'8xl': ['6rem', { lineHeight: '1' }],
+			'9xl': ['8rem', { lineHeight: '1' }],
 		},
   		keyframes: {
   			'accordion-down': {

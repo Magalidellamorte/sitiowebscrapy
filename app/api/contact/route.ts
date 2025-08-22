@@ -5,11 +5,11 @@ import { addContactToGoogleSheet } from '@/lib/google-sheets';
 export async function POST(req: NextRequest) {
   try {
     // Get form data from request
-    const { email, serviceType } = await req.json();
+    const { email, firstName, lastName, phone, serviceType } = await req.json();
     
-    if (!email || !serviceType) {
+    if (!firstName || !lastName || !email || !serviceType) {
       return NextResponse.json(
-        { success: false, message: 'Email y tipo de servicio son requeridos' },
+        { success: false, message: 'Nombre, apellido, email y tipo de servicio son requeridos' },
         { status: 400 }
       );
     }
@@ -143,8 +143,12 @@ export async function POST(req: NextRequest) {
                 <div class="service-info">
                   <table width="100%" cellspacing="0" cellpadding="0">
                     <tr>
+                      <td><strong>Nombre:</strong> ${firstName} ${lastName}</td>
+                    </tr>
+                    <tr>
                       <td><strong>Email del cliente:</strong> ${email}</td>
                     </tr>
+                    ${phone ? `<tr><td><strong>Teléfono:</strong> ${phone}</td></tr>` : ''}
                     <tr>
                       <td><strong>Tipo de servicio:</strong> ${formattedServiceType}</td>
                     </tr>
@@ -183,7 +187,13 @@ export async function POST(req: NextRequest) {
 
     // Add to Google Sheets
     try {
-      const sheetResult = await addContactToGoogleSheet({ email, serviceType });
+      const sheetResult = await addContactToGoogleSheet({ 
+        email, 
+        firstName, 
+        lastName, 
+        phone, 
+        serviceType 
+      });
       if (!sheetResult.success) {
         console.error('Error with Google Sheets:', sheetResult.error);
       }
