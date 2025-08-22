@@ -3,9 +3,6 @@ import { JWT } from 'google-auth-library';
 
 interface ContactFormData {
   email: string;
-  firstName: string;
-  lastName: string;
-  phone?: string;
   serviceType: string;
   timestamp?: string;
 }
@@ -54,10 +51,7 @@ export async function addContactToGoogleSheet(data: ContactFormData) {
     
     // Add a row to the sheet
     await sheet.addRow({
-      Name: data.firstName,
-      LastName: data.lastName,
       Email: data.email,
-      Phone: data.phone || '',
       Service: formattedServiceType,
       Timestamp: timestamp,
       Status: "Pendiente",

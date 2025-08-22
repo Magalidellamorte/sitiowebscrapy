@@ -62,7 +62,7 @@ const BenefitsCarousel: FC<BenefitsCarouselProps> = ({ cards, title, subtitle, i
         </div>
 
         <div className="relative max-w-6xl mx-auto">
-          <div className="carousel-container">
+          <div className="overflow-hidden rounded-2xl py-4 px-3">
             <div
               className="flex will-change-transform"
               style={{
@@ -73,7 +73,7 @@ const BenefitsCarousel: FC<BenefitsCarouselProps> = ({ cards, title, subtitle, i
             >
               {extendedCards.map((card, i) => (
                 <div key={`${card.id}-${i}`} className="w-full md:w-1/2 flex-shrink-0 px-3">
-                  <div className="bg-white rounded-3xl p-8 carousel-card relative">
+                  <div className="bg-white rounded-3xl p-8 carousel-card relative mx-2">
                     <div className="absolute top-6 right-6">
                       <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
                         {card.icon}
