@@ -339,6 +339,82 @@ export default function ScrapyWebsite() {
         </div>
       </section>
 
+      {/* Casos de uso Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Casos de exito</h2>
+            <p className="text-lg md:text-xl text-gray-500">
+              Scrapy ya está transformando el reciclaje en estas localidades
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Card: Pinamar */}
+            <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-shadow flex flex-col">
+              <div className="relative overflow-hidden rounded-t-2xl">
+                <Image
+                  src="/images/reciclaje-urbano.jpeg"
+                  alt="Pinamar - Implementación de Scrapy Urbano"
+                  width={800}
+                  height={400}
+                  className="w-full h-56 object-cover"
+                />
+                <span className="absolute top-4 left-4 bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full shadow-sm">
+                  Pinamar
+                </span>
+              </div>
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Pinamar</h3>
+                <p className="text-gray-600 mb-4 flex-grow">
+                  Implementación exitosa de Scrapy Urbano en colaboración con cooperativas locales, mejorando la recolección diferenciada en la ciudad balnearia.
+                </p>
+                <a
+                  href="/contacto"
+                  className="inline-flex items-center justify-between w-full bg-white border border-gray-200 hover:border-gray-300 text-gray-800 font-medium py-3 px-4 rounded-lg transition-colors mt-auto"
+                >
+                  Conocer más
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 ml-2">
+                    <path fillRule="evenodd" d="M4.5 12a.75.75 0 01.75-.75h12.19l-4.22-4.22a.75.75 0 111.06-1.06l5.5 5.5a.75.75 0 010 1.06l-5.5 5.5a.75.75 0 11-1.06-1.06l4.22-4.22H5.25A.75.75 0 014.5 12z" clipRule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Card: La Plata */}
+            <div className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-shadow flex flex-col">
+              <div className="relative overflow-hidden rounded-t-2xl">
+                <Image
+                  src="/images/reciclaje industrial.jpeg"
+                  alt="La Plata - Proyecto piloto con municipio"
+                  width={800}
+                  height={400}
+                  className="w-full h-56 object-cover"
+                />
+                <span className="absolute top-4 left-4 bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full shadow-sm">
+                  La Plata
+                </span>
+              </div>
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">La Plata</h3>
+                <p className="text-gray-600 mb-4 flex-grow">
+                  Proyecto piloto en desarrollo con el municipio de La Plata para optimizar la gestión de residuos reciclables urbanos.
+                </p>
+                <a
+                  href="/contacto"
+                  className="inline-flex items-center justify-between w-full bg-white border border-gray-200 hover:border-gray-300 text-gray-800 font-medium py-3 px-4 rounded-lg transition-colors mt-auto"
+                >
+                  Conocer más
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 ml-2">
+                    <path fillRule="evenodd" d="M4.5 12a.75.75 0 01.75-.75h12.19l-4.22-4.22a.75.75 0 111.06-1.06l5.5 5.5a.75.75 0 010 1.06l-5.5 5.5a.75.75 0 11-1.06-1.06l4.22-4.22H5.25A.75.75 0 014.5 12z" clipRule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
   {/* Problemáticas Section */}
       <section
         className="py-20 relative bg-cover bg-center"
