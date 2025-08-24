@@ -26,7 +26,7 @@ export default function Navbar({ currentPage = "", variant = "default" }: Navbar
     { label: "Reciclaje Industrial", href: "/reciclaje-industrial" },
     // Comentado según lo pedido
     // { label: "Barrios Cerrados", href: "/barrios-cerrados" },
-    { label: "Beneficios", href: "https://beneficios.scrapyapp.com/user/coupons", external: true },
+    { label: "Beneficios", href: "/beneficios" },
     { label: "Contacto", href: "/contacto" },
   ];
 
@@ -98,8 +98,6 @@ export default function Navbar({ currentPage = "", variant = "default" }: Navbar
               <Link
                 key={item.href}
                 href={item.href}
-                target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noopener noreferrer" : undefined}
                 className={`${textBaseClass} ${isActive ? "text-opacity-100" : "text-opacity-90"} relative group`}
               >
                 {item.label}
@@ -140,8 +138,6 @@ export default function Navbar({ currentPage = "", variant = "default" }: Navbar
                 <Link
                   key={item.href}
                   href={item.href}
-                  target={item.external ? "_blank" : undefined}
-                  rel={item.external ? "noopener noreferrer" : undefined}
                   className={`block px-3 py-2 ${
                     item.label === "Contacto"
                       ? "text-green-400 font-bold"
