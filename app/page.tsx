@@ -10,6 +10,7 @@ import { UsersIcon } from "@/components/ui/users"
 import { EarthIcon } from "@/components/ui/earth"
 
 
+
 export default function ScrapyWebsite() {
   const [isMobile, setIsMobile] = useState(false)
 
