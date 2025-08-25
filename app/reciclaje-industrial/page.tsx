@@ -102,16 +102,45 @@ export default function ReciclajeIndustrial() {
           marginTop: '0px'   // Remove default margin
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="max-w-4xl mx-auto">
-            {/* Main Title - Adjusted for navbar */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Content for Mobile - Centered */}
+          <div className="lg:hidden text-center space-y-8 mt-28 md:mt-32">
+            <h1 className="text-4xl md:text-5xl font-bold text-green-500 leading-tight">
+              Marketplace para el Reciclaje Industrial
+            </h1>
+
+            <p className="text-lg text-gray-500 leading-relaxed max-w-3xl mx-auto">
+              Scrapy Industrial es una plataforma digital que conecta a industrias, recicladoras, pymes y emprendedores con oportunidades de compra y venta de materiales reciclables ya clasificados.
+            </p>
+
+            <div className="flex flex-col gap-6 items-center">
+              <a 
+                href="https://industrial.scrapyapp.com/inicio" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-white text-green-500 border-2 border-green-500 hover:bg-gray-50 font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg min-w-[200px] inline-block text-center"
+              >
+                Visitar marketplace
+              </a>
+
+              <WhatsAppLink 
+                phone="5491133019016"
+                text="¡Hola! Quiero recibir información para industrias ♻️ ☺️"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg min-w-[200px] text-center inline-block"
+              >
+                Contactar
+              </WhatsAppLink>
+            </div>
+          </div>
+
+          {/* Content for Desktop - Original Layout */}
+          <div className="hidden lg:block max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500 mb-8 leading-tight mt-28 md:mt-32">
               Marketplace para el
               <br />
               Reciclaje Industrial
             </h1>
 
-            {/* Subtitle */}
             <p className="text-lg text-gray-500 mb-12 leading-relaxed max-w-3xl mx-auto md:text-lg">
               Scrapy Industrial es una plataforma digital que conecta a industrias,
               <br />
@@ -119,7 +148,6 @@ export default function ReciclajeIndustrial() {
               <br />y venta de materiales reciclables ya clasificados.
             </p>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <a 
                 href="https://industrial.scrapyapp.com/inicio" 
@@ -262,7 +290,34 @@ export default function ReciclajeIndustrial() {
                 {extendedUserTypes.map((userType, i) => (
                   <div key={`${userType.id}-${i}`} className="w-full flex-shrink-0 px-3">
                     <div className="bg-gray-50 rounded-3xl p-8 lg:p-12 mx-2">
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                      {/* Mobile Layout - Centered */}
+                      <div className="lg:hidden text-center space-y-8">
+                        {/* Pill */}
+                        <div className="flex justify-center">
+                          <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
+                            {userType.label}
+                          </span>
+                        </div>
+
+                        {/* Image */}
+                        <div className="flex justify-center">
+                          <Image
+                            src={userType.image || "/placeholder.svg"}
+                            alt={userType.alt}
+                            width={600}
+                            height={400}
+                            className="w-full h-80 object-cover rounded-3xl shadow-lg max-w-md"
+                          />
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-xl text-gray-500 leading-relaxed">
+                          {userType.description}
+                        </p>
+                      </div>
+
+                      {/* Desktop Layout - Original */}
+                      <div className="hidden lg:grid lg:grid-cols-2 gap-12 items-center">
                         {/* Left Content */}
                         <div className="space-y-8">
                           <div className="flex items-center gap-4">
@@ -357,8 +412,42 @@ export default function ReciclajeIndustrial() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left - Phone Mockup */}
-            <div className="flex lg:justify-start">
+            {/* Content for Mobile - Centered */}
+            <div className="lg:hidden text-center space-y-8">
+              <h2 className="text-4xl md:text-5xl font-bold text-green-500 leading-tight">
+                Te interesa <span className="text-green-500">VENDER</span>
+              </h2>
+
+              <div className="flex justify-center">
+                <Image
+                  src="/images/reciclaje-industrial.webp"
+                  alt="App Scrapy - Sección Vender"
+                  width={600}
+                  height={400}
+                  className="w-full h-80 object-cover rounded-3xl shadow-lg max-w-md"
+                />
+              </div>
+
+              <h3 className="text-2xl md:text-3xl text-gray-400 font-medium">Publicá tus materiales para reciclar</h3>
+
+              <p className="text-lg text-gray-500 leading-relaxed">
+                Si sos una empresa industrial o recicladora con reciclables de metal o plástico para vender, publicalos
+                en nuestra app o contactate con nosotros directamente. Nuestros asesores te enviarán ofertas disponibles para
+                tu material rápidamente, ¡luego te facilitaremos todo el proceso!
+              </p>
+
+              <a 
+                href="https://api.whatsapp.com/send?phone=5491133019016&text=%C2%A1Hola!%20Quiero%20recibir%20informaci%C3%B3n%20para%20vender%20materiales%20reciclables%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg text-center inline-block"
+              >
+                Contactate con nosotros
+              </a>
+            </div>
+
+            {/* Content for Desktop - Original Layout */}
+            <div className="hidden lg:flex lg:justify-start">
               <div className="relative">
                 <Image
                   src="/images/reciclaje-industrial.webp"
@@ -370,8 +459,7 @@ export default function ReciclajeIndustrial() {
               </div>
             </div>
 
-            {/* Right - Content */}
-            <div className="space-y-8">
+            <div className="hidden lg:block space-y-8">
               <h2 className="text-4xl md:text-5xl font-bold text-green-500 leading-tight">
                 Te interesa <span className="text-green-500">VENDER</span>
               </h2>
@@ -401,8 +489,41 @@ export default function ReciclajeIndustrial() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Right - Phone Mockup */}
-            <div className="flex lg:justify-end row-start-1 lg:col-start-2">
+            {/* Content for Mobile - Centered */}
+            <div className="lg:hidden text-center space-y-8">
+              <h2 className="text-4xl md:text-5xl font-bold text-green-500 leading-tight">
+                Te interesa <span className="text-green-500">COMPRAR</span>
+              </h2>
+
+              <div className="flex justify-center">
+                <Image
+                  src="/images/bici.png"
+                  alt="App Scrapy - Sección Comprar"
+                  width={600}
+                  height={400}
+                  className="w-full h-80 object-cover rounded-3xl shadow-lg max-w-md"
+                />
+              </div>
+
+              <h3 className="text-2xl md:text-3xl text-gray-400 font-medium">Ofertá por materiales reciclables</h3>
+
+              <p className="text-lg text-gray-500 leading-relaxed">
+                Si te interesa comprar reciclables de metal o plástico, accedé a la sección de comprar dentro de la app. Vas a encontrar materiales disponibles para negociar, o bien contactate con nosotros de manera directa. Te
+                vamos a ayudar a conseguir el material de manera segura y eficiente.
+              </p>
+
+              <a 
+                href="https://api.whatsapp.com/send?phone=5491133019016&text=%C2%A1Hola!%20Quiero%20recibir%20informaci%C3%B3n%20para%20compras%20materiales%20reciclables%20%E2%99%BB%EF%B8%8F%20%E2%98%BA%EF%B8%8F" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg text-center inline-block"
+              >
+                Contactate con nosotros
+              </a>
+            </div>
+
+            {/* Content for Desktop - Original Layout */}
+            <div className="hidden lg:flex lg:justify-end lg:col-start-2 lg:row-start-1">
               <div className="relative">
                 <Image
                   src="/images/bici.png"
@@ -414,8 +535,7 @@ export default function ReciclajeIndustrial() {
               </div>
             </div>
 
-            {/* Left - Content */}
-            <div className="space-y-8 row-start-2 lg:col-start-1 lg:row-start-1">
+            <div className="hidden lg:block space-y-8 lg:col-start-1 lg:row-start-1">
               <h2 className="text-4xl md:text-5xl font-bold text-green-500 leading-tight">
                 Te interesa <span className="text-green-500">COMPRAR</span>
               </h2>
