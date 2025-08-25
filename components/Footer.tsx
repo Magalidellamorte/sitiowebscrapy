@@ -21,7 +21,7 @@ export default function Footer() {
               </div>
 
               {/* App Store Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-row sm:flex-row gap-4">
                 <a href="https://apps.apple.com/ar/app/scrapy-reciclaje-de-materiales/id6467031017" target="_blank" rel="noopener noreferrer" className="transition-transform duration-300 hover:-translate-y-1">
                   <Image
                     src="/images/appstore.svg"

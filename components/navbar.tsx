@@ -30,37 +30,68 @@ export default function Navbar({ currentPage = "", variant = "default" }: Navbar
     { label: "Contacto", href: "/contacto" },
   ];
 
-  // Determinar si es la página de inicio
-  const isHomePage = currentPage === "/" || currentPage === "";
+  // Determinar el color de fondo según la página actual
+  const getPageHeaderColor = () => {
+    switch (currentPage) {
+      case "/":
+        return "bg-black/40 backdrop-blur-lg"; // Home - mismo efecto difuminado del video hero
+      case "/reciclaje-urbano":
+        return "bg-green-50/95 backdrop-blur-lg"; // Reciclaje urbano - verde claro con transparencia y blur
+      case "/reciclaje-industrial":
+        return "bg-white/95 backdrop-blur-lg"; // Reciclaje industrial - blanco con transparencia y blur
+      case "/contacto":
+        return "bg-gray-800/90 backdrop-blur-lg"; // Contacto - gris oscuro con transparencia y blur
+      default:
+        return "bg-white/95 backdrop-blur-lg"; // Otras páginas - blanco con transparencia y blur
+    }
+  };
 
-  // Determine el color y estilo adecuado para la navegación
+  // Determinar el color del texto según el fondo
+  const getTextColor = () => {
+    switch (currentPage) {
+      case "/":
+      case "/contacto":
+        return "text-white"; // Texto blanco para fondos oscuros
+      case "/reciclaje-urbano":
+      case "/reciclaje-industrial":
+        return "text-gray-800"; // Texto oscuro para fondos claros
+      default:
+        return "text-gray-800"; // Texto oscuro por defecto
+    }
+  };
+
+  // Color para el estado activo (siempre verde de la app)
+  const getActiveTextColor = () => {
+    return "text-green-400";
+  };
+
+  // Determine el color y estilo adecuado para la navegación (solo desktop)
   const getNavBgClass = () => {
     if (variant === 'home') {
       return scrolled ? "bg-black/40 backdrop-blur-sm" : "bg-transparent";
     } else if (variant === 'reciclaje') {
       return scrolled ? "bg-black/5 backdrop-blur-sm" : "bg-transparent";
     } else {
-      // Para otras páginas, fondo blanco con sombra al hacer scroll
       return `bg-white ${scrolled ? "shadow-sm" : "shadow-none"}`;
     }
   };
 
-  // Determine el estilo del texto
+  // Determine el estilo del texto (solo desktop)
   const getTextBaseClass = () => {
     if (variant === 'home') {
-      // Para home, texto blanco con hover verde
       return "text-white hover:text-green-400 transition-colors font-bold";
     } else if (variant === 'reciclaje') {
-      // Para reciclaje, texto gris oscuro
       return "text-gray-500 hover:text-gray-700 transition-colors font-bold";
     } else {
-      // Para otras páginas
       return "text-gray-400 hover:text-gray-600 font-bold";
     }
   };
   
   const navBgClass = getNavBgClass();
   const textBaseClass = getTextBaseClass();
+  const pageHeaderColor = getPageHeaderColor();
+  const mobileTextColor = getTextColor();
+  const activeColor = getActiveTextColor();
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBgClass}`}>
@@ -77,30 +108,16 @@ export default function Navbar({ currentPage = "", variant = "default" }: Navbar
 
         <div className="hidden md:flex items-center space-x-8 font-medium">
           {menuItems.map((item) => {
-            // Determinar si este item está activo
             const isActive = item.href === currentPage;
             
-            // Estilo especial para el botón de contacto
-            if (item.label === "Contacto") {
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="bg-green-400 hover:bg-green-500 text-white px-6 py-3 rounded-full transition-all duration-300 hover:-translate-y-1 font-bold"
-                >
-                  {item.label}
-                </Link>
-              );
-            }
-            
-            // Estilo para items activos normales
+            // Estilo normal para todos los items en desktop (sin botón especial para contacto)
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
-                className={`${textBaseClass} ${isActive ? "text-opacity-100" : "text-opacity-90"} relative group`}
+                className={`${textBaseClass} ${isActive ? "text-green-400" : "text-opacity-90"} relative group`}
               >
                 {item.label}
                 <span className={`absolute -bottom-1 h-0.5 bg-current ${
@@ -115,9 +132,7 @@ export default function Navbar({ currentPage = "", variant = "default" }: Navbar
 
         <button 
           onClick={() => setIsMenuOpen(!isMenuOpen)} 
-          className={`md:hidden focus:outline-none ${
-            variant === 'home' ? "text-white" : variant === 'reciclaje' ? "text-gray-700" : "text-gray-600"
-          }`}
+          className={`md:hidden focus:outline-none ${mobileTextColor}`}
         >
           <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -126,13 +141,7 @@ export default function Navbar({ currentPage = "", variant = "default" }: Navbar
       </div>
 
       {isMenuOpen && (
-        <div className={`md:hidden ${
-          variant === 'home' 
-            ? "bg-black/80 backdrop-blur-md border-t border-white/20" 
-            : variant === 'reciclaje'
-              ? "bg-black/50 backdrop-blur-md border-t border-white/20"
-              : "border-t border-gray-200 bg-white"
-        }`}>
+        <div className={`md:hidden ${pageHeaderColor} backdrop-blur-md border-t border-white/20`}>
           <div className="px-2 pt-2 pb-3 space-y-1">
             {menuItems.map((item) => {
               const isActive = item.href === currentPage;
@@ -142,14 +151,10 @@ export default function Navbar({ currentPage = "", variant = "default" }: Navbar
                   href={item.href}
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noopener noreferrer" : undefined}
-                  className={`block px-3 py-2 ${
-                    item.label === "Contacto"
-                      ? "text-green-400 font-bold"
-                      : variant === 'home' 
-                        ? "text-white hover:text-green-400 transition-colors font-bold" 
-                        : variant === 'reciclaje'
-                          ? "text-gray-700 hover:text-gray-900 transition-colors font-bold"
-                          : `text-gray-600 hover:text-gray-900 font-bold`
+                  className={`block px-3 py-2 font-bold transition-colors ${
+                    isActive 
+                      ? activeColor 
+                      : `${mobileTextColor} hover:${activeColor.replace('text-', 'hover:text-')}`
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >

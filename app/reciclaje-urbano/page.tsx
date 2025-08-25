@@ -257,7 +257,50 @@ export default function ReciclajeUrbano() {
 
       <section className="bg-green-50 py-20 pt-28 md:pt-32">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 px-4 sm:px-6 lg:px-8 items-center">
-          <div className="flex justify-center lg:justify-start">
+          {/* Content for Mobile - Centered */}
+          <div className="lg:hidden text-center space-y-8">
+            <h1 className="text-4xl md:text-5xl font-bold text-green-500 leading-tight">
+              Herramienta para el Reciclaje Urbano
+            </h1>
+            
+            <div className="flex justify-center">
+              <Image
+                src="/images/banner urbano.png"
+                alt="App en smartphone"
+                width={400}
+                height={600}
+                className="h-96 w-auto object-contain rounded-3xl"
+              />
+            </div>
+
+            <p className="text-lg md:text-xl text-gray-500">
+              Creamos una aplicación móvil para fomentar y agilizar la recolección de residuos reciclables que generan hogares, comercios e instituciones.
+            </p>
+
+            <div className="bg-white rounded-3xl p-8 shadow-lg max-w-md mx-auto">
+              <div className="mx-auto mb-6 flex items-center justify-center">
+                <Image
+                  src="/images/scrapy-points.svg"
+                  alt="Scrapy Points"
+                  width={32}
+                  height={32}
+                  className="w-20 h-20"
+                />
+              </div>
+              <a 
+                href="https://beneficios.scrapyapp.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-full mb-4 transition text-center"
+              >
+                Recompensas
+              </a>
+              <p className="text-gray-500 text-center text-sm">Scrapy Points canjeables por beneficios y descuentos.</p>
+            </div>
+          </div>
+
+          {/* Content for Desktop - Original Layout */}
+          <div className="hidden lg:flex justify-center lg:justify-start">
             <Image
               src="/images/banner urbano.png"
               alt="App en smartphone"
@@ -267,7 +310,7 @@ export default function ReciclajeUrbano() {
             />
           </div>
 
-          <div className="space-y-8">
+          <div className="hidden lg:block space-y-8">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500 leading-tight">
               Herramienta para el
               <br />
@@ -305,7 +348,31 @@ export default function ReciclajeUrbano() {
 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 px-4 sm:px-6 lg:px-8 items-center">
-          <div className="space-y-8 order-2 sm:order-1">
+          {/* Content for Mobile - Centered */}
+          <div className="lg:hidden text-center space-y-8">
+            <h2 className="text-4xl md:text-5xl font-bold text-green-500">¿Tu Localidad ya forma parte?</h2>
+            
+            <div className="flex justify-center">
+              <Image
+                src="/images/hero-image-2.png"
+                alt="Persona usando el móvil"
+                width={400}
+                height={600}
+                className="h-96 w-auto object-contain"
+              />
+            </div>
+
+            <div className="max-w-2xl mx-auto">
+              <LocationChecker />
+            </div>
+
+            <p className="text-lg md:text-xl text-gray-400">
+              Verificá si tu ciudad ya cuenta con nuestro servicio y empezá a reciclar en tu comercio, hogar o institución.
+            </p>
+          </div>
+
+          {/* Content for Desktop - Original Layout */}
+          <div className="hidden lg:block space-y-8 order-2 sm:order-1">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-500">¿Tu Localidad ya forma parte?</h2>
 
             <div className="max-w-2xl">
@@ -318,7 +385,7 @@ export default function ReciclajeUrbano() {
             </p>
           </div>
 
-          <div className="flex justify-center lg:justify-end order-1 sm:order-2">
+          <div className="hidden lg:flex justify-center lg:justify-end order-1 sm:order-2">
             <Image
               src="/images/hero-image-2.png"
               alt="Persona usando el móvil"
@@ -412,22 +479,6 @@ export default function ReciclajeUrbano() {
         </div>
       </section>
 
-      {/* Principales Beneficios para Generadores */}
-      <section className="py-20 bg-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="mb-4">
-              <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
-                GENERADORES
-              </span>
-            </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700 mb-4">Principales beneficios</h2>
-            <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-              Descubrí cómo Scrapy App Urbano facilita el reciclaje para hogares, comercios e instituciones.
-            </p>
-          </div>
-        </div>
-      </section>
 
       <BenefitsCarousel
         cards={benefitCards}
@@ -439,7 +490,37 @@ export default function ReciclajeUrbano() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
+            {/* Content for Mobile - Centered */}
+            <div className="lg:hidden text-center space-y-8">
+              <div className="flex items-center justify-center gap-4">
+                <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
+                  COOPERATIVAS Y MUNICIPIOS
+                </span>
+              </div>
+
+              <div className="flex justify-center">
+                <Image
+                  src="/images/cooperativa.png"
+                  alt="Cooperativas y municipios trabajando con la app"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto object-cover rounded-3xl shadow-lg max-w-md"
+                />
+              </div>
+
+              <p className="text-lg md:text-xl text-gray-500 leading-relaxed">
+                A través de la aplicación, cooperativas y municipios pueden mejorar su operación diaria, ampliar su red de generadores y ofrecer un servicio más eficiente, transparente y trazable.
+              </p>
+
+              <div className="bg-green-500 rounded-3xl p-8 text-white max-w-md mx-auto">
+                <p className="text-lg md:text-xl leading-relaxed">
+                  Scrapy App Urbano convierte la gestión del reciclaje en un proceso moderno, participativo y sustentable, generando valor para todas las partes involucradas.
+                </p>
+              </div>
+            </div>
+
+            {/* Content for Desktop - Original Layout */}
+            <div className="hidden lg:block space-y-8">
               <div className="flex items-center gap-4">
                 <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
                   COOPERATIVAS Y MUNICIPIOS
@@ -460,7 +541,7 @@ export default function ReciclajeUrbano() {
               </div>
             </div>
 
-            <div className="flex justify-center lg:justify-end">
+            <div className="hidden lg:flex justify-center lg:justify-end">
               <div className="relative">
                 <Image
                   src="/images/cooperativa.png"
@@ -486,7 +567,37 @@ export default function ReciclajeUrbano() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
+            {/* Content for Mobile - Centered */}
+            <div className="lg:hidden text-center space-y-8">
+              <div className="flex items-center justify-center gap-4">
+                <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
+                  RECOLECTORES
+                </span>
+              </div>
+
+              <div className="flex justify-center">
+                <Image
+                  src="/images/recolector.png"
+                  alt="Recolector usando la app Scrapy en su smartphone"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto object-cover rounded-3xl shadow-lg max-w-md"
+                />
+              </div>
+
+              <p className="text-lg md:text-xl text-gray-500 leading-relaxed">
+                Scrapy App Urbano brinda a los recolectores una herramienta tecnológica que simplifica y dignifica su labor diaria, optimizando tiempos y mejorando su experiencia de trabajo.
+              </p>
+
+              <div className="bg-green-500 rounded-3xl p-8 text-white max-w-md mx-auto">
+                <p className="text-lg md:text-xl leading-relaxed">
+                  Scrapy App Urbano transforma el día a día del recolector, haciendo su tarea más ágil, segura y valorada.
+                </p>
+              </div>
+            </div>
+
+            {/* Content for Desktop - Original Layout */}
+            <div className="hidden lg:block space-y-8">
               <div className="flex items-center gap-4">
                 <span className="bg-green-500 text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
                   RECOLECTORES
@@ -507,7 +618,7 @@ export default function ReciclajeUrbano() {
               </div>
             </div>
 
-            <div className="flex justify-center lg:justify-end">
+            <div className="hidden lg:flex justify-center lg:justify-end">
               <div className="relative">
                 <Image
                   src="/images/recolector.png"
