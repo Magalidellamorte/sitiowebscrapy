@@ -116,7 +116,7 @@ export default function ScrapyWebsite() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 mt-16">
           <div className="max-w-4xl">
             {/* Main Title */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight text-center lg:text-left">
               <span className="block" style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)" }}>
                 Transformamos
               </span>
@@ -130,24 +130,83 @@ export default function ScrapyWebsite() {
 
             {/* Subtitle */}
             <p
-              className="text-lg md:text-xl text-white mb-12 leading-relaxed max-w-2xl"
+              className="text-lg md:text-xl text-white mb-12 leading-relaxed max-w-2xl text-center lg:text-left mx-auto lg:mx-0"
               style={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.8)" }}
             >
-              Creamos soluciones tecnológicas innovadoras
-              <br />
-              para el reciclaje urbano e industrial, generando un
-              <br />
-              impacto positivo en el medio ambiente y la
-              <br />
-              sociedad.
+              {/* Texto para móvil - sin saltos de línea */}
+              <span className="block md:hidden">
+                Creamos soluciones tecnológicas innovadoras para el reciclaje urbano e industrial, generando un impacto positivo en el medio ambiente y la sociedad.
+              </span>
+              
+              {/* Texto para desktop - con saltos de línea */}
+              <span className="hidden md:block">
+                Creamos soluciones tecnológicas innovadoras
+                <br />
+                para el reciclaje urbano e industrial, generando un
+                <br />
+                impacto positivo en el medio ambiente y la
+                <br />
+                sociedad.
+              </span>
             </p>
           </div>
         </div>
 
         {/* Stats Card - Positioned absolutely at the bottom to overlap with next section */}
-        <div className="absolute bottom-0 left-0 w-full z-30 transform translate-y-1/4" style={{ filter: 'drop-shadow(0 10px 12px rgba(0, 0, 0, 0.12))' }}>
+        <div className="absolute bottom-0 w-full z-30 transform translate-y-1/4" style={{ filter: 'drop-shadow(0 10px 12px rgba(0, 0, 0, 0.12))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-start">
+            {/* Mobile: centered container */}
+            <div className="flex justify-center lg:hidden">
+              <div 
+                className="bg-gray-50 rounded-3xl p-6 md:p-8 max-w-lg"
+                style={{
+                  boxShadow: '0 12px 25px -6px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.02)'
+                }}
+              >
+                {/* Stats Row */}
+                <div className="flex flex-col md:flex-row gap-6 mb-8">
+                  {/* Recycled Stats */}
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <img src="/images/reciclados.png" alt="Reciclados" className="w-8 h-8 object-contain" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-2xl font-bold text-gray-800 leading-tight whitespace-nowrap">+150.000 kg</div>
+                      <div className="text-gray-600 leading-tight">Reciclados</div>
+                    </div>
+                  </div>
+
+                  {/* Users Stats */}
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <img src="/images/registrados.png" alt="Usuarios registrados" className="w-8 h-8 object-contain" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-2xl font-bold text-gray-800 leading-tight">+1000</div>
+                      <div className="text-gray-600 whitespace-nowrap leading-tight">Usuarios registrados</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA Button */}
+                <a 
+                  href="#soluciones-tecnologicas"
+                  className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-lg block text-center"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('soluciones-tecnologicas')?.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    });
+                  }}
+                >
+                  Ver Soluciones
+                </a>
+              </div>
+            </div>
+
+            {/* Desktop: left aligned container */}
+            <div className="hidden lg:flex justify-start">
               <div 
                 className="bg-gray-50 rounded-3xl p-6 md:p-8 max-w-lg"
                 style={{
@@ -204,20 +263,36 @@ export default function ScrapyWebsite() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-4">
+            <div className="lg:col-span-4 text-center lg:text-left">
               <h2 className="text-5xl md:text-6xl font-bold text-green-500 mb-6">
-                Triple
-                <br />
-                impacto
+                {/* Título para móvil - sin salto de línea */}
+                <span className="block lg:hidden">
+                  Triple impacto
+                </span>
+                
+                {/* Título para desktop - con salto de línea */}
+                <span className="hidden lg:block">
+                  Triple
+                  <br />
+                  impacto
+                </span>
               </h2>
               <p className="text-xl text-gray-500 leading-relaxed">
-                Scrapy genera valor en
-                <br />
-                tres dimensiones
-                <br />
-                fundamentales para un
-                <br />
-                futuro sostenible
+                {/* Texto para móvil - sin saltos de línea */}
+                <span className="block lg:hidden">
+                  Scrapy genera valor en tres dimensiones fundamentales para un futuro sostenible
+                </span>
+                
+                {/* Texto para desktop - con saltos de línea */}
+                <span className="hidden lg:block">
+                  Scrapy genera valor en
+                  <br />
+                  tres dimensiones
+                  <br />
+                  fundamentales para un
+                  <br />
+                  futuro sostenible
+                </span>
               </p>
             </div>
 
@@ -276,8 +351,36 @@ export default function ScrapyWebsite() {
       <section className="py-20" style={{ backgroundColor: 'rgba(58, 184, 111, 0.1)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="space-y-6">
+            {/* Content for Mobile - Centered */}
+            <div className="lg:hidden text-center space-y-6">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-800">Reciclaje Urbano</h2>
+              
+              {/* Image */}
+              <div className="relative">
+                <div className="rounded-3xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/reciclaje-urbano.jpeg"
+                    alt="Reciclaje Urbano - Camiones de reciclaje en la ciudad"
+                    width={600}
+                    height={400}
+                    className="w-full h-96 object-cover"
+                  />
+                </div>
+              </div>
+              
+              <p className="text-xl text-gray-500 leading-relaxed">
+                Solución digital para que municipios y cooperativas optimicen la gestión de reciclables y promuevan el reciclaje ciudadano.
+              </p>
+              <a
+                href="/reciclaje-urbano"
+                className="inline-block bg-green-400 hover:bg-green-500 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              >
+                Saber más
+              </a>
+            </div>
+
+            {/* Content for Desktop - Original Layout */}
+            <div className="hidden lg:block space-y-6">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-800">Reciclaje Urbano</h2>
               <p className="text-xl text-gray-500 leading-relaxed">
                 Solución digital para que municipios y cooperativas optimicen la gestión de reciclables y promuevan el
@@ -291,8 +394,8 @@ export default function ScrapyWebsite() {
               </a>
             </div>
 
-            {/* Right Content - Image */}
-            <div className="relative">
+            {/* Image for Desktop */}
+            <div className="hidden lg:block relative">
               <div className="rounded-3xl overflow-hidden shadow-xl">
                 <Image
                   src="/images/reciclaje-urbano.jpeg"
@@ -311,8 +414,37 @@ export default function ScrapyWebsite() {
       <section className="py-20" style={{ backgroundColor: 'rgba(58, 184, 111, 0.1)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Content for Mobile - Centered */}
+            <div className="lg:hidden text-center space-y-6">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-800">Reciclaje Industrial</h2>
+              
+              {/* Image */}
+              <div className="relative">
+                <div className="rounded-3xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/reciclaje industrial.jpeg"
+                    alt="Reciclaje Industrial - Trabajador en planta de reciclaje industrial"
+                    width={600}
+                    height={400}
+                    className="w-full h-96 object-cover"
+                  />
+                </div>
+              </div>
+              
+              <p className="text-xl text-gray-500 leading-relaxed">
+                Plataforma especializada para industrias que necesitan comprar o vender materiales reciclables industriales.
+              </p>
+              <a
+                href="/reciclaje-industrial"
+                className="inline-block bg-green-400 hover:bg-green-500 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              >
+                Saber más
+              </a>
+            </div>
+
+            {/* Content for Desktop - Original Layout */}
             {/* Left Content - Image */}
-            <div className="relative lg:order-1">
+            <div className="hidden lg:block relative lg:order-1">
               <div className="rounded-3xl overflow-hidden shadow-xl">
                 <Image
                   src="/images/reciclaje industrial.jpeg"
@@ -325,7 +457,7 @@ export default function ScrapyWebsite() {
             </div>
 
             {/* Right Content - Text */}
-            <div className="space-y-6 lg:order-2">
+            <div className="hidden lg:block space-y-6 lg:order-2">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-800">Reciclaje Industrial</h2>
               <p className="text-xl text-gray-500 leading-relaxed">
                 Plataforma especializada para industrias que necesitan comprar o vender materiales reciclables
@@ -350,10 +482,10 @@ export default function ScrapyWebsite() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Main Title - Positioned on the right */}
-          <div className="flex justify-end mb-16">
+          {/* Main Title - Centered on mobile, right aligned on desktop */}
+          <div className="flex justify-center lg:justify-end mb-16">
             <h2
-              className="text-4xl md:text-6xl font-bold text-white text-right"
+              className="text-4xl md:text-6xl font-bold text-white text-center lg:text-right"
               style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)" }}
             >
               ¿Qué problemática
@@ -366,8 +498,8 @@ export default function ScrapyWebsite() {
           <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-2xl">
             {/* Two Column Layout inside white block */}
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 items-center">
-              {/* Left Column - Subtitle */}
-              <div className="lg:col-span-1">
+              {/* Left Column - Subtitle - Centered on mobile */}
+              <div className="lg:col-span-1 text-center lg:text-left">
                 <h3 className="text-2xl md:text-3xl font-bold text-green-400 leading-tight">
                   El reciclaje enfrenta hoy desafíos urgentes:
                 </h3>
@@ -460,7 +592,7 @@ export default function ScrapyWebsite() {
           <div className="bg-white rounded-3xl p-8 lg:p-16 shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
               {/* Nuestra Misión */}
-              <div className="space-y-8">
+              <div className="space-y-8 text-center lg:text-left">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-8">Nuestra misión</h2>
 
                 <div className="space-y-6">
@@ -477,12 +609,12 @@ export default function ScrapyWebsite() {
               </div>
 
               {/* Nuestros Valores */}
-              <div className="space-y-8">
+              <div className="space-y-8 text-center lg:text-left">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-8">Nuestros valores</h2>
 
                 <div className="space-y-8">
                   {/* Sostenibilidad */}
-                  <div className="flex items-start gap-6 group">
+                  <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 group">
                     <div className="flex-shrink-0">
                       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 transition-colors duration-300">
                         <svg className="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
@@ -505,7 +637,7 @@ export default function ScrapyWebsite() {
                   </div>
 
                   {/* Innovación */}
-                  <div className="flex items-start gap-6 group">
+                  <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 group">
                     <div className="flex-shrink-0">
                       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 transition-colors duration-300">
                         <svg className="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
@@ -524,7 +656,7 @@ export default function ScrapyWebsite() {
                   </div>
 
                   {/* Colaboración */}
-                  <div className="flex items-start gap-6 group">
+                  <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 group">
                     <div className="flex-shrink-0">
                       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 transition-colors duration-300">
                         <svg className="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
